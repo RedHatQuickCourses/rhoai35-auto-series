@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: AutoML and AutoRAG Strategies
+  start_page: rhoai35-auto-series::index.adoc
 
 antora:
   extensions:

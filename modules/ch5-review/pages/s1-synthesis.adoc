@@ -1,0 +1,33 @@
+:time_estimate: 12
+
+= Connecting Data to Models: The End-to-End Workflow
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.
+
+WARNING: Not started yet.
+
+== End-to-end workflow synergy
+
+The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer's decision loop, showing predictive and generative AI working together.
+
+== Diagnostic decision logic
+
+Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.
+
+== When "Auto" is enough
+
+Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.
+
+== What's Next
+
+With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.
+
+////
+End-to-End Workflow Synergy: Combining AutoML risk scores + AutoRAG credit memos into a live loan officer workflow. Diagnostic Decision Logic: Analyzing metric combinations (e.g., High Faithfulness + Low Correctness = missing document context) When "Auto" is Enough: Establishing decision gates before escalating to SLM fine-tuning (Course 2).
+
+Session type (presentation portion): Presentation: "Connecting Data to Models" End-to-End Synthesis Deck & Solution Decision Tree. Reference Asset: One-page downloadable "Connecting Data to Models" Decision & Metric Matrix cheat sheet.
+////

@@ -1,0 +1,9 @@
+= Optimizing Retrieval with AutoRAG
+
+Goal::
+
+Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and vector database configurations for grounded LLM applications.
+
+WARNING: Not started yet.
+
+This chapter shows how AutoRAG grid-searches the RAG configuration space and how the diagnostic metric triad tells you whether a retrieval pipeline is production-ready.

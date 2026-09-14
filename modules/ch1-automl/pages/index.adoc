@@ -1,0 +1,9 @@
+= Predictive Foundations with AutoML
+
+Goal::
+
+Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
+
+WARNING: Not started yet.
+
+This chapter introduces AutoML as the fastest path from raw data to ranked predictive models, and helps you recognize which prediction task type fits each business problem.

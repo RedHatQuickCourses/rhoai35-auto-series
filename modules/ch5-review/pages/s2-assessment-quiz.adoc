@@ -1,0 +1,33 @@
+:time_estimate: 15
+
+= Quiz: Diagnosing Scenarios and Selecting AI Patterns
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Validate practitioner capability by diagnosing enterprise data scenarios and selecting the optimal AI pattern across AutoML, MLflow, and AutoRAG.
+
+== Interactive Assessment
+
+////
+This is a graded, formative knowledge-check quiz embedded in Antora/AsciiDoc format for the Red Hat LMS, evaluating AutoML, MLflow, and AutoRAG competency.
+
+Use this to refer to a single-page HTML application 's2-assessment.html' stored in the '_attachments' directory of this chapter:
+
+++++
+<iframe type="text/javascript" src='_attachments/s2-assessment.html' style="width: 768px; height: 732px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
+++++
+
+Else write questions and answers as nested lists below.
+////
+
+== What's Next
+
+Congratulations — you have completed *Governing AI Data Workflows: AutoML and AutoRAG Strategies*. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.
+
+////
+Graded Validation: Scenario-based quiz
+
+Session type (quiz portion): Graded Assessment (Quiz Output): Formative knowledge-check quiz embedded in Antora/AsciiDoc format for Red Hat LMS, evaluating AutoML, MLflow, and AutoRAG competency. Reference Asset: One-page downloadable "Connecting Data to Models" Decision & Metric Matrix cheat sheet.
+////

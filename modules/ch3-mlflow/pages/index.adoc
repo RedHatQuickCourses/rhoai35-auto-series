@@ -1,0 +1,9 @@
+= Prompt Engineering and MLflow Governance
+
+Goal::
+
+Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".
+
+WARNING: Not started yet.
+
+This chapter bridges tabular prediction to generative text, treating prompts as versioned code and using MLflow registries to make prompt behavior auditable and repeatable.

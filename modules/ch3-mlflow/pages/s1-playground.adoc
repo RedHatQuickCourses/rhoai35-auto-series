@@ -1,0 +1,37 @@
+:time_estimate: 12
+
+= Testing Prompts and Ending Prompt Drift
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Test generative prompts interactively and use MLflow registries to version prompt templates and generation settings.
+
+WARNING: Not started yet.
+
+== From numbers to text
+
+This section bridges tabular predictions to unstructured text generation, extending the data-to-value story from predictive models into generative AI.
+
+== The GenAI Studio Playground
+
+Use the Playground to interactively test system instructions, context windows, and temperature settings, observing how each parameter changes model behavior before you commit to a configuration.
+
+== Prompts as code
+
+Treat prompt templates and generation settings as versioned parameters rather than ad-hoc text. This mindset makes generative behavior reproducible and reviewable.
+
+== MLflow prompt governance
+
+Workspace and global prompt registries solve "prompt drift" — the silent divergence of prompts over time — and provide the auditability enterprises require for generative applications.
+
+== What's Next
+
+With prompts under version control, you are ready to ground generative models in your own data. The next chapter introduces AutoRAG, which automatically optimizes the retrieval pipeline that feeds those prompts.
+
+////
+Numbers to Text: Bridging tabular predictions to unstructured text generation. GenAI Studio Playground: Testing system instructions, context windows, and temperature settings interactively. Prompts as Code: Treating prompt templates and generation settings as versioned parameters. MLflow Prompt Governance: Workspace and global prompt registries solving "prompt drift" and providing auditability
+
+Session type: Presentation: The Data-to-GenAI progression and MLflow workspace architecture. Arcade / Video Demo: Interactive walkthrough showing prompt testing in the Playground and registering a prompt template in MLflow.
+////

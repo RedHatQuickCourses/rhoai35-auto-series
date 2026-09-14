@@ -1,30 +1,63 @@
-= An Example Quick Course
+= Governing AI Data Workflows: AutoML and AutoRAG Strategies
 :navtitle: Home
 
-== Introduction
+== Goal
 
-Course Title: Course title FIXME
-
-Description:
-Course description FIXME
-
-Duration: pass:[<span class="course-total-duration" aria-live="polite">…</span>]
+Teach technical professionals how to strategically evaluate use cases and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+ to drive measurable business value by showcasing its targeted automated AI capabilities.
 
 == Objectives
 
 On completing this course, you should be able to:
 
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+* Predictive Foundations (AutoML): Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
+
+* AutoML governance & deployment: Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.
+
+* GenAI prompting & MLflow governance: Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".
+
+* Generative retrieval (AutoRAG): Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and vector database configurations for grounded LLM applications.
+
+* Knowledge review and assessment: Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.
+
+== Audience
+
+* *Primary Personas:* Data Scientists, AI Engineers, and Technical Solution Architects evaluating or adopting Red Hat OpenShift AI 3.5+.
+
+* *Technical Level & Focus (TL2):* Technical practitioners and field specialists looking to understand the "why", decision points, trade-offs, and business outcomes of automated capabilities. Focused on transitioning from manual ML/RAG development without needing to perform cluster admin setup procedures.
+
+* *Distribution & Accessibility:* Publicly discoverable enablement designed for global Red Hat field teams, ecosystem partners, and enterprise customers.
 
 == Prerequisites
 
-This course assumes that you have the following prior experience:
+////
+The course design document does not define a PREREQUISITES section.
+Fill in the following based on the TL2 audience definition, or remove if none apply.
+////
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+This course assumes that you have the following experience:
+
+* Familiarity with core machine learning concepts (classification, regression, time series).
+
+* Familiarity with generative AI concepts (LLMs, prompting, retrieval-augmented generation).
+
+* Familiarity with Red Hat OpenShift AI 3.5+ from a practitioner (Data Scientist / AI Engineer) perspective.
+
+Notice that no cluster administration or infrastructure setup experience is assumed or required.
+
+== Classroom environment
+
+This course requires no hands-on user labs. It uses diagrams, Summit Arcade interactive clickthroughs, and video walkthroughs to demonstrate AutoML and AutoRAG capabilities.
+
+== Other sources of information about Red Hat OpenShift AI
+
+For documentation about Red Hat OpenShift AI, see either its https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.5[product documentation^] or the https://github.com/red-hat-data-services/red-hat-ai-examples[Red Hat AI Examples^] upstream repositories.
+
+== Author
+
+*Karlos Knox* +
+Content & Learning Lead +
+Red Hat - Product & Technical Learning Team
+
 
 NOTE: **Use of Artificial Intelligence:**
 This publication contains content or media that is generated or assisted by AI tools. All the Training deliverables have primarily human authorship, and all content was reviewed by a human domain expert.

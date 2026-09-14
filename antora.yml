@@ -1,10 +1,12 @@
 name: REPLACEREPONAME
-title: FIXME Course Title
+title: Governing AI Data Workflows: AutoML and AutoRAG Strategies
 version: 1
 nav:
 - modules/ROOT/nav.adoc
 - modules/LABENV/nav.adoc
-- modules/chapter1/nav.adoc
-- modules/chapter2/nav.adoc
-- modules/chapter3/nav.adoc
+- modules/ch1-automl/nav.adoc
+- modules/ch2-governance/nav.adoc
+- modules/ch3-mlflow/nav.adoc
+- modules/ch4-autorag/nav.adoc
+- modules/ch5-review/nav.adoc
 - modules/appendix/nav.adoc

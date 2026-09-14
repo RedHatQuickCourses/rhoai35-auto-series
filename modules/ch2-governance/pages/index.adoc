@@ -1,0 +1,9 @@
+= Validating and Deploying AutoML Models
+
+Goal::
+
+Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.
+
+WARNING: Not started yet.
+
+This chapter opens the hood on AutoGluon model stacking and shows how to read the "report card" before promoting a winning model to a KServe serving runtime.

@@ -1,0 +1,9 @@
+= Knowledge Review and Assessment
+
+Goal::
+
+Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.
+
+WARNING: Not started yet.
+
+This chapter connects every capability in the course into one end-to-end workflow, then validates your understanding with a scenario-based graded assessment.
