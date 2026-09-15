@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --correct-color: #63993d; --incorrect-color: #f0561d; --intro-color: #111; --next-btn-color: #0066cc; --prev-btn-color: #383838; --restart-btn-color: #ee0000; --text-color: #111; }
+        body { font-family: 'Red Hat Display', sans-serif; color: var(--text-color); margin: 1.5em; }
+        #quiz-intro { color: var(--intro-color); margin-bottom: 2em; line-height: 1.6; background-color: #f4f4f4; padding: 1.5em; border-left: 4px solid #ee0000; border-radius: 4px; }
+        #question-counter { color: #383838; margin-bottom: 1em; font-weight: 700; }
+        #question-container { margin-bottom: 1.5em; }
+        #question-text { font-size: 1.25em; font-weight: 700; margin-bottom: 1em; }
+        .answer-item { margin-bottom: 1em; }
+        .answer-label { display: flex; align-items: center; cursor: pointer; padding: 0.75em; border: 1px solid #ccc; border-radius: 8px; transition: border-color 0.3s; }
+        .answer-label:hover { border-color: #999; }
+        .custom-checkbox { width: 20px; height: 20px; border: 2px solid #555; border-radius: 4px; margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: all 0.3s; }
+        .explanation { display: none; padding: 0.75em; margin-top: 0.5em; border-radius: 8px; line-height: 1.6; }
+        .explanation a { color: inherit; text-decoration: underline; }
+        .answer-item.answered.correct .answer-label, .answer-item.answered.correct .explanation { background-color: #f0f8ec; border-color: var(--correct-color); color: var(--correct-color); }
+        .answer-item.answered.incorrect .answer-label, .answer-item.answered.incorrect .explanation { background-color: #fff0e9; border-color: var(--incorrect-color); color: var(--incorrect-color); }
+        .answer-item.answered.correct .custom-checkbox { border-color: var(--correct-color); background-color: var(--correct-color); color: white; }
+        .answer-item.answered.incorrect .custom-checkbox { border-color: var(--incorrect-color); background-color: var(--incorrect-color); color: white; }
+        #results-container { display: none; text-align: center; padding: 2.5em; background: #f9f9f9; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 2em; }
+        .score-text { font-size: 2.5em; font-weight: bold; margin-bottom: 0.2em; }
+        .score-details { font-size: 1.2em; color: #555; margin-bottom: 1.5em; }
+        .pass { color: var(--correct-color); }
+        .fail { color: var(--incorrect-color); }
+        .results-message { font-size: 1.1em; line-height: 1.6; }
+        #navigation-container { margin-top: 2em; display: flex; justify-content: space-between; align-items: center; }
+        .nav-button { border: none; padding: 0.8em 1.5em; border-radius: 8px; font-size: 1em; font-weight: 700; cursor: pointer; color: white; transition: opacity 0.3s; }
+        .nav-button:hover { opacity: 0.85; }
+        #prev-btn { background-color: var(--prev-btn-color); }
+        #next-btn { background-color: var(--next-btn-color); }
+        #results-btn { background-color: var(--correct-color); }
+        #restart-btn { background-color: var(--restart-btn-color); }
+    </style>
+  </head>
+  <body>
+    <div id="quiz-container">
+      <div id="quiz-intro"></div>
+      <div id="results-container">
+          <div class="score-text" id="final-score-percent"></div>
+          <div class="score-details" id="final-score-breakdown"></div>
+          <div class="results-message" id="final-message"></div>
+      </div>
+      <div id="question-counter"></div>
+      <div id="question-container">
+        <p id="question-text"></p>
+        <div id="answers-container"></div>
+      </div>
+      <div id="navigation-container">
+        <button id="prev-btn" class="nav-button" style="display: none;">Previous</button>
+        <button id="next-btn" class="nav-button" style="display: none;">Next</button>
+        <button id="results-btn" class="nav-button" style="display: none;">View Results</button>
+        <button id="restart-btn" class="nav-button" style="display: none;">Restart Quiz</button>
+      </div>
+    </div>
+    <script>
+      const quizDataText = `<b>Assessment: Governing AI Data Workflows: AutoML and AutoRAG</b> <br><br>Prove your knowledge of evaluating use cases and applying AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive business value.<br><br><b>Passing Score:</b> A score of 80% or higher is required for course completion.
+---
+Q1: A CIO wants to know why the data science team needs AutoML when they already build models manually. What is the primary business value you should highlight?
+A: It compresses traditional ML development cycles from 3-6 months down to hours, acting as a workforce multiplier.
+Correct: AutoML dramatically accelerates time-to-market. By automating feature engineering and model ensembling, it unlocks predictive capabilities across existing teams without immediately competing for scarce PhD data scientists.
+A: It completely eliminates the need for any Data Scientists in the organization.
+Incorrect: AutoML is a workforce multiplier, not a replacement. It frees up specialized data science teams to focus on core strategic AI initiatives rather than tedious baseline model exploration.
+A: It automatically provisions new GPU hardware without infrastructure team approval.
+Incorrect: AutoML actually reduces infrastructure costs by running on lightweight CPUs, and it does not bypass IT provisioning processes.
+A: It rewrites existing applications to automatically embed AI features.
+Incorrect: AutoML generates inference endpoints and Python code, but the development team still needs to integrate those REST APIs into their applications.
+---
+Q2: When explaining sizing economics to a customer, what is a key difference between predictive models created by AutoML and Large Language Models (LLMs)?
+A: Predictive models always require massive GPU clusters, whereas LLMs can run on small edge devices.
+Incorrect: This is reversed. Predictive models are highly efficient and can run on CPUs, while LLMs require significant GPU VRAM.
+A: Predictive models run on lightweight CPUs with microsecond latency, whereas LLMs require tens to hundreds of gigabytes of high-VRAM GPUs.
+Correct: Predictive models (like XGBoost or Random Forests) are highly targeted mathematical functions. They have kilobytes to megabytes of parameters, allowing them to run on standard CPUs with microsecond latencies, unlike heavy LLMs.
+A: There is no difference; both require identical hardware and infrastructure to process data.
+Incorrect: There is a vast difference in parameter count, storage (megabytes vs. gigabytes), and hardware requirements (CPU vs. heavy GPU).
+A: Predictive models only process unstructured text, while LLMs only process numerical tables.
+Incorrect: This is reversed. Predictive models excel at structured tabular data, while LLMs process high-dimensional unstructured text.
+---
+Q3: A banking customer wants to predict whether a credit card transaction is fraudulent (Yes or No). Which prediction task type should they select in AutoML?
+A: Time Series Forecasting
+Incorrect: While transactions happen over time, predicting a Yes/No outcome for an individual transaction is a classification problem, not forecasting future numerical trends.
+A: Binary Classification
+Correct: The outcome has exactly two options (Fraud or Not Fraud / Yes or No). Binary classification is designed specifically for this type of two-choice target label.
+A: Regression
+Incorrect: Regression is used for predicting continuous numerical quantities (e.g., "How much will this cost?"), not categorical Yes/No labels.
+A: Multiclass Classification
+Incorrect: Multiclass is for categorizing into three or more distinct buckets. A Yes/No fraud prediction only has two buckets.
+---
+Q4: A retail customer wants to forecast inventory demand for the next quarter. Their dataset includes timestamps, item IDs, and historical numeric sales. Which task type is appropriate?
+A: Binary Classification
+Incorrect: They are predicting a continuous number over time, not a Yes/No outcome.
+A: Time Series Forecasting
+Correct: Time Series Forecasting is best for predicting future numerical trends over time horizons, utilizing timestamp columns, sequence IDs, and a numeric target.
+A: Multiclass Classification
+Incorrect: They are predicting continuous demand numbers, not categorizing items into distinct, non-numeric buckets.
+A: Regression
+Incorrect: While Regression predicts continuous numbers, Time Series Forecasting is specifically optimized for datasets containing temporal sequence data (timestamps and IDs over time).
+---
+Q5: You are running an AutoML classification on highly imbalanced data (99% non-fraud, 1% fraud). Why should you avoid using default Accuracy as your optimization metric?
+A: Accuracy takes too long to compute on large datasets.
+Incorrect: Accuracy is computationally inexpensive. The issue is mathematical misrepresentation of model performance, not compute time.
+A: Accuracy will mislead you by ignoring the rare class; you should select metrics focused on ROC curves or Precision-Recall to evaluate trade-offs.
+Correct: If a model simply guesses "non-fraud" every time, it will be 99% accurate but completely useless. Metrics like F1 Score, ROC-AUC, or Precision-Recall reveal how well the model actually catches the rare 1% cases.
+A: Accuracy can only be used for Time Series Forecasting.
+Incorrect: Accuracy is not used for time series (MASE is). Accuracy is the default for balanced classification.
+A: AutoML does not support Accuracy as a metric.
+Incorrect: Accuracy is the default optimization metric for Binary and Multiclass Classification in AutoML.
+---
+Q6: What is the primary purpose of AutoRAG in Red Hat OpenShift AI 3.5?
+A: To automatically generate synthetic data to train LLMs from scratch.
+Incorrect: AutoRAG does not train LLMs from scratch. It optimizes retrieval pipelines for existing models.
+A: To act as an automated optimization engine that eliminates guesswork by benchmarking chunking, embedding, and vector database configurations for grounded LLM applications.
+Correct: AutoRAG automates the complex task of finding the best RAG configuration. It tests permutations of chunking strategies, search modes, and embedding models against your eval dataset to find the most accurate pipeline.
+A: To automatically write Python applications that replace the need for software engineers.
+Incorrect: AutoRAG generates code snippets for API integration, but it does not write entire end-user applications.
+A: To automatically scale GPU infrastructure up and down based on user traffic.
+Incorrect: That is a function of Kubernetes autoscaling and KServe, not AutoRAG. AutoRAG optimizes the retrieval logic, not infrastructure scaling.
+---
+Q7: Which underlying library used by AutoML is described as a "multi-lingual analyst" because it naturally understands text categories and labels without requiring manual numerical conversion?
+A: CatBoost
+Correct: CatBoost (Categorical Boosting) is specifically optimized to handle categorical data (like "City" or "Car Brand") natively, without forcing data scientists to manually encode everything into numbers first.
+A: LightGBM
+Incorrect: LightGBM is the "lightning-fast researcher" known for scanning massive datasets quickly, but it requires more categorical preprocessing than CatBoost.
+A: XGBoost
+Incorrect: XGBoost is the meticulous veteran that builds exact depth-wise splits, but categorical data typically must be encoded into numbers before feeding it to XGBoost.
+A: Deep Neural Networks (DNN)
+Incorrect: DNNs excel at complex, unstructured data (images, text) but typically require embedding layers and significant preprocessing for tabular categorical data.
+---
+Q8: After an AutoML run completes, a data scientist wants to audit the Python code, customize feature inputs, and verify outputs programmatically. Which generated artifact allows them to do this?
+A: The dynamically generated Jupyter Notebook accessible from the leaderboard.
+Correct: AutoML generates a self-contained Jupyter Notebook (.ipynb) that connects to S3, loads the trained Tabular Predictor, and allows users to run predictions or audit the code directly in a workbench.
+A: The Confusion Matrix image file.
+Incorrect: The Confusion Matrix is a static evaluation visualization showing true/false positives, not executable code for programmatic auditing.
+A: The AutoGluon ServingRuntime image.
+Incorrect: The ServingRuntime is a container image for hosting the REST API, not an artifact used for auditing code and customizing inputs programmatically.
+A: The original raw CSV file.
+Incorrect: The raw CSV is just data; it contains no code, model logic, or programmatic auditing capabilities.
+---
+Q9: A loan officer rejects an applicant based on an AutoML prediction, but the compliance team demands to know *why* the model made that decision. Which AutoML artifact should you review?
+A: Feature Importance, which highlights which input variables contributed the most influence to the model's predictions.
+Correct: Feature Importance ranks exactly which columns (e.g., Credit Score, Income, Loan Amount) drove the model's decision logic, satisfying compliance and explainability requirements.
+A: The Leaderboard summary table.
+Incorrect: The Leaderboard just ranks candidate models by overall accuracy or score. It doesn't explain the logic behind an individual model's decision.
+A: The Time Series Backtesting chart.
+Incorrect: Backtesting evaluates forecast consistency over time. It is not used for explainability in binary loan classification tasks.
+A: The GenAI Playground prompt history.
+Incorrect: Prompt history tracks LLM inputs, not tabular AutoML feature weights.
+---
+Q10: When AutoRAG evaluates retrieval pipelines, it uses a Diagnostic Metric Triad. If a run shows High Answer Faithfulness but Low Answer Correctness, what does this indicate?
+A: The model is hallucinating facts not found in the documents.
+Incorrect: High Faithfulness means the model is *not* hallucinating; it is successfully restricting its answer to the provided context.
+A: The model isn't hallucinating (it's faithful to the context), but the retrieved context itself is missing the right information to answer the question correctly.
+Correct: The Triad separates retrieval from generation. If Faithfulness is high (no hallucination) but Correctness is low (wrong answer), the vector search simply pulled the wrong chunks of text (Context Correctness was likely low).
+A: The chunking strategy was too aggressive and broke the Python code snippets.
+Incorrect: This metric combination diagnoses the semantic quality of the RAG pipeline, not the structural integrity of exported code snippets.
+A: The LLM is generating answers perfectly, but the evaluation dataset is corrupted.
+Incorrect: While a bad eval set is possible, the direct diagnostic meaning of this combination is a failure in document retrieval, not a corrupt dataset.
+---
+Q11: To instantly expose an AutoML model as a scalable REST API in OpenShift AI 3.5, which serving runtime should you select during deployment?
+A: vLLM ServingRuntime for KServe
+Incorrect: vLLM is designed for serving Large Language Models, not predictive tabular models created by AutoGluon.
+A: AutoGluon ServingRuntime for KServe
+Correct: OpenShift AI 3.5 provides a dedicated AutoGluon ServingRuntime for KServe specifically designed to host models trained by the AutoML pipeline.
+A: OpenVINO Model Server
+Incorrect: While OpenVINO is used for various deep learning tasks, the specific, native runtime packaged for AutoML tabular predictors is the AutoGluon ServingRuntime.
+A: Custom Flask Python Pod
+Incorrect: While you *could* manually build a Flask app, it is not the instant, scalable, native deployment path. The AutoGluon ServingRuntime is the built-in 1-click solution.
+---
+Q12: Before running AutoML optimization in OpenShift AI 3.5, what must a cluster administrator explicitly configure in the OdhDashboardConfig custom resource?
+A: Enable the AutoML feature flag by setting 'spec.dashboardConfig.automl: true'.
+Correct: AutoML is a Technology Preview feature in 3.5, so the cluster admin must explicitly enable the UI by setting this flag to true in the OdhDashboardConfig.
+A: Assign dedicated NVIDIA GPUs to the AutoML namespace.
+Incorrect: AutoML primarily trains on lightweight CPUs. While it *can* use GPUs for DNNs, GPUs are not a strict prerequisite or flag required to enable the feature.
+A: Install the external AutoGluon Operator from the Red Hat Marketplace.
+Incorrect: AutoML is natively integrated into the RHOAI dashboard and pipelines; it does not require a separate 3rd party operator from the marketplace.
+A: Set the global model registry to public mode.
+Incorrect: Model registry visibility does not govern whether the AutoML pipeline UI is enabled or functional.
+---
+Q13: How does Red Hat OpenShift AI address the issue of "prompt drift" when transitioning from predictive data to generative text?
+A: By hardcoding all prompts directly into the application's source code so they cannot be changed.
+Incorrect: Hardcoding prompts prevents rapid iteration and makes updating models extremely difficult without full application redeployments.
+A: By leveraging MLflow to treat prompt templates and generation settings as versioned parameters in a Prompt Registry.
+Correct: MLflow treats prompts as code. It logs prompt templates, variables, and temperature settings alongside LLM evaluation metrics, providing version control and auditability to prevent prompt drift.
+A: By using AutoML to predict what the user is going to type before they type it.
+Incorrect: AutoML is for predictive tabular modeling (e.g., risk scoring), not auto-completing conversational generative prompts.
+A: By entirely eliminating the need for system prompts using zero-shot inference.
+Incorrect: Zero-shot inference still requires an input prompt. Enterprise RAG and AI applications rely heavily on structured system instructions.
+---
+Q14: Once AutoRAG has identified the optimal retrieval pattern, how can developers integrate it into their production application without deploying a new endpoint?
+A: They must completely rebuild their application using the provided AutoRAG SDK.
+Incorrect: No application rebuild or custom SDK installation is required.
+A: By copying the automatically generated Responses API code snippets (cURL, Python, Go, Node.js) directly into their application.
+Correct: The UI directly provides Responses API code snippets. Developers simply copy this code (in their language of choice) into their application to connect to the optimized RAG pipeline.
+A: By downloading the vector database and hosting it inside their local application container.
+Incorrect: The vector database (like Milvus or PGVector) remains centrally hosted on the cluster. The application just queries it via the API.
+A: They must manually re-create the chunking and embedding logic inside their application.
+Incorrect: The entire point of the Responses API is to abstract that complexity. The application just sends a query, and the API handles the chunking, embedding, and retrieval.
+---
+Q15: In a live loan officer workflow, how can predictive AI (AutoML) and generative AI (AutoRAG) be synergized to drive business value?
+A: AutoRAG replaces the loan officer entirely, while AutoML generates marketing emails to new applicants.
+Incorrect: The goal is not complete human replacement but augmenting human decision-making. AutoML doesn't generate conversational emails.
+A: AutoML generates the numerical risk score, while AutoRAG analyzes the score against enterprise policies to automatically generate a conversational credit memo explaining the decision.
+Correct: This is the end-to-end workflow synergy taught in the course. AutoML provides the rapid, accurate predictive baseline (the risk score), and AutoRAG uses that data alongside retrieved company policy to draft the unstructured explanation for the human officer.
+A: AutoRAG calculates the interest rate mathematically, and AutoML writes the rejection letter.
+Incorrect: This has the capabilities reversed. AutoML handles the mathematical prediction (interest rate/risk), and AutoRAG handles the unstructured text generation (letters/memos).
+A: They cannot be used together; a cluster must choose between deploying AutoML or AutoRAG.
+Incorrect: Both capabilities run simultaneously on the same RHOAI platform and frequently pass data to one another in enterprise AI workflows.`;
+
+      function parseQuizData(text) {
+          try {
+              const parts = text.split('---');
+              const intro = parts.shift().trim();
+              const questions = parts.filter(p => p.trim() !== '').map((part) => {
+                  const lines = part.trim().split('\n').map(l => l.trim()).filter(l => l !== '');
+                  if (lines.length === 0) return null;
+                  const questionLine = lines.shift();
+                  const questionText = questionLine.replace(/^Q\d+:\s*/, '').trim();
+                  const answers = [];
+                  let currentAnswer = null;
+                  for (const line of lines) {
+                      if (line.startsWith('A:')) {
+                          if (currentAnswer) { answers.push(currentAnswer); }
+                          currentAnswer = { text: line.substring(2).trim(), isCorrect: false, explanation: '' };
+                      } else if (line.startsWith('Correct:')) {
+                          if(currentAnswer) { currentAnswer.isCorrect = true; currentAnswer.explanation = line.substring(8).trim(); }
+                      } else if (line.startsWith('Incorrect:')) {
+                           if(currentAnswer) { currentAnswer.isCorrect = false; currentAnswer.explanation = line.substring(10).trim(); }
+                      } else {
+                          if (currentAnswer) { currentAnswer.explanation += ' ' + line; }
+                      }
+                  }
+                  if (currentAnswer) { answers.push(currentAnswer); }
+                  return { question: questionText, answers: answers, firstAttemptCorrect: null };
+              }).filter(q => q !== null);
+              return { intro, questions };
+          } catch (e) {
+              console.error("Failed to parse quiz data:", e);
+              return { intro: "<span style='color:red;'>Fatal Parsing Error.</span>", questions: [] };
+          }
+      }
+
+      try {
+          const { intro, questions } = parseQuizData(quizDataText);
+          let currentQuestionIndex = 0;
+          const introEl = document.getElementById('quiz-intro');
+          const questionCounterEl = document.getElementById('question-counter');
+          const questionTextEl = document.getElementById('question-text');
+          const answersContainerEl = document.getElementById('answers-container');
+          const resultsContainerEl = document.getElementById('results-container');
+          const finalScorePercentEl = document.getElementById('final-score-percent');
+          const finalScoreBreakdownEl = document.getElementById('final-score-breakdown');
+          const finalMessageEl = document.getElementById('final-message');
+          const nextBtn = document.getElementById('next-btn');
+          const prevBtn = document.getElementById('prev-btn');
+          const resultsBtn = document.getElementById('results-btn');
+          const restartBtn = document.getElementById('restart-btn');
+          introEl.innerHTML = intro;
+          if (!questions || questions.length === 0) {
+              questionTextEl.innerHTML = "<span style='color:red;'>No questions were loaded.</span>";
+          } else {
+              function displayQuestion(index) {
+                  const question = questions[index];
+                  questionCounterEl.style.display = 'block';
+                  questionContainerEl = document.getElementById('question-container');
+                  questionContainerEl.style.display = 'block';
+                  resultsContainerEl.style.display = 'none';
+                  questionCounterEl.textContent = `Question ${index + 1} of ${questions.length}`;
+                  questionTextEl.textContent = question.question;
+                  answersContainerEl.innerHTML = '';
+                  question.answers.forEach((answer, answerIndex) => {
+                      const answerItem = document.createElement('div');
+                      answerItem.className = 'answer-item';
+                      answerItem.innerHTML = `
+                          <div class="answer-label" data-index="${answerIndex}">
+                              <span class="custom-checkbox"></span>
+                              <span class="answer-text">${answer.text}</span>
+                          </div>
+                          <div class="explanation">${answer.explanation}</div>
+                      `;
+                      answersContainerEl.appendChild(answerItem);
+                  });
+                  updateNavigation();
+              }
+              function handleAnswerClick(event) {
+                  const label = event.target.closest('.answer-label');
+                  if (!label) return;
+                  const answerItem = label.parentElement;
+                  const explanation = answerItem.querySelector('.explanation');
+                  const checkbox = label.querySelector('.custom-checkbox');
+                  const isAnswered = answerItem.classList.contains('answered');
+                  if (isAnswered) {
+                       answerItem.classList.remove('answered', 'correct', 'incorrect');
+                       explanation.style.display = 'none';
+                       checkbox.textContent = '';
+                  } else {
+                      const answerIndex = parseInt(label.dataset.index);
+                      const answer = questions[currentQuestionIndex].answers[answerIndex];
+                      if (questions[currentQuestionIndex].firstAttemptCorrect === null) {
+                          questions[currentQuestionIndex].firstAttemptCorrect = answer.isCorrect;
+                      }
+                      answerItem.classList.add('answered');
+                      explanation.style.display = 'block';
+                      if (answer.isCorrect) {
+                          answerItem.classList.add('correct');
+                          checkbox.innerHTML = '&#10003;';
+                      } else {
+                          answerItem.classList.add('incorrect');
+                          checkbox.innerHTML = '&#10007;';
+                      }
+                  }
+              }
+              function showResults() {
+                  document.getElementById('question-counter').style.display = 'none';
+                  document.getElementById('question-container').style.display = 'none';
+                  const correctCount = questions.filter(q => q.firstAttemptCorrect === true).length;
+                  const wrongCount = questions.filter(q => q.firstAttemptCorrect === false).length;
+                  const skippedCount = questions.length - correctCount - wrongCount;
+                  const percentage = Math.round((correctCount / questions.length) * 100);
+                  finalScorePercentEl.textContent = `${percentage}%`;
+                  finalScoreBreakdownEl.textContent = `${correctCount} Correct | ${wrongCount} Incorrect | ${skippedCount} Skipped`;
+                  if (percentage >= 80) {
+                      finalScorePercentEl.className = 'score-text pass';
+                      finalMessageEl.innerHTML = `<b>Congratulations!</b> You've demonstrated mastery of Red Hat OpenShift AI 3.5's AutoML and AutoRAG capabilities. You are ready to evaluate, build, and deploy automated AI workflows.`;
+                  } else {
+                      finalScorePercentEl.className = 'score-text fail';
+                      finalMessageEl.innerHTML = `Please review the course materials on prediction task types, evaluation metrics, deployment architectures, and the business value of AutoML and AutoRAG before retaking the quiz.`;
+                  }
+                  try {
+                      window.parent.postMessage({
+                          action: 'quiz_score',
+                          chapterId: 'final',
+                          score: percentage,
+                          passed: percentage >= 80,
+                          correct: correctCount,
+                          total: questions.length
+                      }, '*');
+                  } catch(e) {}
+                  resultsContainerEl.style.display = 'block';
+                  prevBtn.style.display = 'none';
+                  nextBtn.style.display = 'none';
+                  resultsBtn.style.display = 'none';
+                  restartBtn.style.display = 'inline-block';
+              }
+              function updateNavigation() {
+                  prevBtn.style.display = currentQuestionIndex > 0 ? 'inline-block' : 'none';
+                  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+                  nextBtn.style.display = isLastQuestion ? 'none' : 'inline-block';
+                  resultsBtn.style.display = isLastQuestion ? 'inline-block' : 'none';
+                  restartBtn.style.display = 'none';
+                  const navContainer = document.getElementById('navigation-container');
+                  navContainer.style.justifyContent = currentQuestionIndex === 0 ? 'flex-end' : 'space-between';
+              }
+              answersContainerEl.addEventListener('click', handleAnswerClick);
+              nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; displayQuestion(currentQuestionIndex); } });
+              prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; displayQuestion(currentQuestionIndex); } });
+              resultsBtn.addEventListener('click', () => { showResults(); });
+              restartBtn.addEventListener('click', () => { questions.forEach(q => q.firstAttemptCorrect = null); currentQuestionIndex = 0; displayQuestion(currentQuestionIndex); });
+              displayQuestion(currentQuestionIndex);
+          }
+      } catch (err) {
+          document.body.innerHTML = `<p style="color:red; font-weight:bold;">Initialization Error: ${err.message}</p>`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Governing AI Data Workflows: AutoML and AutoRAG Strategies :: AutoML and AutoRAG Strategies</title>
+    <link rel="next" href="ch1-automl/index.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../..">AutoML and AutoRAG Strategies</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs" autofocus>
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">AutoML and AutoRAG Strategies</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ch1-automl/index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch1-automl/s1-task-types.html">From Raw Data to Ranked Models</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch2-governance/s1-evaluation.html">Reading the Report Card and Shipping the Winner</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch3-mlflow/s1-playground.html">Testing Prompts and Ending Prompt Drift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch4-autorag/s1-search-space.html">Benchmarking the RAG Search Space</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG Strategies</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">AutoML and AutoRAG Strategies</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">AutoML and AutoRAG Strategies</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Governing AI Data Workflows: AutoML and AutoRAG Strategies</h1>
+<div class="sect1">
+<h2 id="_goal"><a class="anchor" href="#_goal"></a>Goal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Teach technical professionals how to strategically evaluate use cases and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+ to drive measurable business value by showcasing its targeted automated AI capabilities.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On completing this course, you should be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Predictive Foundations (AutoML): Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.</p>
+</li>
+<li>
+<p>AutoML governance &amp; deployment: Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.</p>
+</li>
+<li>
+<p>GenAI prompting &amp; MLflow governance: Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".</p>
+</li>
+<li>
+<p>Generative retrieval (AutoRAG): Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and vector database configurations for grounded LLM applications.</p>
+</li>
+<li>
+<p>Knowledge review and assessment: Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_audience"><a class="anchor" href="#_audience"></a>Audience</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Primary Personas:</strong> Data Scientists, AI Engineers, and Technical Solution Architects evaluating or adopting Red Hat OpenShift AI 3.5+.</p>
+</li>
+<li>
+<p><strong>Technical Level &amp; Focus (TL2):</strong> Technical practitioners and field specialists looking to understand the "why", decision points, trade-offs, and business outcomes of automated capabilities. Focused on transitioning from manual ML/RAG development without needing to perform cluster admin setup procedures.</p>
+</li>
+<li>
+<p><strong>Distribution &amp; Accessibility:</strong> Publicly discoverable enablement designed for global Red Hat field teams, ecosystem partners, and enterprise customers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This course assumes that you have the following experience:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Familiarity with core machine learning concepts (classification, regression, time series).</p>
+</li>
+<li>
+<p>Familiarity with generative AI concepts (LLMs, prompting, retrieval-augmented generation).</p>
+</li>
+<li>
+<p>Familiarity with Red Hat OpenShift AI 3.5+ from a practitioner (Data Scientist / AI Engineer) perspective.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Notice that no cluster administration or infrastructure setup experience is assumed or required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_classroom_environment"><a class="anchor" href="#_classroom_environment"></a>Classroom environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This course requires no hands-on user labs. It uses diagrams, Summit Arcade interactive clickthroughs, and video walkthroughs to demonstrate AutoML and AutoRAG capabilities.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_sources_of_information_about_red_hat_openshift_ai"><a class="anchor" href="#_other_sources_of_information_about_red_hat_openshift_ai"></a>Other sources of information about Red Hat OpenShift AI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For documentation about Red Hat OpenShift AI, see either its <a href="https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.5" target="_blank" rel="noopener">product documentation</a> or the <a href="https://github.com/red-hat-data-services/red-hat-ai-examples" target="_blank" rel="noopener">Red Hat AI Examples</a> upstream repositories.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author"><a class="anchor" href="#_author"></a>Author</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Karlos Knox</strong><br>
+Content &amp; Learning Lead<br>
+Red Hat - Product &amp; Technical Learning Team</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Use of Artificial Intelligence:</strong>
+This publication contains content or media that is generated or assisted by AI tools. All the Training deliverables have primarily human authorship, and all content was reviewed by a human domain expert.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="next"><a href="ch1-automl/index.html">Predictive Foundations with AutoML</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script defer src="../../_/js/vendor/tabs.js"></script>
+<script>window.__courseDuration = {"totalSeconds":1000,"pageCount":13};</script>
+<script defer src="../../_/js/vendor/course-total-duration.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>

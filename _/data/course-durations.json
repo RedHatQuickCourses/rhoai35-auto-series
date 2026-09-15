@@ -1,76 +1,66 @@
 {
-  "totalSeconds": 4009,
-  "pageCount": 15,
+  "totalSeconds": 1000,
+  "pageCount": 13,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
-      "seconds": 26
+      "seconds": 128
     },
     {
-      "module": "LABENV",
+      "module": "ch1-automl",
       "page": "index.adoc",
-      "seconds": 4
+      "seconds": 17
     },
     {
-      "module": "chapter1",
+      "module": "ch1-automl",
+      "page": "s1-task-types.adoc",
+      "seconds": 77
+    },
+    {
+      "module": "ch2-governance",
       "page": "index.adoc",
-      "seconds": 9
+      "seconds": 15
     },
     {
-      "module": "chapter1",
-      "page": "section1.adoc",
-      "seconds": 3009
+      "module": "ch2-governance",
+      "page": "s1-evaluation.adoc",
+      "seconds": 77
     },
     {
-      "module": "chapter1",
-      "page": "section2.adoc",
-      "seconds": 9
-    },
-    {
-      "module": "chapter1",
-      "page": "section3.adoc",
-      "seconds": 9
-    },
-    {
-      "module": "chapter1",
-      "page": "tabs-demo.adoc",
-      "seconds": 20
-    },
-    {
-      "module": "chapter1",
-      "page": "collapsible-demo.adoc",
-      "seconds": 36
-    },
-    {
-      "module": "chapter1",
-      "page": "images.adoc",
-      "seconds": 841
-    },
-    {
-      "module": "chapter2",
+      "module": "ch3-mlflow",
       "page": "index.adoc",
-      "seconds": 9
+      "seconds": 15
     },
     {
-      "module": "chapter2",
-      "page": "section1.adoc",
-      "seconds": 9
+      "module": "ch3-mlflow",
+      "page": "s1-playground.adoc",
+      "seconds": 68
     },
     {
-      "module": "chapter3",
+      "module": "ch4-autorag",
       "page": "index.adoc",
-      "seconds": 9
+      "seconds": 14
     },
     {
-      "module": "chapter3",
-      "page": "section1.adoc",
-      "seconds": 9
+      "module": "ch4-autorag",
+      "page": "s1-search-space.adoc",
+      "seconds": 464
     },
     {
-      "module": "chapter3",
-      "page": "section2.adoc",
-      "seconds": 9
+      "module": "ch5-review",
+      "page": "index.adoc",
+      "seconds": 15
+    },
+    {
+      "module": "ch5-review",
+      "page": "s1-synthesis.adoc",
+      "seconds": 68
+    },
+    {
+      "module": "ch5-review",
+      "page": "s2-assessment-quiz.adoc",
+      "seconds": 41
     },
     {
       "module": "appendix",
