@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Reading the Report Card :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s1-under-the-hood.html">
+    <link rel="next" href="s3-production-handoff.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG Strategies</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG Strategies</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts and Ending Prompt Drift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s1-search-space.html">Benchmarking the RAG Search Space</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG Strategies</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG Strategies</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
+    <li><a href="index.html">Validating and Deploying AutoML Models</a></li>
+    <li><a href="s2-report-card.html">Reading the Report Card</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Reading the Report Card</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Interpret the leaderboard and evaluation artifacts to validate a model&#8217;s business logic before promoting it.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>When a run finishes, RHOAI gathers everything the pipeline produced and lays it out in the dashboard as a set of connected views. Together they&#8217;re the model&#8217;s <strong>report card</strong>. Your job here isn&#8217;t to admire the top score, it&#8217;s to ask each artifact a question and make sure the answers hang together before you trust the model with a real decision.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s walk them in the order you&#8217;ll naturally use them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_leaderboard_whos_in_the_running"><a class="anchor" href="#_the_leaderboard_whos_in_the_running"></a>The leaderboard: who&#8217;s in the running</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The leaderboard is your starting point. It lists every candidate model AutoML trained, ranked by the primary optimization metric for your task (the Accuracy, R<sup>2</sup>, or MASE you met in chapter 1). But don&#8217;t stop at the ranking column. It also shows <strong>secondary metrics</strong>, <strong>fit times</strong>, and <strong>inference latencies</strong>, and those extra columns often decide the real winner.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The top model isn&#8217;t automatically the right one to ship. If the number-one model scores a hair higher but takes ten times longer to return a prediction, a slightly lower-ranked model with microsecond latency may be the smarter production choice. Read across the row, not just down the rank.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_feature_importance_is_it_learning_the_right_thing"><a class="anchor" href="#_feature_importance_is_it_learning_the_right_thing"></a>Feature importance: is it learning the right thing?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the artifact that separates "the model scored well" from "the model is trustworthy." <strong>Feature importance</strong> works by shuffling each column&#8217;s values and measuring how much the model&#8217;s performance drops, which tells you how much the model actually leans on that input.</p>
+</div>
+<div class="paragraph">
+<p>Use it to answer three questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Does this match reality?</strong> If a churn model&#8217;s top signals are "months since last login" and "support tickets opened," that lines up with business intuition. Good sign.</p>
+</li>
+<li>
+<p><strong>Is there anything suspicious?</strong> A single feature that dominates everything else is a classic red flag for <strong>data leakage</strong>, where a column accidentally encodes the answer (for example, a "cancellation_date" field sneaking into a churn model). The model looks brilliant in testing and falls apart in production.</p>
+</li>
+<li>
+<p><strong>Can I explain this to a stakeholder?</strong> Feature importance is how you turn a model into a story a business owner will actually believe.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+New to this? Make feature importance the <strong>first</strong> thing you look at after the score, not the last. Catching a leaked column here saves you from deploying a model that&#8217;s secretly cheating.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_confusion_matrix_where_classification_goes_wrong"><a class="anchor" href="#_confusion_matrix_where_classification_goes_wrong"></a>Confusion matrix: where classification goes wrong</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For binary and multiclass models, the <strong>confusion matrix</strong> lays out actual versus predicted classes in a grid: true positives, false positives, false negatives, and true negatives. It moves you past a single accuracy number and shows you <strong>which</strong> mistakes the model makes.</p>
+</div>
+<div class="paragraph">
+<p>That distinction is often a business decision in disguise. In fraud detection, a false negative (missing real fraud) usually costs far more than a false positive (flagging a legitimate charge for review). The matrix lets you see that trade-off in black and white instead of hoping the headline accuracy has it covered.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_roc_and_pr_curves_tuning_the_trade_off"><a class="anchor" href="#_roc_and_pr_curves_tuning_the_trade_off"></a>ROC and PR curves: tuning the trade-off</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>ROC (Receiver Operating Characteristic)</strong> and <strong>Precision-Recall</strong> curves visualize how the model separates classes across every possible <strong>decision threshold</strong>, not just the default cutoff. This is where you calibrate the model to the business.</p>
+</div>
+<div class="paragraph">
+<p>Turn the fraud model&#8217;s sensitivity up and you catch more fraud but annoy more legitimate customers with reviews; turn it down and the reverse. These curves are the dial, and they let you pick the operating point that matches what your organization actually cares about.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_time_series_backtesting_does_it_hold_up_over_time"><a class="anchor" href="#_time_series_backtesting_does_it_hold_up_over_time"></a>Time series backtesting: does it hold up over time?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For forecasting models there&#8217;s no single test set, because time only runs one direction. Instead, RHOAI does <strong>rolling backtesting</strong>: it walks the model forward through successive validation windows and charts how the forecast error behaves. You can compare predicted versus observed values in the best and worst windows, which quickly reveals whether a model is reliably useful or just got lucky in one quarter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_putting_it_together"><a class="anchor" href="#_putting_it_together"></a>Putting it together</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None of these views is decisive on its own. A model earns promotion when the story is consistent: a strong leaderboard metric, feature importance that matches reality with no leakage, an error profile you can live with, and, for forecasts, stable behavior across backtests. Read them together and you&#8217;re validating <strong>business logic</strong>, not just chasing a score.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve validated a model you believe in. Now let&#8217;s move it out of the dashboard and into production, along the paved path from a finished run to a live serving endpoint.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a></span>
+  <span class="next"><a href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

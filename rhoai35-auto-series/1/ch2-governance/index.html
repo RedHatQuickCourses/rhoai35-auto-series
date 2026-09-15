@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Validating and Deploying AutoML Models :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="../ch1-automl/s1-task-types.html">
-    <link rel="next" href="s1-evaluation.html">
+    <link rel="prev" href="../ch1-automl/s3-task-types.html">
+    <link rel="next" href="s1-under-the-hood.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -60,7 +60,13 @@
     <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch1-automl/s1-task-types.html">From Raw Data to Ranked Models</a>
+    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
   </li>
 </ul>
   </li>
@@ -73,7 +79,13 @@
     <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-evaluation.html">Reading the Report Card and Shipping the Winner</a>
+    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
   </li>
 </ul>
   </li>
@@ -118,13 +130,6 @@
     <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
   </li>
 </ul>
   </li>
@@ -175,24 +180,18 @@
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Not started yet.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>In chapter 1 you learned to walk up to a business problem, read your data, and pick the right task type and metric. So let&#8217;s pick up the story right where a first run leaves you: the pipeline has finished, and you&#8217;re looking at a leaderboard full of models you didn&#8217;t hand-build.</p>
 </div>
 <div class="paragraph">
-<p>This chapter opens the hood on AutoGluon model stacking and shows how to read the "report card" before promoting a winning model to a KServe serving runtime.</p>
+<p>The tempting move is to grab whatever sits in the top row and ship it. Resist that for a few more minutes. A high score tells you a model fit the <strong>training</strong> data well, it doesn&#8217;t yet tell you the model is measuring the <strong>right thing</strong>, or that it will behave in production. This chapter is about earning the confidence to promote a model on purpose rather than on faith.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll do it in three moves: first a quick look under the hood at what AutoML was actually doing while you waited, then how to read the full evaluation "report card" that comes back with every run, and finally the paved path from a winning model to a live, serving endpoint. By the end you&#8217;ll be able to validate a predictive model and put it into production without needing a platform administrator to hold your hand.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../ch1-automl/s1-task-types.html">From Raw Data to Ranked Models</a></span>
-  <span class="next"><a href="s1-evaluation.html">Reading the Report Card and Shipping the Winner</a></span>
+  <span class="prev"><a href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a></span>
+  <span class="next"><a href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a></span>
 </nav>
 </article>
   </div>

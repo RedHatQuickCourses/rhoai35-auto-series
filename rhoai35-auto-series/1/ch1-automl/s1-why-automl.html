@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quiz: Diagnosing Scenarios and Selecting AI Patterns :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="s1-synthesis.html">
+    <title>Why AutoML? The Business Case :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="s2-predictive-vs-llms.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -56,16 +57,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
+    <a class="nav-link" href="index.html">Predictive Foundations with AutoML</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s1-why-automl.html">Why AutoML? The Business Case</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+    <a class="nav-link" href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
+    <a class="nav-link" href="s3-task-types.html">The Four Prediction Task Types</a>
   </li>
 </ul>
   </li>
@@ -120,13 +121,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -161,8 +162,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></li>
+    <li><a href="index.html">Predictive Foundations with AutoML</a></li>
+    <li><a href="s1-why-automl.html">Why AutoML? The Business Case</a></li>
   </ul>
 </nav>
 </div>
@@ -171,38 +172,95 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Quiz: Diagnosing Scenarios and Selecting AI Patterns</h1>
+<h1 class="page">Why AutoML? The Business Case</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>15 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>8 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Validate practitioner capability by diagnosing enterprise data scenarios and selecting the optimal AI pattern across AutoML, MLflow, and AutoRAG.</p>
+<p>Explain, in language a business leader will care about, what AutoML actually automates and the return it delivers.</p>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>Let&#8217;s start with the part that gets budget approved, because if you can&#8217;t explain the "why" to the person signing the checks, the coolest model in the world never ships.</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_interactive_assessment"><a class="anchor" href="#_interactive_assessment"></a>Interactive Assessment</h2>
-<div class="sectionbody">
-<iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
+<h2 id="_the_problem_automl_is_solving"><a class="anchor" href="#_the_problem_automl_is_solving"></a>The problem AutoML is solving</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Congratulations — you have completed <strong>Governing AI Data Workflows: AutoML and AutoRAG Strategies</strong>. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.</p>
+<p>Traditional machine learning projects have a nasty habit of taking three to six months and then stalling out. The data scientist does heroic work, cleaning messy columns, inventing features, testing XGBoost against a neural net against something they read about last week, tuning knobs until the accuracy nudges up another half a percent. It&#8217;s skilled, careful, <strong>slow</strong> work. And a huge amount of it is the same work, every single time, on every single project.</p>
+</div>
+<div class="paragraph">
+<p>That repetition is exactly what AutoML automates. Instead of a person hand-running each step, the platform handles:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data preparation</strong>, inferring column types, imputing missing values, encoding categories.</p>
+</li>
+<li>
+<p><strong>Feature engineering</strong>, turning raw columns into signals a model can learn from.</p>
+</li>
+<li>
+<p><strong>Algorithm selection</strong>, trying many model families in parallel instead of one at a time.</p>
+</li>
+<li>
+<p><strong>Ensembling</strong>, combining the best candidates into something stronger than any single model.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You still bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_sorting_hat"><a class="anchor" href="#_the_sorting_hat"></a>The "Sorting Hat"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want a mental picture, think of AutoML as a <strong>Sorting Hat</strong>. You feed in raw tabular CSV data pulled from S3 storage, the platform reads the patterns hiding in it, and out comes a <strong>ranked leaderboard</strong> of candidate models, sorted best to worst, ready for you to inspect and promote. You&#8217;re no longer building models one at a time and hoping. You&#8217;re reviewing a graded shortlist.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_return_on_investment"><a class="anchor" href="#_the_return_on_investment"></a>The return on investment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s how that translates when it&#8217;s your turn to justify the spend:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>70–80% faster time-to-market.</strong> Development cycles that used to run three to six months collapse into a matter of hours. Multi-quarter R&amp;D efforts become same-week operational delivery.</p>
+</li>
+<li>
+<p><strong>A 3x workforce multiplier.</strong> You no longer need a scarce, specialized ML PhD for every project. Software engineers, data analysts, and IT practitioners can stand up high-accuracy predictive baselines themselves, which frees your specialists for the genuinely hard problems.</p>
+</li>
+<li>
+<p><strong>No more PoC death.</strong> This is the quiet one that matters most. Because AutoML produces <strong>standardized deployment artifacts</strong>, the winning model moves directly toward a production endpoint instead of getting stranded in a notebook. The path from experiment to production is built in, not bolted on later.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Faster and cheaper is a great pitch, but only if you&#8217;re pointing it at the right kind of problem. Next we&#8217;ll place predictive AI next to the large language models everyone&#8217;s talking about, so you can see exactly where each one earns its keep, and learn how to tell whether your data is even a candidate for AutoML in the first place.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></span>
+  <span class="prev"><a href="index.html">Predictive Foundations with AutoML</a></span>
+  <span class="next"><a href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a></span>
 </nav>
 </article>
   </div>

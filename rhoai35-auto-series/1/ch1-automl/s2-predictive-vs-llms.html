@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Where Predictive AI Fits (and Where It Doesn&#8217;t) :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s1-why-automl.html">
+    <link rel="next" href="s3-task-types.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG Strategies</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG Strategies</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts and Ending Prompt Drift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s1-search-space.html">Benchmarking the RAG Search Space</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG Strategies</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG Strategies</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
+    <li><a href="index.html">Predictive Foundations with AutoML</a></li>
+    <li><a href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Where Predictive AI Fits (and Where It Doesn&#8217;t)</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Estimated reading time: <strong>10 minutes</strong>.</em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Position predictive models against LLMs on cost and behavior, and qualify whether a dataset is a good fit for AutoML.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are genuinely transformational. But there&#8217;s a trap hiding in all that excitement: reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.</p>
+</div>
+<div class="paragraph">
+<p>So before we go further, let&#8217;s get honest about where predictive AI actually shines.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_predictive_models_vs_llms"><a class="anchor" href="#_predictive_models_vs_llms"></a>Predictive models vs. LLMs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The easiest way to see it is side by side. Same job description, two very different employees:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dimension</th>
+<th class="tableblock halign-left valign-top">Predictive Models (AutoML / Tabular)</th>
+<th class="tableblock halign-left valign-top">Large Language Models (LLMs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Primary scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Narrow, single-task structured decisions (churn, fraud, pricing)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broad, open-domain reasoning and text generation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Input structure</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low-dimensional structured tabular data (10–100+ features)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-dimensional unstructured text across billions of tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Artifact size</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kilobytes to megabytes (lightweight trees / ensembles)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tens to hundreds of gigabytes (billions of parameters)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Hardware</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight CPU infrastructure, no specialized GPUs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-VRAM GPU clusters</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Latency</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsecond inference for high-throughput systems</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Second-level response times</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auditability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deterministic logic with clear feature importance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probabilistic reasoning needing guardrail evaluation</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The takeaway is worth saying plainly: <strong>predictive models are cheap, fast, and deterministic.</strong> They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for <strong>why</strong>. When the question is "will this transaction be fraud?" you don&#8217;t need a model that can also write poetry. You need one that&#8217;s right, fast, and explainable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_your_data_even_a_candidate"><a class="anchor" href="#_is_your_data_even_a_candidate"></a>Is your data even a candidate?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AutoML is powerful, but it&#8217;s not magic, it expects a certain shape of data. Before you kick off a run, check that your dataset qualifies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tabular structure.</strong> Rows are entities, columns are attributes, stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.</p>
+</li>
+<li>
+<p><strong>A clear target label.</strong> One column holds the ground-truth answer you want to predict for new data.</p>
+</li>
+<li>
+<p><strong>Feature diversity.</strong> A healthy mix of numeric and categorical columns, that&#8217;s where AutoML&#8217;s automatic type inference, missing-value imputation, and encoding earn their keep.</p>
+</li>
+<li>
+<p><strong>Enough volume.</strong> At least 500–1,000 rows to prototype, and 10,000+ is typical for a serious enterprise evaluation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_when_automl_is_not_the_tool"><a class="anchor" href="#_when_automl_is_not_the_tool"></a>When AutoML is <strong>not</strong> the tool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just as important is knowing when to put it down and reach for something else:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unstructured media</strong>, images, audio, video. Those need specialized deep-learning pipelines.</p>
+</li>
+<li>
+<p><strong>Open-ended text generation</strong>, chatbots, document synthesis, summarization. That&#8217;s the world of LLMs and AutoRAG, which we&#8217;ll get to later in the course.</p>
+</li>
+<li>
+<p><strong>Custom domain edge cases</strong>, problems that hinge on hand-crafted business rules a model can&#8217;t infer from the raw table.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone. Now that you can spot a good fit, let&#8217;s look at the four flavors of prediction it can actually do.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="s1-why-automl.html">Why AutoML? The Business Case</a></span>
+  <span class="next"><a href="s3-task-types.html">The Four Prediction Task Types</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

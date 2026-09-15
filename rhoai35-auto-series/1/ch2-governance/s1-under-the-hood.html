@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quiz: Diagnosing Scenarios and Selecting AI Patterns :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="s1-synthesis.html">
+    <title>Under the Hood: How AutoML Builds Its Models :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="s2-report-card.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -75,16 +76,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+    <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+    <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+    <a class="nav-link" href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
   </li>
 </ul>
   </li>
@@ -120,13 +121,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -161,8 +162,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></li>
+    <li><a href="index.html">Validating and Deploying AutoML Models</a></li>
+    <li><a href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a></li>
   </ul>
 </nav>
 </div>
@@ -171,38 +172,100 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Quiz: Diagnosing Scenarios and Selecting AI Patterns</h1>
+<h1 class="page">Under the Hood: How AutoML Builds Its Models</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>15 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>8 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Validate practitioner capability by diagnosing enterprise data scenarios and selecting the optimal AI pattern across AutoML, MLflow, and AutoRAG.</p>
+<p>Explain what AutoGluon is doing during a run and why the leaderboard is an ensemble, not a single algorithm.</p>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>You don&#8217;t strictly <strong>need</strong> to know what happens between "start run" and "here&#8217;s your leaderboard" to use AutoML. But a little bit of under-the-hood knowledge pays off the moment you start reading results, because the names you&#8217;ll see on the leaderboard suddenly mean something.</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_interactive_assessment"><a class="anchor" href="#_interactive_assessment"></a>Interactive Assessment</h2>
-<div class="sectionbody">
-<iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
+<h2 id="_autogluon_the_conductor"><a class="anchor" href="#_autogluon_the_conductor"></a>AutoGluon, the conductor</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Congratulations — you have completed <strong>Governing AI Data Workflows: AutoML and AutoRAG Strategies</strong>. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.</p>
+<p>Under the covers, RHOAI AutoML is powered by <strong>AutoGluon</strong>, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs <strong>parallel sweeps</strong> across several model families at once, then figures out which ones actually earned their place. Think of it less as a single musician and more as a conductor auditioning a whole orchestra.</p>
+</div>
+<div class="paragraph">
+<p>Those candidates come from two broad families.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_smart_flowchart_builders_gradient_boosted_decision_trees"><a class="anchor" href="#_smart_flowchart_builders_gradient_boosted_decision_trees"></a>"Smart flowchart builders" (gradient-boosted decision trees)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They&#8217;re the bread and butter of tabular prediction:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>XGBoost</strong>, the meticulous veteran. Uses exact, depth-wise tree splits. A dependable default for standard spreadsheet and financial data.</p>
+</li>
+<li>
+<p><strong>LightGBM</strong>, the speed demon. Built by Microsoft, it uses fast histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with low memory overhead.</p>
+</li>
+<li>
+<p><strong>CatBoost</strong>, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don&#8217;t have to manually one-hot encode them.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synthetic_brains_deep_neural_networks"><a class="anchor" href="#_synthetic_brains_deep_neural_networks"></a>"Synthetic brains" (deep neural networks)</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tabular MLPs (PyTorch / FastAI)</strong>, multi-layer perceptrons that capture complex, non-linear interactions between your columns, patterns the tree models can miss.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_real_trick_stacked_ensembling"><a class="anchor" href="#_the_real_trick_stacked_ensembling"></a>The real trick: stacked ensembling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s the part that matters most. AutoGluon doesn&#8217;t just crown a single winning algorithm and walk away. It combines the predictions of the top candidates into a multi-layer <strong>Weighted Ensemble</strong>, letting the models cover for each other&#8217;s blind spots. That stacked approach consistently beats hand-tuning any single model by roughly <strong>2–5% in accuracy</strong>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+First time seeing these names? Don&#8217;t worry about choosing between XGBoost, LightGBM, and the rest, letting you <strong>skip</strong> that decision is the whole point of AutoML. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn&#8217;t a bug or a mystery entry: it&#8217;s usually the blended model, and it&#8217;s often your best performer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you know the leaderboard is a graded audition rather than a single guess, let&#8217;s actually read it, along with the rest of the report card AutoML hands back with every run.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></span>
+  <span class="prev"><a href="index.html">Validating and Deploying AutoML Models</a></span>
+  <span class="next"><a href="s2-report-card.html">Reading the Report Card</a></span>
 </nav>
 </article>
   </div>

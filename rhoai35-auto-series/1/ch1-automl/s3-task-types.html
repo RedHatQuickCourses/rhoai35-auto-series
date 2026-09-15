@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>The Four Prediction Task Types :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s2-predictive-vs-llms.html">
+    <link rel="next" href="../ch2-governance/index.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG Strategies</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG Strategies</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts and Ending Prompt Drift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s1-search-space.html">Benchmarking the RAG Search Space</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG Strategies</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG Strategies</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
+    <li><a href="index.html">Predictive Foundations with AutoML</a></li>
+    <li><a href="s3-task-types.html">The Four Prediction Task Types</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">The Four Prediction Task Types</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Estimated reading time: <strong>10 minutes</strong>.</em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Match any predictive business problem to one of the four AutoML task types and its default optimization metric.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the good news: no matter how complicated the business problem sounds, every predictive question you&#8217;ll ever hand to AutoML boils down to one of just <strong>four</strong> task types. Learn to spot which one you&#8217;re looking at and you&#8217;re most of the way there.</p>
+</div>
+<div class="paragraph">
+<p>Even better, you often don&#8217;t have to decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and <strong>recommends</strong> a task type and a sensible default metric. Think of it as the Sorting Hat whispering a suggestion, but you should understand the four houses well enough to know when it&#8217;s right.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_start_by_reading_your_data_not_the_problem_statement"><a class="anchor" href="#_start_by_reading_your_data_not_the_problem_statement"></a>Start by reading your data, not the problem statement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If this is your first time driving one of these tools, here&#8217;s the habit to build early: don&#8217;t start from how the business <strong>describes</strong> the problem, start from what your data actually looks like. The stakeholder might say "I want to know who&#8217;s going to leave us," but the platform doesn&#8217;t see intentions, it sees columns. So the very first thing you do is open your CSV and look hard at <strong>one</strong> column: the <strong>target</strong>, the value you want the model to predict for new rows.</p>
+</div>
+<div class="paragraph">
+<p>Two quick questions answer almost everything:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>What kind of value lives in the target column?</strong> Is it a handful of labels, or a number that can slide up and down a scale?</p>
+</li>
+<li>
+<p><strong>Is time part of the story?</strong> Is each row anchored to a date or timestamp, with something identifying which sequence it belongs to?</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Answer those and the task type falls out on its own. That&#8217;s the skill this section builds, so that when the dashboard recommends a task type, you can confirm it rather than take it on faith.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_quick_decision_tree"><a class="anchor" href="#_the_quick_decision_tree"></a>The quick decision tree</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The clue is almost always in your <strong>target column</strong>, the thing you&#8217;re trying to predict:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Raw CSV Data
+│
+├── Target has 2 unique values ─────────► Binary Classification    ("Yes / No?")
+├── Target has 3+ text categories ──────► Multiclass Classification ("Pick 1 from a menu")
+├── Target is continuous numbers ───────► Regression               ("How much?")
+└── Target tied to Timestamp + ID ──────► Time Series Forecasting  ("What's next over time?")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take them one at a time.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_binary_classification_yes_or_no"><a class="anchor" href="#_1_binary_classification_yes_or_no"></a>1. Binary classification: "Yes or No?"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The workhorse of enterprise ML. Your target column has exactly <strong>two</strong> values, 0/1, True/False, Churn/No-Churn.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data cue:</strong> two unique values in the target.</p>
+</li>
+<li>
+<p><strong>You&#8217;ll see it in:</strong> customer churn prevention, fraud detection, credit-risk approval.</p>
+</li>
+<li>
+<p><strong>Default metric:</strong> <strong>Accuracy</strong>, but switch to <strong>ROC-AUC</strong> or <strong>F1</strong> when the classes are lopsided. On a dataset that&#8217;s 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone will lie to you.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_multiclass_classification_pick_1_from_a_menu"><a class="anchor" href="#_2_multiclass_classification_pick_1_from_a_menu"></a>2. Multiclass classification: "Pick 1 from a menu"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Same idea as binary, but now there are three or more categories to choose from.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data cue:</strong> three or more distinct text labels in the target.</p>
+</li>
+<li>
+<p><strong>You&#8217;ll see it in:</strong> support-ticket routing, customer segmentation, classifying <strong>which type</strong> of equipment failure occurred.</p>
+</li>
+<li>
+<p><strong>Default metric:</strong> <strong>Accuracy</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_regression_how_much"><a class="anchor" href="#_3_regression_how_much"></a>3. Regression: "How much?"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When the answer isn&#8217;t a category at all but a number on a continuous scale.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data cue:</strong> the target holds continuous numeric values, with no time component.</p>
+</li>
+<li>
+<p><strong>You&#8217;ll see it in:</strong> price estimation, predicting a patient&#8217;s medical charges, estimating how long an operation will take.</p>
+</li>
+<li>
+<p><strong>Default metric:</strong> <strong>R<sup>2</sup> (R-squared)</strong>, the share of variance the model explains, on a 0.0-to-1.0 scale. Closer to 1.0 is better.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_time_series_forecasting_whats_next_over_time"><a class="anchor" href="#_4_time_series_forecasting_whats_next_over_time"></a>4. Time series forecasting: "What&#8217;s next over time?"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Regression&#8217;s time-aware cousin. You&#8217;re not just predicting a number, you&#8217;re predicting it <strong>forward</strong>, respecting the order of events.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data cue:</strong> the dataset has a <strong>timestamp</strong> column, an <strong>ID</strong> column identifying each sequence (say, each store or product), and a numeric <strong>target</strong>.</p>
+</li>
+<li>
+<p><strong>You&#8217;ll see it in:</strong> retail inventory demand, quarterly sales projections, capacity planning.</p>
+</li>
+<li>
+<p><strong>Default metric:</strong> <strong>MASE (Mean Absolute Scaled Error)</strong>, it grades the forecast against a naive "tomorrow looks like today" baseline, so you can tell whether the model is genuinely adding value or just going through the motions.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now hear a business problem, glance at the target column, and name the task type and the metric that matters, the core reflex of a predictive practitioner. In the next chapter we&#8217;ll open the hood: how AutoML actually builds and stacks these models under the covers, and how to read the evaluation "report card" before you promote a winner into production.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a></span>
+  <span class="next"><a href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

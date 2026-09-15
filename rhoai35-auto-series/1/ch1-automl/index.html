@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Predictive Foundations with AutoML :: AutoML and AutoRAG Strategies</title>
     <link rel="prev" href="../index.html">
-    <link rel="next" href="s1-task-types.html">
+    <link rel="next" href="s1-why-automl.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -60,7 +60,13 @@
     <a class="nav-link" href="index.html">Predictive Foundations with AutoML</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-task-types.html">From Raw Data to Ranked Models</a>
+    <a class="nav-link" href="s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-task-types.html">The Four Prediction Task Types</a>
   </li>
 </ul>
   </li>
@@ -73,7 +79,13 @@
     <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s1-evaluation.html">Reading the Report Card and Shipping the Winner</a>
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
   </li>
 </ul>
   </li>
@@ -118,13 +130,6 @@
     <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
   </li>
 </ul>
   </li>
@@ -175,24 +180,21 @@
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Not started yet.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Here&#8217;s a story you&#8217;ve probably lived through, or at least watched from the next desk over.</p>
 </div>
 <div class="paragraph">
-<p>This chapter introduces AutoML as the fastest path from raw data to ranked predictive models, and helps you recognize which prediction task type fits each business problem.</p>
+<p>A team gets handed a business problem, predict which customers are about to churn, flag the fraudulent transactions, forecast next quarter&#8217;s demand. Someone spins up a notebook. Weeks go by cleaning the data. More weeks testing algorithms, tuning hyperparameters, arguing about which metric matters. Three, maybe six months later there&#8217;s a model that works beautifully&#8230;&#8203; on a laptop. And then it quietly dies there, because nobody ever built the path from "notebook that works" to "endpoint that serves." We even have a name for it: <strong>PoC death</strong>.</p>
+</div>
+<div class="paragraph">
+<p>AutoML in Red Hat OpenShift AI 3.5+ is the answer to that story. It takes the raw tabular data you already have sitting in S3, automates the tedious middle, data prep, feature engineering, algorithm selection, ensembling, and hands you back a ranked leaderboard of production-ready candidate models. Not in months. In hours.</p>
+</div>
+<div class="paragraph">
+<p>This chapter is about the <strong>foundations</strong>: why this matters to the business, where predictive AI fits alongside the LLMs everyone&#8217;s talking about, how to tell whether your data is even a good fit, and how to match any business problem to the right kind of prediction. By the end you won&#8217;t be running models yet, that comes later, but you&#8217;ll know exactly when AutoML is the right tool to reach for, and why.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="s1-task-types.html">From Raw Data to Ranked Models</a></span>
+  <span class="next"><a href="s1-why-automl.html">Why AutoML? The Business Case</a></span>
 </nav>
 </article>
   </div>

@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quiz: Diagnosing Scenarios and Selecting AI Patterns :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="s1-synthesis.html">
+    <title>From Winner to Endpoint: The Production Handoff :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s2-report-card.html">
+    <link rel="next" href="../ch3-mlflow/index.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -75,16 +76,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+    <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+    <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
   </li>
 </ul>
   </li>
@@ -120,13 +121,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -161,8 +162,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></li>
+    <li><a href="index.html">Validating and Deploying AutoML Models</a></li>
+    <li><a href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a></li>
   </ul>
 </nav>
 </div>
@@ -171,38 +172,114 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Quiz: Diagnosing Scenarios and Selecting AI Patterns</h1>
+<h1 class="page">From Winner to Endpoint: The Production Handoff</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>15 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>8 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Validate practitioner capability by diagnosing enterprise data scenarios and selecting the optimal AI pattern across AutoML, MLflow, and AutoRAG.</p>
+<p>Follow the repeatable path that promotes a validated model from a completed run to a live serving endpoint.</p>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>Remember "PoC death" from chapter 1, the model that works beautifully and then never leaves the notebook? This is the section that prevents it. Once you&#8217;ve picked a model you trust, RHOAI gives you a short, repeatable path to get it serving real traffic, and none of it requires cluster-admin skills.</p>
+</div>
+<div class="paragraph">
+<p>There are three exits from a completed run, and you&#8217;ll use them for different reasons.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interactive_assessment"><a class="anchor" href="#_interactive_assessment"></a>Interactive Assessment</h2>
-<div class="sectionbody">
-<iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
+<h2 id="_export_the_notebook_for_the_tinkerers"><a class="anchor" href="#_export_the_notebook_for_the_tinkerers"></a>Export the notebook (for the tinkerers)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Congratulations — you have completed <strong>Governing AI Data Workflows: AutoML and AutoRAG Strategies</strong>. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.</p>
+<p>Click <strong>Save notebook</strong> and AutoML generates a Python Jupyter notebook with the code already written to connect to your S3 storage, load the trained predictor, and run batch scoring or your own custom validation.</p>
+</div>
+<div class="paragraph">
+<p>Reach for this when you want to poke at the model yourself, score a big batch of records offline, or hand a data scientist a running start. It&#8217;s the "show me the code" door.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_register_the_model_for_governance"><a class="anchor" href="#_register_the_model_for_governance"></a>Register the model (for governance)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Register</strong> promotes the winning model version straight into the <strong>RHOAI Model Registry</strong>. Think of the registry as the system of record for your models: it versions them, keeps their metadata, and gives your team one trusted place to answer "which model is this, and where did it come from?"</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+First time shipping a model? Register it even if you&#8217;re eager to deploy. The registry is what makes a model <strong>governable</strong>, versioned, discoverable, and auditable, rather than a mystery file someone deployed one afternoon.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_to_a_serving_endpoint_for_production"><a class="anchor" href="#_deploy_to_a_serving_endpoint_for_production"></a>Deploy to a serving endpoint (for production)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the one that turns a file into a service. RHOAI deploys the model using the <strong>AutoGluon ServingRuntime for KServe</strong>, which instantly stands up a scalable REST API. Your application then gets predictions by POSTing to a standard endpoint:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">/v2/models/&lt;model-name&gt;/infer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s a <strong>KServe v2</strong> inference endpoint. Any service that can make an HTTP request, your web app, a batch job, another microservice, can now get live predictions without knowing a thing about how the model was built.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If terms like KServe and "serving runtime" are new, here&#8217;s the short version: KServe is the piece of OpenShift AI that runs your model as a web service and scales it for you. The AutoGluon ServingRuntime is a prebuilt engine that already knows how to load and serve AutoML models, so you don&#8217;t assemble any of that plumbing yourself.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_full_arc"><a class="anchor" href="#_the_full_arc"></a>The full arc</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Step back and look at the path you&#8217;ve traced across two chapters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Raw CSV (S3) ──► AutoML Run ──► Leaderboard ──► Evaluation Report Card ──► Registry ──► KServe REST Endpoint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Raw data went in one end, and a governed, validated, production-ready prediction service came out the other, in hours rather than months, and without you touching a cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now take predictive, tabular data all the way from a CSV to a served model. In the next chapter we shift from numbers to <strong>text</strong>: an introduction to generative AI in the GenAI Playground, and using MLflow to version and govern prompts the same disciplined way you just governed models.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></span>
+  <span class="prev"><a href="s2-report-card.html">Reading the Report Card</a></span>
+  <span class="next"><a href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a></span>
 </nav>
 </article>
   </div>

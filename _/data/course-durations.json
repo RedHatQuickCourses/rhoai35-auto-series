@@ -1,6 +1,6 @@
 {
-  "totalSeconds": 1000,
-  "pageCount": 13,
+  "totalSeconds": 2010,
+  "pageCount": 16,
   "pages": [
     {
       "module": "ROOT",
@@ -10,22 +10,42 @@
     {
       "module": "ch1-automl",
       "page": "index.adoc",
-      "seconds": 17
+      "seconds": 76
     },
     {
       "module": "ch1-automl",
-      "page": "s1-task-types.adoc",
-      "seconds": 77
+      "page": "s1-why-automl.adoc",
+      "seconds": 160
+    },
+    {
+      "module": "ch1-automl",
+      "page": "s2-predictive-vs-llms.adoc",
+      "seconds": 172
+    },
+    {
+      "module": "ch1-automl",
+      "page": "s3-task-types.adoc",
+      "seconds": 219
     },
     {
       "module": "ch2-governance",
       "page": "index.adoc",
-      "seconds": 15
+      "seconds": 66
     },
     {
       "module": "ch2-governance",
-      "page": "s1-evaluation.adoc",
-      "seconds": 77
+      "page": "s1-under-the-hood.adoc",
+      "seconds": 136
+    },
+    {
+      "module": "ch2-governance",
+      "page": "s2-report-card.adoc",
+      "seconds": 241
+    },
+    {
+      "module": "ch2-governance",
+      "page": "s3-production-handoff.adoc",
+      "seconds": 127
     },
     {
       "module": "ch3-mlflow",
@@ -61,11 +81,6 @@
       "module": "ch5-review",
       "page": "s2-assessment-quiz.adoc",
       "seconds": 41
-    },
-    {
-      "module": "appendix",
-      "page": "appendix.adoc",
-      "seconds": 1
     }
   ]
 }
