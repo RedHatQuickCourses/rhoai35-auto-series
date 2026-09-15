@@ -1,0 +1,52 @@
+:time_estimate: 9
+
+= Inspecting the Winner and Shipping It
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Inspect a completed run with the visual pipeline and Playground, then export the chosen pattern into an application.
+
+A ranked leaderboard is a great place to be, but you still shouldn't ship a pattern you've only seen as a number. AutoRAG gives you two ways to *inspect* a run before you commit, and two ways to *export* the pattern you choose.
+
+== Inspect: the visual pipeline (DAG)
+
+Earlier releases drew an AutoRAG run as a single opaque line, if a step failed, good luck figuring out where. OpenShift AI 3.5 replaces that with a full *visual pipeline*, a diagram of every stage in the run.
+
+When everything succeeds, it's a satisfying green path. When something fails, it's genuinely useful: you can see *exactly which step* broke, when, and what it reported, instead of staring at a generic error. For a first-time user, this is the difference between debugging and guessing.
+
+== Inspect: "Try this pattern" in the Playground
+
+This is the feature people appreciate most, because it removes a classic RAG frustration: exporting a pattern, wiring it up somewhere else, testing it, and only *then* discovering it isn't what you wanted.
+
+From the leaderboard, select *Try this pattern* on any ranked configuration to open an interactive chat panel, grounded in your document vector store, right inside OpenShift AI. Ask it real questions and watch how it answers. You can also see *which chunks* it retrieved and where they came from, so you're not just judging the answer, you're judging the *evidence* behind it. You can switch between candidate patterns live to compare them head to head.
+
+TIP: Before exporting anything, throw a few of your own tricky questions at the pattern here. If it retrieves sensible chunks and grounds its answers in them, you've validated the pattern the cheap way, no code required.
+
+== Export: Responses API code snippets
+
+When you're happy with a pattern, click *View code* to get an application-ready snippet that calls the OGX Responses API endpoint. You get your choice of language:
+
+* cURL
+* Python
+* Go
+* Node.js
+
+These call the `/v1/responses` endpoint directly, so your application can start getting grounded answers without you writing the retrieval plumbing yourself.
+
+== Export: Jupyter notebooks
+
+If you'd rather work hands-on, AutoRAG also generates two self-contained Jupyter notebooks: an *indexing* notebook and an *inference* notebook. Run them inside an OpenShift AI workbench to reproduce, audit, or batch-score the pattern locally, the same "here's the code" escape hatch AutoML offered for predictive models.
+
+NOTE: Governance still applies here. The system instruction you settle on for your RAG app can be versioned in the MLflow Prompt Registry from chapter 3, so a production-grade prompt and a production-grade retrieval pattern are both under proper control.
+
+== What's next
+
+That completes the AutoRAG story, and with it, the full arc of the course's capabilities: predictive models with AutoML, governed prompts with MLflow, and grounded generation with AutoRAG. In the final chapter we'll bring all three together into one end-to-end workflow and check your understanding with a graded assessment.
+
+////
+Source: course_design.md LO#4; appendix Autorag35.md (§4 testing/export), autorag.md (§3 playground), autorag-walkthrough.md (visual DAG, try this pattern, Responses API).
+Inspect: visual pipeline DAG (per-step success/failure); "Try this pattern" interactive chat grounded in vector store, shows retrieved chunks, switch patterns live. Export: Responses API snippets (cURL/Python/Go/Node.js) hitting /v1/responses; Indexing + Inference Jupyter notebooks. Governance tie-in: finalize system instructions in MLflow Prompt Registry.
+Session type: Arcade / Video Demo: run clickthrough, "Try this pattern" chat, export snippets.
+////

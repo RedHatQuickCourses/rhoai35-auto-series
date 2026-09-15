@@ -1,0 +1,60 @@
+:time_estimate: 12
+
+= The Search Space and the Metric Triad
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Understand the configurations AutoRAG searches and how to interpret the three metrics it scores them on.
+
+This is the heart of AutoRAG. Once you kick off a run, it systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: *what* it's varying, and *how to read* the scores that come back.
+
+== What AutoRAG searches
+
+Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating for weeks. AutoRAG sweeps them for you:
+
+* *Chunking strategy*, how documents are split. Recursive chunking versus hybrid structural chunking (the latter preserves headings and table structure, and kicks in with the *Better Quality* preset).
+* *Chunk size and overlap*, how big each piece is and how much neighboring pieces share.
+* *Search mode*, pure vector (semantic) search versus hybrid search that blends semantic and keyword matching.
+* *Top-k*, how many chunks to retrieve for each question.
+* *Embedding model*, the model that turns text into vectors. You can select up to *2 embedding models* per run.
+* *Foundation model*, the LLM that writes the final answer. Up to *3 foundation models* per run.
+
+IMPORTANT: Stay within *3 foundation models and 2 embedding models* per run. Going over that cap causes the run to fail, so it's a limit to respect, not push.
+
+NOTE: The recommended default embedding model is *BAAI/bge-m3*. It supports over 100 languages, does both dense and sparse retrieval, and runs with low memory overhead, which is why it shows up throughout the AutoRAG material.
+
+== A quick word on languages
+
+AutoRAG automatically *detects the language* of your evaluation questions, so you don't declare it up front, and it handles mixed-language corpora gracefully. One caveat worth remembering: auto-detection only helps if the *models* you picked actually support those languages. Check the Model Catalog to confirm your chosen foundation and embedding models cover your document languages.
+
+== Reading the metric triad
+
+AutoRAG scores every candidate on three complementary metrics. You met these by name in the course overview; here's what each one actually tells you:
+
+* *Answer Faithfulness*, a hallucination check. Did the answer stick to the retrieved context, or did the model make things up?
+* *Answer Correctness*, a ground-truth check. Did the answer match the known-good answers in your evaluation set?
+* *Context Correctness*, a retrieval check. Did the system fetch the *right* document chunks in the first place?
+
+The reason there are three, not one, is that they isolate *where* a pattern succeeds or fails. And the real skill, the AutoRAG equivalent of reading a confusion matrix in chapter 2, is interpreting them *in combination*.
+
+== Diagnosing the combinations
+
+This little decision guide is the most practical thing on the page. When two metrics disagree, the pattern is telling you something specific:
+
+* *High Faithfulness + Low Correctness:* the model answered faithfully from what it retrieved, but the retrieved context didn't actually contain the true answer. Suspect your *chunking* or a mismatch in your *evaluation dataset*.
+* *High Correctness + Low Faithfulness:* the answer was right, but the model pulled it from its own training memory rather than your documents. It got lucky this time; on unseen questions it's a *hallucination risk*.
+* *Low Context Correctness + High Answer Correctness:* retrieval fetched irrelevant chunks, but a strong foundation model compensated. It looks fine now but is *fragile*, it will break on query types it hasn't effectively memorized.
+
+TIP: New to evaluating RAG? Don't chase a single top score. A pattern where all three metrics are solid is far more trustworthy in production than one with a dazzling Answer Correctness propped up by weak retrieval. Consistency beats a lucky headline number, the same lesson the AutoML report card taught.
+
+== What's next
+
+You can now read the leaderboard and understand *why* a pattern ranks where it does. The last step is turning a winning pattern into something your application can actually call, which is where inspection and export come in.
+
+////
+Source: course_design.md LO#4; appendix Autorag35.md (§1 caps, §3 metric-gap diagnosis, embedding rec, multilingual), autorag.md (§4 param search), autorag-walkthrough.md (chunking context, multilingual).
+Search space: chunking (recursive vs hybrid structural / Better Quality), chunk size+overlap, search mode (vector vs hybrid), top-k, embeddings (<=2, BGE-M3 default), foundation models (<=3). Cap: 3 FM + 2 embedding or run fails. Multilingual auto-detect of eval questions; verify model support in Model Catalog. Metric triad: Answer Faithfulness (hallucination), Answer Correctness (ground truth), Context Correctness (retrieval). Diagnostic combos from Autorag35 §3.
+Session type: Presentation: RAG search space + evaluation metric decision matrix.
+////

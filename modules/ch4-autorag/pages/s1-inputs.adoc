@@ -1,0 +1,64 @@
+:time_estimate: 10
+
+= Preparing the Inputs: Documents and a Test Set
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Assemble the two inputs an AutoRAG run needs: a document corpus and a ground-truth evaluation dataset.
+
+An AutoRAG run is only as good as what you feed it, and it needs exactly two things: the *documents* you want to answer questions about, and a *test set* that defines what a good answer looks like. Get these right and the rest of the run mostly takes care of itself.
+
+== Input 1: your document corpus
+
+This is the knowledge you want the model grounded in. A few practical rules:
+
+* *Supported formats:* PDF, DOCX, PPTX, Markdown, HTML, and TXT.
+* *Where it lives:* an S3-compatible bucket, or uploaded directly through the UI.
+* *Size:* up to 32 MiB per file when you upload through the UI; no per-file limit when you point AutoRAG at an S3 folder. Either way, a run automatically *samples up to 1 GiB* of documents.
+
+TIP: First time out? Start small and clean. A handful of high-quality, text-based documents will teach you more about how AutoRAG behaves than dumping in a giant messy archive. You can scale up once you trust the workflow.
+
+NOTE: In Technology Preview, AutoRAG does not run OCR on image-only PDFs or pull text out of embedded images. If your PDFs are scanned pages, the text inside them won't be retrievable. Table structure extraction *is* available, but only when you choose the *Better Quality* run preset.
+
+== Input 2: the evaluation dataset (the answer key)
+
+This is the piece newcomers tend to underestimate, and it's the most important. AutoRAG can't rank retrieval patterns unless it knows what "correct" means, so you give it an *answer key*: a JSON file of representative questions paired with their known-good answers and the documents those answers come from.
+
+Each entry has three fields:
+
+[source,json]
+----
+[
+  {
+    "question": "What is the return policy?",
+    "correct_answers": [
+      "Items can be returned within 30 days",
+      "The return window is 30 days from purchase"
+    ],
+    "correct_answer_document_ids": ["policies.pdf", "faq.md"]
+  }
+]
+----
+
+* *`question`* is a real question a user might ask.
+* *`correct_answers`* is a list, because the same answer can be phrased many ways. Give a few variations so a good answer isn't marked wrong on wording alone.
+* *`correct_answer_document_ids`* names the source documents that actually contain the answer. This is what lets AutoRAG score *retrieval*, not just the final text.
+
+IMPORTANT: `correct_answer_document_ids` must use *base filenames only* (for example `policies.pdf`), never a folder path like `documents/policies.pdf`. This trips up a lot of first runs.
+
+== Building it without the busywork
+
+In earlier releases you had to download a template, fill it in offline, and re-upload it. OpenShift AI 3.5 adds an *inline evaluation-file creator*: you can type a question, its answer, and the source document straight into the UI (you'll see this in the demo). For a couple of test cases that's the quickest path; for a serious evaluation set you'll still want to prepare a fuller JSON file with many questions covering the range of things users will actually ask.
+
+== What's next
+
+With your documents and your answer key in place, AutoRAG has everything it needs to start experimenting. Next we'll look at the *search space* it explores on your behalf, and, just as importantly, how to read the scores it reports back.
+
+////
+Source: course_design.md LO#4; appendix Autorag35.md (§2 input data), autorag.md (§1 requirements), autorag-walkthrough.md (inline eval creator, upload).
+Corpus: PDF/DOCX/PPTX/MD/HTML/TXT; S3 or UI upload; 32 MiB/file UI limit, unlimited from S3; samples up to 1 GiB/run. No OCR on image-only PDFs in Tech Preview; table extraction only in Better Quality preset. Eval JSON: question / correct_answers (array) / correct_answer_document_ids (base filenames only). Inline evaluation-file creator new in 3.5.
+NOTE: autorag.md alternately calls the answer field `ideal_answer`; using `correct_answers` per Autorag35.md + course_design.md (confirm against live docs).
+Session type: Arcade / Video Demo: input prep clickthrough.
+////
