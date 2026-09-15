@@ -1,9 +1,8 @@
-name: REPLACEREPONAME
-title: Governing AI Data Workflows: AutoML and AutoRAG Strategies
+name: rhoai35-auto-series
+title: AutoML and AutoRAG Strategies
 version: 1
 nav:
 - modules/ROOT/nav.adoc
-- modules/LABENV/nav.adoc
 - modules/ch1-automl/nav.adoc
 - modules/ch2-governance/nav.adoc
 - modules/ch3-mlflow/nav.adoc

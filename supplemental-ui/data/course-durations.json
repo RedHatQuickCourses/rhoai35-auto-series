@@ -1,16 +1,11 @@
 {
-  "totalSeconds": 648,
-  "pageCount": 14,
+  "totalSeconds": 629,
+  "pageCount": 13,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
       "seconds": 128
-    },
-    {
-      "module": "LABENV",
-      "page": "index.adoc",
-      "seconds": 4
     },
     {
       "module": "ch1-automl",
@@ -65,7 +60,7 @@
     {
       "module": "ch5-review",
       "page": "s2-assessment-quiz.adoc",
-      "seconds": 56
+      "seconds": 41
     },
     {
       "module": "appendix",

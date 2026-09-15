@@ -10,17 +10,9 @@ Validate practitioner capability by diagnosing enterprise data scenarios and sel
 
 == Interactive Assessment
 
-////
-This is a graded, formative knowledge-check quiz embedded in Antora/AsciiDoc format for the Red Hat LMS, evaluating AutoML, MLflow, and AutoRAG competency.
-
-Use this to refer to a single-page HTML application 's2-assessment.html' stored in the '_attachments' directory of this chapter:
-
 ++++
-<iframe type="text/javascript" src='_attachments/s2-assessment.html' style="width: 768px; height: 732px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
+<iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
 ++++
-
-Else write questions and answers as nested lists below.
-////
 
 == What's Next
 
