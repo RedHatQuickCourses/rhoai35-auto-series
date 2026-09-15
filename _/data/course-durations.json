@@ -1,11 +1,11 @@
 {
-  "totalSeconds": 3590,
+  "totalSeconds": 3682,
   "pageCount": 20,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
-      "seconds": 128
+      "seconds": 137
     },
     {
       "module": "ch1-automl",
@@ -45,12 +45,12 @@
     {
       "module": "ch2-governance",
       "page": "s3-production-handoff.adoc",
-      "seconds": 125
+      "seconds": 140
     },
     {
       "module": "ch3-mlflow",
       "page": "index.adoc",
-      "seconds": 86
+      "seconds": 100
     },
     {
       "module": "ch3-mlflow",
@@ -85,7 +85,7 @@
     {
       "module": "ch4-autorag",
       "page": "s3-handoff.adoc",
-      "seconds": 166
+      "seconds": 194
     },
     {
       "module": "ch5-review",
@@ -95,7 +95,7 @@
     {
       "module": "ch5-review",
       "page": "s1-synthesis.adoc",
-      "seconds": 416
+      "seconds": 442
     },
     {
       "module": "ch5-review",
