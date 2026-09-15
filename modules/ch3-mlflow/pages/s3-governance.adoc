@@ -1,0 +1,49 @@
+:time_estimate: 9
+
+= Governance at Scale: Workspaces, Lineage, and Audit
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Explain how MLflow workspaces isolate and share prompts, and why the resulting audit lineage matters to the enterprise.
+
+Versioning a single prompt is a personal win. Governance is the *team* win: making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.
+
+== Workspaces: one per project
+
+MLflow organizes work into *workspaces*, and RHOAI maps them cleanly to something you already know: an OpenShift project namespace corresponds *1:1* to an MLflow workspace. Your project's experiments, runs, and registered prompts all live inside that boundary, and access is controlled by the same Kubernetes RBAC that governs the rest of the platform.
+
+NOTE: If "namespace" and "RBAC" are new terms, the short version is: a namespace is a walled-off area for one project's work, and RBAC is the rulebook for who's allowed in. You don't set this up yourself as a practitioner, you inherit the isolation your project already has.
+
+== Global registries: shared, vetted prompts
+
+Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as *global* prompt registries, granting other teams either read-only or edit access.
+
+The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.
+
+== Complete audit lineage
+
+This is the payoff that makes governance more than bookkeeping. For every inference, MLflow can log the exact prompt string, the input variables, the model ID, the generation settings, any evaluation scores, and the output that was produced. Nothing floats free.
+
+That lineage buys you three things practitioners and their organizations genuinely need:
+
+* *Reproducibility.* You can recreate any past result because you know precisely what produced it.
+* *Rollback.* When a production response regresses, you trace it to a specific prompt version and revert, exactly the alias move from the last section, now with the evidence to justify it.
+* *Compliance.* Risk and audit teams can prove which prompt, model, and parameters generated any historical response, which is often a hard requirement in regulated industries.
+
+== One platform for models and prompts
+
+Here's a detail that's easy to undervalue: this is the *same* MLflow that tracked your AutoML accuracy scores in chapter 2. The instance versioning your predictive models also versions your prompt templates and traces your LLM calls. Your team doesn't juggle one tool for predictive ML and a separate one for GenAI, it's one governed platform across both, which is a big part of why the discipline actually sticks.
+
+== Where this leaves you
+
+Step back and look at what you can now do. You can take raw tabular data all the way to a served predictive model (chapters 1 and 2), and you can take a raw idea for a prompt all the way to a versioned, governed, auditable instruction bound to a model (this chapter). Both halves of "connecting data to models" are now under proper control.
+
+But a well-governed prompt still only knows what the model already knows. The moment you need it grounded in *your* proprietary documents, prompt engineering hits a ceiling. That's rung 3 of the ladder, and it's where the next chapter picks up: *AutoRAG*, which automates the retrieval pipeline that feeds your governed prompts the right context.
+
+////
+Source: course_design.md LO#3; appendix "promptgovernance.md" (Workspaces & Global Registries, audit lineage, unified platform, escalation continuum).
+Workspaces: OCP namespace 1:1 MLflow workspace, Kubernetes RBAC isolation. Global registries: admin-designated namespaces (opendatahub.io/global-mlflow-workspace) with view/edit access = central vetted enterprise prompts. Audit lineage: logs prompt string, inputs, model ID, params, eval scores, output -> reproducibility, rollback, compliance. Same MLflow instance governs AutoML + GenAI. Leads into AutoRAG (rung 3).
+Session type: Presentation: MLflow workspace architecture.
+////

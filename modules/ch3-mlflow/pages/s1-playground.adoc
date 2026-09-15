@@ -1,37 +1,48 @@
-:time_estimate: 12
+:time_estimate: 10
 
-= Testing Prompts and Ending Prompt Drift
+= Testing Prompts in the GenAI Studio Playground
 
 _Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 
-Test generative prompts interactively and use MLflow registries to version prompt templates and generation settings.
+Use the Playground to test system instructions and generation settings, and understand what each knob actually does.
 
-WARNING: Not started yet.
+Before you version a prompt, you have to *find* a prompt worth keeping. That's what the Playground is for: a place to experiment with a language model in real time, watch how it responds, and turn knobs until the behavior is right, all before a single line of it touches your application code.
+
+In the RHOAI dashboard you'll find this under *GenAI Studio*. That menu item has two areas that work together: *Playground*, the interactive testing surface we cover here, and *Prompts*, the registry where good prompts go to be saved and versioned (that's the next section).
 
 == From numbers to text
 
-This section bridges tabular predictions to unstructured text generation, extending the data-to-value story from predictive models into generative AI.
+Quick reframe as you shift gears. With AutoML, you gave the model structured columns and it returned a structured prediction. With a language model, your "input" is *language itself*, the instructions and context you write, and the output is generated text. The quality of that output depends enormously on how you phrase the ask. So the Playground is where prompt *engineering* happens: small changes in wording and settings, big changes in behavior.
 
-== The GenAI Studio Playground
+== The knobs you'll actually turn
 
-Use the Playground to interactively test system instructions, context windows, and temperature settings, observing how each parameter changes model behavior before you commit to a configuration.
+The Playground lets you adjust a handful of settings interactively and see the effect immediately. The three you'll reach for most:
 
-== Prompts as code
+* *System instructions* set the model's standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). This is the single biggest lever on behavior.
+* *Temperature* controls randomness. Low values keep answers focused and repeatable; higher values make them more varied and creative.
+* *Top-p (nucleus sampling)* is a second dial on variety, limiting the model to the most probable words. It's often tuned alongside temperature rather than instead of it.
 
-Treat prompt templates and generation settings as versioned parameters rather than ad-hoc text. This mindset makes generative behavior reproducible and reviewable.
+You'll also keep an eye on the *context window*, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.
 
-== MLflow prompt governance
+TIP: First time touching these? Change *one* setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won't know which change fixed (or broke) the output. Treat it like tuning an instrument, not flipping every switch at once.
 
-Workspace and global prompt registries solve "prompt drift" — the silent divergence of prompts over time — and provide the auditability enterprises require for generative applications.
+== Comparing and tracing
 
-== What's Next
+The Playground isn't just a single chat box. Two capabilities make it a genuine evaluation tool:
 
-With prompts under version control, you are ready to ground generative models in your own data. The next chapter introduces AutoRAG, which automatically optimizes the retrieval pipeline that feeds those prompts.
+* *A/B comparison* puts two prompt versions, or two different foundation models, side by side so you can judge outputs directly instead of relying on memory of "what it said last time."
+* *Tracing* records the call tree behind a response (using OpenTelemetry under the hood), so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
+
+NOTE: The models you test against are the foundation models your platform serves (for example Llama, Granite, or Claude). A prompt that shines on one model may behave differently on another, which is exactly why comparing across models is built in.
+
+== What's next
+
+Once the Playground gives you a prompt that behaves the way you want, the worst thing you can do is leave it sitting in a browser tab. Next we'll treat that prompt the way you'd treat any other production asset: as versioned code.
 
 ////
-Numbers to Text: Bridging tabular predictions to unstructured text generation. GenAI Studio Playground: Testing system instructions, context windows, and temperature settings interactively. Prompts as Code: Treating prompt templates and generation settings as versioned parameters. MLflow Prompt Governance: Workspace and global prompt registries solving "prompt drift" and providing auditability
-
-Session type: Presentation: The Data-to-GenAI progression and MLflow workspace architecture. Arcade / Video Demo: Interactive walkthrough showing prompt testing in the Playground and registering a prompt template in MLflow.
+Source: course_design.md LO#3; appendix "promptgovernance.md" (GenAI Studio Playground) and "promptregistry.md".
+GenAI Studio menu item contains Playground + Prompts. Interactive testing: system instructions, temperature, top-p, context window. A/B comparison + OpenTelemetry tracing. Model-bound to served foundation models (Llama/Granite/Claude).
+Session type: Arcade / Video Demo: Interactive walkthrough of prompt testing in the Playground.
 ////

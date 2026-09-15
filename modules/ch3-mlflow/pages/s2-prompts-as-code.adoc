@@ -1,0 +1,54 @@
+:time_estimate: 11
+
+= Prompts as Code: The MLflow Prompt Registry
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Understand why prompts deserve version control, and how the MLflow Prompt Registry versions, aliases, and binds them to model settings.
+
+Let's name the problem this section solves. A prompt is not a throwaway string, it's a *parameter* that changes your application's behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer. That's prompt drift, and the fix is to give prompts the same discipline you already give models.
+
+That's what the *MLflow Prompt Registry* provides. In the dashboard it lives under *GenAI Studio -> Prompts*, and if you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
+
+== Versioning, the Git way
+
+Every time you register a change to a prompt, MLflow saves a new numbered version (v1, v2, v3...) with a commit message describing what changed, just like a Git history for your instructions. Two properties make this trustworthy:
+
+* *Versions are immutable.* Once v2 exists, it never silently changes. If you want to edit a prompt, you create v3. That guarantee is what makes a past result reproducible.
+* *You can compare versions side by side*, with the differences highlighted, so you can see exactly how the wording evolved between v1 and v2.
+
+== Aliases: pointing at "the good one"
+
+Here's the feature that keeps version numbers from leaking into your application code. An *alias* is a movable label that points at a specific version, for example a `production` alias pointing at v2, or the built-in `latest` alias that always tracks the newest version.
+
+Your application asks for the prompt *by alias*, not by number. So when you promote v3, you just move the `production` alias to v3 and every app picks it up, no code change, no redeploy. Need to undo a bad prompt? Move the alias back. That's a one-click rollback.
+
+TIP: New to this idea? Think of an alias like a "current" label on a shelf. The versioned bottles never change, but the label can be moved to whichever one is in service today. Your code always reaches for the label, never a specific bottle.
+
+== Prompts carry their settings with them
+
+A prompt is more than its words. The registry can store a *model configuration* alongside each prompt: the model name, temperature, max tokens, and the other generation settings you dialed in back in the Playground. That means the recipe travels with the prompt, so a teammate loading v2 gets not just the text but the exact settings it was tuned for.
+
+Prompts can also be *bound to a specific model provider and endpoint* (Llama, Granite, Claude, and so on). Because the application references the prompt rather than hardcoding a model, teams can swap the underlying model without rewriting prompt code.
+
+NOTE: Templates use `{{variable}}` placeholders, so a single registered prompt can be reused with different runtime values (a `{{question}}` or a `{{num_sentences}}` filled in at call time). You register the reusable *shape* of the prompt once, not a hundred near-identical copies.
+
+== See it in action
+
+The end-to-end registration flow, creating a prompt, committing a v2, comparing versions, and loading one back into the Playground, is best seen rather than read.
+
+// TODO: embed prompt-registration demo video here (place file in modules/ch3-mlflow/images/)
+
+A short walkthrough demo accompanies this section and steps through registering and versioning a prompt in the UI.
+
+== What's next
+
+You can now version a single prompt like code. The last piece is scale: how these registries are isolated per project, shared across the enterprise, and tied into a complete audit trail. That's governance, and it's next.
+
+////
+Source: course_design.md LO#3; appendix "promptregistry.md" and "promptgovernance.md".
+MLflow Prompt Registry under GenAI Studio -> Prompts. Git-style immutable versioning + commit messages + side-by-side diff. Aliases (production/latest) = mutable pointers for A/B and rollback without code change. model_config stored with prompt (model, temperature, max_tokens). Model-bound to providers (Llama/Granite/Claude). {{variable}} templates. Registration steps deferred to demo/video per user.
+Session type: Video Demo: registering a prompt template in MLflow.
+////
