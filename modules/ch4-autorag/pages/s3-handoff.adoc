@@ -1,8 +1,4 @@
-:time_estimate: 9
-
 = Inspecting the Winner and Shipping It
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

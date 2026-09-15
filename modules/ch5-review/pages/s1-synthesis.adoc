@@ -1,26 +1,142 @@
-:time_estimate: 12
-
 = Connecting Data to Models: The End-to-End Workflow
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 
 Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.
 
-WARNING: Not started yet.
+Individually, each capability in this course solves one problem. Together they solve a business process. The clearest way to see that is to follow a single decision from raw data all the way to a human making a call, so let's walk a loan desk.
 
-== End-to-end workflow synergy
+== The end-to-end workflow: a loan desk
 
-The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer's decision loop, showing predictive and generative AI working together.
+Picture a loan officer reviewing an application. Two very different questions have to be answered before they decide, and each maps to a capability you already know.
+
+*Question one: how risky is this applicant?* That's a prediction over structured, tabular data, credit score, income, loan amount, history. This is textbook *AutoML*. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an *AutoGluon ServingRuntime* on KServe, and now a risk score comes back from a REST call in microseconds. That's chapters 1 and 2, start to finish.
+
+*Question two: why that score, and what does our policy say to do about it?* A number alone won't satisfy a loan officer or a compliance reviewer. Someone needs a written credit memo: "This applicant scored in the elevated-risk band; per section 4 of our lending policy, elevated-risk applications above $250k require a secondary review." That's unstructured text grounded in *your* documents, which is exactly *AutoRAG*. It retrieves the relevant policy chunks and drafts the memo, grounded in real company policy rather than whatever the base model happened to memorize.
+
+And underneath both, quietly, is *MLflow*. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3. When audit season comes, you can prove exactly which prompt version wrote which memo.
+
+[source]
+----
+                    ┌─────────────────────┐
+   Applicant  ───►  │  AutoML risk model  │  ───►  risk score (0.87)
+   tabular data     │  (KServe endpoint)  │              │
+                    └─────────────────────┘              │
+                                                         ▼
+   Company policy   ┌─────────────────────┐     ┌─────────────────────┐
+   documents   ───► │  AutoRAG retrieval  │ ──► │  Credit memo draft  │ ──► Loan officer
+                    │  + grounded LLM     │     │  (grounded in policy)│      decides
+                    └─────────────────────┘     └─────────────────────┘
+                              ▲
+                    MLflow Prompt Registry
+                    (versioned system instruction)
+----
+
+Notice what the human still does: they *decide*. AutoML gave them a fast, defensible score. AutoRAG gave them a grounded explanation and the relevant policy in plain language. The platform did the tedious parts so the officer could spend their judgment where it matters. That's the whole "Connecting Data to Models" thesis in one picture: predictive AI for the numbers, generative AI for the language, governance holding both accountable.
 
 == Diagnostic decision logic
 
-Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.
+Building the workflow is one skill. Knowing what to do when a metric looks wrong is the other, and it's the one that separates someone who *ran* AutoML and AutoRAG from someone who can *operate* them.
+
+You already have both halves of this. From chapter 2, the AutoML report card: don't trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn't leaning on something it shouldn't. From chapter 4, the AutoRAG metric triad and its combinations. The single most useful diagnostic to keep in your head:
+
+* *High Faithfulness + Low Correctness* means the model answered honestly from what it retrieved, but retrieval handed it the wrong context. The fix lives in *retrieval*, chunking or the evaluation set, not in the model.
+* *High Correctness + Low Faithfulness* means the answer was right but the model pulled it from memory, not your documents. It got lucky, and luck doesn't survive contact with unseen questions.
+
+The habit worth building: when a result looks off, ask *which stage* is failing before you start changing knobs. A low score is a symptom; the metric combination is the diagnosis.
 
 == When "Auto" is enough
 
-Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.
+Here's a question the marketing rarely answers honestly: when do you *stop*? Automation is powerful, but it isn't the answer to every problem, and knowing its edges is a mark of competence, not doubt.
+
+Stay with the automated capabilities when:
+
+* Your problem is predictable from structured, tabular data. *AutoML* almost certainly beats a hand-built baseline, and faster.
+* Your GenAI app needs *your* facts, and a good grounded answer is enough. *AutoRAG* plus a governed prompt handles a huge share of enterprise use cases without touching model weights.
+* The base model already has the *skill* you need (summarizing, extracting, answering) and just lacks your *knowledge*. Grounding solves a knowledge gap; it can't teach a skill.
+
+Consider escalating beyond automation when:
+
+* The model needs to reliably *behave* a certain way, a specialized tone, a strict output format, a domain vocabulary it keeps getting wrong, that no amount of prompting or retrieved context fixes. That's a *skill* gap, and it points toward fine-tuning a smaller, specialized model.
+* You've genuinely exhausted prompt governance and retrieval quality and the failures persist.
+
+NOTE: That escalation, fine-tuning small language models for behavior you can't prompt or retrieve your way to, is the subject of *Course 2* in this series. The goal of *this* course is to make sure you don't reach for that heavier, more expensive tool until you actually need it. Most of the time, "Auto" really is enough.
+
+== The cheat sheet: Connecting Data to Models
+
+Keep this near your desk. It's the one-page distillation of the whole course: match the data to the capability, then match the symptom to the fix. There's a printable one-pager you can download and keep, and the tables below preview what's on it.
+
+++++
+<a href="_attachments/connecting-data-to-models-cheat-sheet.pdf" download style="display:inline-block; background-color:#ee0000; color:#fff; font-family:'Red Hat Display',sans-serif; font-weight:700; text-decoration:none; padding:0.8em 1.5em; border-radius:8px;">⬇ Download the one-page cheat sheet (PDF)</a>
+++++
+
+.Which capability fits the problem?
+[cols="2,2,3",options="header"]
+|===
+| If your input is... | And you need to... | Reach for...
+
+| Structured / tabular data (CSV, database)
+| Predict a Yes/No, a category, a number, or a future trend
+| *AutoML* (binary, multiclass, regression, or time-series task)
+
+| A prompt that keeps drifting across app versions
+| Version, track, and audit prompts and generation settings
+| *MLflow Prompt Registry* (chapter 3)
+
+| A GenAI app that must answer from *your* documents
+| Ground answers in a private corpus without training a model
+| *AutoRAG* (retrieval pattern + Responses API)
+
+| A model that won't *behave* right no matter the prompt or context
+| Change the model's skill, tone, or format
+| *SLM fine-tuning* (Course 2), the escalation beyond "Auto"
+|===
+
+.Pick the AutoML task type
+[cols="2,2,2",options="header"]
+|===
+| The target is... | Task type | Default metric
+
+| Two outcomes (Fraud / Not fraud)
+| Binary classification
+| Accuracy (watch it on imbalanced data)
+
+| Three or more categories (a "menu")
+| Multiclass classification
+| Accuracy
+
+| A continuous number ("how much?")
+| Regression
+| R²
+
+| A number over time ("next quarter")
+| Time-series forecasting
+| MASE
+|===
+
+.Diagnose the AutoRAG metric triad
+[cols="2,3,2",options="header"]
+|===
+| The pattern shows... | Which means... | Look at...
+
+| High Faithfulness + Low Correctness
+| Answered honestly, but retrieval fetched the wrong context
+| Chunking strategy, evaluation dataset
+
+| High Correctness + Low Faithfulness
+| Right answer, but from model memory, not your docs (hallucination risk)
+| Grounding; distrust it on unseen questions
+
+| Low Context Correctness + High Answer Correctness
+| A strong model masked weak retrieval (fragile)
+| Retrieval quality before it breaks in production
+
+| All three solid and balanced
+| Trustworthy pattern
+| Ship it (consistency beats a lucky headline score)
+|===
+
+TIP: The downloadable PDF above expands each of these into a fuller reference, including business-problem cues, key decision trade-offs, the generated artifacts for every capability, and the full diagnostic-to-remediation matrix. Grab it and keep it handy.
 
 == What's Next
 
@@ -29,5 +145,6 @@ With the full workflow and decision logic in view, the final section is a scenar
 ////
 End-to-End Workflow Synergy: Combining AutoML risk scores + AutoRAG credit memos into a live loan officer workflow. Diagnostic Decision Logic: Analyzing metric combinations (e.g., High Faithfulness + Low Correctness = missing document context) When "Auto" is Enough: Establishing decision gates before escalating to SLM fine-tuning (Course 2).
 
-Session type (presentation portion): Presentation: "Connecting Data to Models" End-to-End Synthesis Deck & Solution Decision Tree. Reference Asset: One-page downloadable "Connecting Data to Models" Decision & Metric Matrix cheat sheet.
+Source: course_design.md LO#5. Ties back to ch1 task types, ch2 report card (Accuracy on imbalanced data, feature importance, confusion matrix/ROC-PR), ch3 MLflow prompt registry, ch4 metric triad + diagnostic combinations.
+Session type (presentation portion): Presentation: "Connecting Data to Models" End-to-End Synthesis Deck & Solution Decision Tree. Reference Asset: One-page downloadable "Connecting Data to Models" Decision & Metric Matrix cheat sheet, delivered as modules/ch5-review/attachments/connecting-data-to-models-cheat-sheet.pdf (styled download button via passthrough; on-page tables are a preview). PDF is the richer/authoritative version (3 sections: AutoML foundations, GenAI/MLflow/AutoRAG, diagnostic decision matrix). Can also be registered as an LMS downloadable resource.
 ////

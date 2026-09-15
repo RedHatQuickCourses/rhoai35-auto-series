@@ -1,8 +1,4 @@
-:time_estimate: 15
-
 = Quiz: Diagnosing Scenarios and Selecting AI Patterns
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 
@@ -10,13 +6,17 @@ Validate practitioner capability by diagnosing enterprise data scenarios and sel
 
 == Interactive Assessment
 
+Time to put it together. The 15 questions below are scenario-based: each one drops you into a situation, a CIO asking why AutoML matters, a banking team picking a task type, a RAG run with a suspicious metric combination, and asks you to make the right call. Pick an answer to see immediately whether it's right and *why*; the explanations are part of the learning, so read them even when you're sure.
+
+You need *80% or higher* to pass. If you don't clear it the first time, revisit the relevant chapter and the cheat sheet in the previous section, then restart. There's no penalty for trying again.
+
 ++++
 <iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
 ++++
 
 == What's Next
 
-Congratulations — you have completed *Governing AI Data Workflows: AutoML and AutoRAG Strategies*. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.
+Congratulations, you have completed *Governing AI Data Workflows: AutoML and AutoRAG Strategies*. You can now strategically evaluate use cases and apply AutoML and AutoRAG in Red Hat OpenShift AI 3.5+ to drive measurable business value. This course is the first entry in the "Connecting Data to Models and Agents" series; Course 2 continues into SLM fine-tuning for scenarios where automation alone is not enough.
 
 ////
 Graded Validation: Scenario-based quiz

@@ -1,8 +1,4 @@
-:time_estimate: 10
-
 = Testing Prompts in the GenAI Studio Playground
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

@@ -1,8 +1,4 @@
-:time_estimate: 10
-
 = Where Predictive AI Fits (and Where It Doesn't)
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

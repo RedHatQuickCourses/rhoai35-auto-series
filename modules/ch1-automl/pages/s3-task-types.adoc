@@ -1,8 +1,4 @@
-:time_estimate: 10
-
 = The Four Prediction Task Types
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

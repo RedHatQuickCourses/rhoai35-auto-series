@@ -1,8 +1,4 @@
-:time_estimate: 11
-
 = Prompts as Code: The MLflow Prompt Registry
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 
@@ -33,7 +29,7 @@ A prompt is more than its words. The registry can store a *model configuration* 
 
 Prompts can also be *bound to a specific model provider and endpoint* (Llama, Granite, Claude, and so on). Because the application references the prompt rather than hardcoding a model, teams can swap the underlying model without rewriting prompt code.
 
-NOTE: Templates use `{{variable}}` placeholders, so a single registered prompt can be reused with different runtime values (a `{{question}}` or a `{{num_sentences}}` filled in at call time). You register the reusable *shape* of the prompt once, not a hundred near-identical copies.
+NOTE: Templates use `+{{variable}}+` placeholders, so a single registered prompt can be reused with different runtime values (a `+{{question}}+` or a `+{{num_sentences}}+` filled in at call time). You register the reusable *shape* of the prompt once, not a hundred near-identical copies.
 
 == See it in action
 

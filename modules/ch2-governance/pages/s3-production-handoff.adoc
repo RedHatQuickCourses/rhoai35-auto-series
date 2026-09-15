@@ -1,8 +1,4 @@
-:time_estimate: 8
-
 = From Winner to Endpoint: The Production Handoff
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

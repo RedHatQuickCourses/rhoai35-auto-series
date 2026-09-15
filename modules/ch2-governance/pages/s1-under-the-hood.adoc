@@ -1,8 +1,4 @@
-:time_estimate: 8
-
 = Under the Hood: How AutoML Builds Its Models
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

@@ -1,8 +1,4 @@
-:time_estimate: 8
-
 = Why AutoML? The Business Case
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 

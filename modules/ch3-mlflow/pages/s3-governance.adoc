@@ -1,8 +1,4 @@
-:time_estimate: 9
-
 = Governance at Scale: Workspaces, Lineage, and Audit
-
-_Estimated reading time: *{time_estimate} minutes*._
 
 Objective::
 
