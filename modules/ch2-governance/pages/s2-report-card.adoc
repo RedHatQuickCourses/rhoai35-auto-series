@@ -1,0 +1,61 @@
+:time_estimate: 12
+
+= Reading the Report Card
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Interpret the leaderboard and evaluation artifacts to validate a model's business logic before promoting it.
+
+When a run finishes, RHOAI gathers everything the pipeline produced and lays it out in the dashboard as a set of connected views. Together they're the model's *report card*. Your job here isn't to admire the top score, it's to ask each artifact a question and make sure the answers hang together before you trust the model with a real decision.
+
+Let's walk them in the order you'll naturally use them.
+
+== The leaderboard: who's in the running
+
+The leaderboard is your starting point. It lists every candidate model AutoML trained, ranked by the primary optimization metric for your task (the Accuracy, R^2^, or MASE you met in chapter 1). But don't stop at the ranking column. It also shows *secondary metrics*, *fit times*, and *inference latencies*, and those extra columns often decide the real winner.
+
+NOTE: The top model isn't automatically the right one to ship. If the number-one model scores a hair higher but takes ten times longer to return a prediction, a slightly lower-ranked model with microsecond latency may be the smarter production choice. Read across the row, not just down the rank.
+
+== Feature importance: is it learning the right thing?
+
+This is the artifact that separates "the model scored well" from "the model is trustworthy." *Feature importance* works by shuffling each column's values and measuring how much the model's performance drops, which tells you how much the model actually leans on that input.
+
+Use it to answer three questions:
+
+* *Does this match reality?* If a churn model's top signals are "months since last login" and "support tickets opened," that lines up with business intuition. Good sign.
+* *Is there anything suspicious?* A single feature that dominates everything else is a classic red flag for *data leakage*, where a column accidentally encodes the answer (for example, a "cancellation_date" field sneaking into a churn model). The model looks brilliant in testing and falls apart in production.
+* *Can I explain this to a stakeholder?* Feature importance is how you turn a model into a story a business owner will actually believe.
+
+TIP: New to this? Make feature importance the *first* thing you look at after the score, not the last. Catching a leaked column here saves you from deploying a model that's secretly cheating.
+
+== Confusion matrix: where classification goes wrong
+
+For binary and multiclass models, the *confusion matrix* lays out actual versus predicted classes in a grid: true positives, false positives, false negatives, and true negatives. It moves you past a single accuracy number and shows you *which* mistakes the model makes.
+
+That distinction is often a business decision in disguise. In fraud detection, a false negative (missing real fraud) usually costs far more than a false positive (flagging a legitimate charge for review). The matrix lets you see that trade-off in black and white instead of hoping the headline accuracy has it covered.
+
+== ROC and PR curves: tuning the trade-off
+
+The *ROC (Receiver Operating Characteristic)* and *Precision-Recall* curves visualize how the model separates classes across every possible *decision threshold*, not just the default cutoff. This is where you calibrate the model to the business.
+
+Turn the fraud model's sensitivity up and you catch more fraud but annoy more legitimate customers with reviews; turn it down and the reverse. These curves are the dial, and they let you pick the operating point that matches what your organization actually cares about.
+
+== Time series backtesting: does it hold up over time?
+
+For forecasting models there's no single test set, because time only runs one direction. Instead, RHOAI does *rolling backtesting*: it walks the model forward through successive validation windows and charts how the forecast error behaves. You can compare predicted versus observed values in the best and worst windows, which quickly reveals whether a model is reliably useful or just got lucky in one quarter.
+
+== Putting it together
+
+None of these views is decisive on its own. A model earns promotion when the story is consistent: a strong leaderboard metric, feature importance that matches reality with no leakage, an error profile you can live with, and, for forecasts, stable behavior across backtests. Read them together and you're validating *business logic*, not just chasing a score.
+
+== What's next
+
+You've validated a model you believe in. Now let's move it out of the dashboard and into production, along the paved path from a finished run to a live serving endpoint.
+
+////
+Source: course_design.md LO#2; appendix "Mastering AutoML in RHOAI" section 6 (artifacts 1-5).
+Interactive Leaderboard: candidates ranked by primary metric plus secondary metrics, fit times, inference latencies. Feature Importance: permutation-based; verify explainability, validate business logic, detect data leakage. Confusion Matrix: TP/FP/FN/TN. ROC & PR curves: separation and precision/recall trade-offs across thresholds; calibrate business rules. Time Series Backtesting: rolling validation windows, predicted vs observed best/worst.
+Session type: Arcade / Video Demo: Interactive clickthrough of a completed run (e.g., Titanic dataset), reviewing the report card.
+////

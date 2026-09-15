@@ -1,0 +1,82 @@
+:time_estimate: 10
+
+= The Four Prediction Task Types
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Match any predictive business problem to one of the four AutoML task types and its default optimization metric.
+
+Here's the good news: no matter how complicated the business problem sounds, every predictive question you'll ever hand to AutoML boils down to one of just *four* task types. Learn to spot which one you're looking at and you're most of the way there.
+
+Even better, you often don't have to decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and *recommends* a task type and a sensible default metric. Think of it as the Sorting Hat whispering a suggestion, but you should understand the four houses well enough to know when it's right.
+
+== Start by reading your data, not the problem statement
+
+If this is your first time driving one of these tools, here's the habit to build early: don't start from how the business *describes* the problem, start from what your data actually looks like. The stakeholder might say "I want to know who's going to leave us," but the platform doesn't see intentions, it sees columns. So the very first thing you do is open your CSV and look hard at *one* column: the *target*, the value you want the model to predict for new rows.
+
+Two quick questions answer almost everything:
+
+. *What kind of value lives in the target column?* Is it a handful of labels, or a number that can slide up and down a scale?
+. *Is time part of the story?* Is each row anchored to a date or timestamp, with something identifying which sequence it belongs to?
+
+Answer those and the task type falls out on its own. That's the skill this section builds, so that when the dashboard recommends a task type, you can confirm it rather than take it on faith.
+
+== The quick decision tree
+
+The clue is almost always in your *target column*, the thing you're trying to predict:
+
+[source]
+----
+Raw CSV Data
+│
+├── Target has 2 unique values ─────────► Binary Classification    ("Yes / No?")
+├── Target has 3+ text categories ──────► Multiclass Classification ("Pick 1 from a menu")
+├── Target is continuous numbers ───────► Regression               ("How much?")
+└── Target tied to Timestamp + ID ──────► Time Series Forecasting  ("What's next over time?")
+----
+
+Let's take them one at a time.
+
+== 1. Binary classification: "Yes or No?"
+
+The workhorse of enterprise ML. Your target column has exactly *two* values, 0/1, True/False, Churn/No-Churn.
+
+* *Data cue:* two unique values in the target.
+* *You'll see it in:* customer churn prevention, fraud detection, credit-risk approval.
+* *Default metric:* *Accuracy*, but switch to *ROC-AUC* or *F1* when the classes are lopsided. On a dataset that's 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone will lie to you.
+
+== 2. Multiclass classification: "Pick 1 from a menu"
+
+Same idea as binary, but now there are three or more categories to choose from.
+
+* *Data cue:* three or more distinct text labels in the target.
+* *You'll see it in:* support-ticket routing, customer segmentation, classifying *which type* of equipment failure occurred.
+* *Default metric:* *Accuracy*.
+
+== 3. Regression: "How much?"
+
+When the answer isn't a category at all but a number on a continuous scale.
+
+* *Data cue:* the target holds continuous numeric values, with no time component.
+* *You'll see it in:* price estimation, predicting a patient's medical charges, estimating how long an operation will take.
+* *Default metric:* *R^2^ (R-squared)*, the share of variance the model explains, on a 0.0-to-1.0 scale. Closer to 1.0 is better.
+
+== 4. Time series forecasting: "What's next over time?"
+
+Regression's time-aware cousin. You're not just predicting a number, you're predicting it *forward*, respecting the order of events.
+
+* *Data cue:* the dataset has a *timestamp* column, an *ID* column identifying each sequence (say, each store or product), and a numeric *target*.
+* *You'll see it in:* retail inventory demand, quarterly sales projections, capacity planning.
+* *Default metric:* *MASE (Mean Absolute Scaled Error)*, it grades the forecast against a naive "tomorrow looks like today" baseline, so you can tell whether the model is genuinely adding value or just going through the motions.
+
+== What's next
+
+You can now hear a business problem, glance at the target column, and name the task type and the metric that matters, the core reflex of a predictive practitioner. In the next chapter we'll open the hood: how AutoML actually builds and stacks these models under the covers, and how to read the evaluation "report card" before you promote a winner into production.
+
+////
+Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" section 4.
+Prediction Task Types: Binary ("Yes/No"), Multiclass ("Menu"), Regression ("How much?"), Time Series ("Next over time"). Default metrics: Accuracy (Binary/Multiclass; ROC-AUC/F1 for imbalance), R^2 (Regression), MASE (Time Series).
+Session type: Arcade Experience: Interactive task selection clickthrough.
+////

@@ -8,4 +8,4 @@ nav:
 - modules/ch3-mlflow/nav.adoc
 - modules/ch4-autorag/nav.adoc
 - modules/ch5-review/nav.adoc
-- modules/appendix/nav.adoc
+#- modules/appendix/nav.adoc

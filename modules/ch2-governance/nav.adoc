@@ -1,2 +1,4 @@
 * xref:index.adoc[]
-** xref:s1-evaluation.adoc[]
+** xref:s1-under-the-hood.adoc[]
+** xref:s2-report-card.adoc[]
+** xref:s3-production-handoff.adoc[]

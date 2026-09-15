@@ -1,2 +1,4 @@
 * xref:index.adoc[]
-** xref:s1-task-types.adoc[]
+** xref:s1-why-automl.adoc[]
+** xref:s2-predictive-vs-llms.adoc[]
+** xref:s3-task-types.adoc[]

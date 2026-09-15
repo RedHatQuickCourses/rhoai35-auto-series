@@ -53,11 +53,3 @@ npm run serve        # serves build/site (see the printed URL)
 
 Generate a PDF with `npm run generate-pdf`.
 
-## Development
-
-- [Getting started with the training template](#getting-started-with-a-new-training-content-repository) (below)
-- [Development using devspace](./DEVSPACE.md)
-- [Guideline for editing your content](./USAGEGUIDE.adoc)
-
----
-

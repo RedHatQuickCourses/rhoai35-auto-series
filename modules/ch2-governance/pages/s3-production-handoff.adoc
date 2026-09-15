@@ -1,0 +1,59 @@
+:time_estimate: 8
+
+= From Winner to Endpoint: The Production Handoff
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Follow the repeatable path that promotes a validated model from a completed run to a live serving endpoint.
+
+Remember "PoC death" from chapter 1, the model that works beautifully and then never leaves the notebook? This is the section that prevents it. Once you've picked a model you trust, RHOAI gives you a short, repeatable path to get it serving real traffic, and none of it requires cluster-admin skills.
+
+There are three exits from a completed run, and you'll use them for different reasons.
+
+== Export the notebook (for the tinkerers)
+
+Click *Save notebook* and AutoML generates a Python Jupyter notebook with the code already written to connect to your S3 storage, load the trained predictor, and run batch scoring or your own custom validation.
+
+Reach for this when you want to poke at the model yourself, score a big batch of records offline, or hand a data scientist a running start. It's the "show me the code" door.
+
+== Register the model (for governance)
+
+*Register* promotes the winning model version straight into the *RHOAI Model Registry*. Think of the registry as the system of record for your models: it versions them, keeps their metadata, and gives your team one trusted place to answer "which model is this, and where did it come from?"
+
+TIP: First time shipping a model? Register it even if you're eager to deploy. The registry is what makes a model *governable*, versioned, discoverable, and auditable, rather than a mystery file someone deployed one afternoon.
+
+== Deploy to a serving endpoint (for production)
+
+This is the one that turns a file into a service. RHOAI deploys the model using the *AutoGluon ServingRuntime for KServe*, which instantly stands up a scalable REST API. Your application then gets predictions by POSTing to a standard endpoint:
+
+[source]
+----
+/v2/models/<model-name>/infer
+----
+
+That's a *KServe v2* inference endpoint. Any service that can make an HTTP request, your web app, a batch job, another microservice, can now get live predictions without knowing a thing about how the model was built.
+
+NOTE: If terms like KServe and "serving runtime" are new, here's the short version: KServe is the piece of OpenShift AI that runs your model as a web service and scales it for you. The AutoGluon ServingRuntime is a prebuilt engine that already knows how to load and serve AutoML models, so you don't assemble any of that plumbing yourself.
+
+== The full arc
+
+Step back and look at the path you've traced across two chapters:
+
+[source]
+----
+Raw CSV (S3) ──► AutoML Run ──► Leaderboard ──► Evaluation Report Card ──► Registry ──► KServe REST Endpoint
+----
+
+Raw data went in one end, and a governed, validated, production-ready prediction service came out the other, in hours rather than months, and without you touching a cluster.
+
+== What's next
+
+You can now take predictive, tabular data all the way from a CSV to a served model. In the next chapter we shift from numbers to *text*: an introduction to generative AI in the GenAI Playground, and using MLflow to version and govern prompts the same disciplined way you just governed models.
+
+////
+Source: course_design.md LO#2; appendix "Mastering AutoML in RHOAI" section 6 (artifacts 6-7, production handoff).
+Auto-generated Jupyter notebook (Save notebook): connect to S3, load predictor, batch scoring/validation. Register: promote winning version to RHOAI Model Registry. Deploy: AutoGluon ServingRuntime for KServe, exposes /v2/models/<name>/infer (KServe v2 REST).
+Session type: Arcade / Video Demo: deploying to KServe.
+////

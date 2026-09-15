@@ -1,0 +1,73 @@
+:time_estimate: 10
+
+= Where Predictive AI Fits (and Where It Doesn't)
+
+_Estimated reading time: *{time_estimate} minutes*._
+
+Objective::
+
+Position predictive models against LLMs on cost and behavior, and qualify whether a dataset is a good fit for AutoML.
+
+Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are genuinely transformational. But there's a trap hiding in all that excitement: reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.
+
+So before we go further, let's get honest about where predictive AI actually shines.
+
+== Predictive models vs. LLMs
+
+The easiest way to see it is side by side. Same job description, two very different employees:
+
+[cols="1,2,2",options="header"]
+|===
+| Dimension | Predictive Models (AutoML / Tabular) | Large Language Models (LLMs)
+
+| *Primary scope*
+| Narrow, single-task structured decisions (churn, fraud, pricing)
+| Broad, open-domain reasoning and text generation
+
+| *Input structure*
+| Low-dimensional structured tabular data (10–100+ features)
+| High-dimensional unstructured text across billions of tokens
+
+| *Artifact size*
+| Kilobytes to megabytes (lightweight trees / ensembles)
+| Tens to hundreds of gigabytes (billions of parameters)
+
+| *Hardware*
+| Lightweight CPU infrastructure, no specialized GPUs
+| High-VRAM GPU clusters
+
+| *Latency*
+| Microsecond inference for high-throughput systems
+| Second-level response times
+
+| *Auditability*
+| Deterministic logic with clear feature importance
+| Probabilistic reasoning needing guardrail evaluation
+|===
+
+The takeaway is worth saying plainly: *predictive models are cheap, fast, and deterministic.* They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for *why*. When the question is "will this transaction be fraud?" you don't need a model that can also write poetry. You need one that's right, fast, and explainable.
+
+== Is your data even a candidate?
+
+AutoML is powerful, but it's not magic, it expects a certain shape of data. Before you kick off a run, check that your dataset qualifies:
+
+* *Tabular structure.* Rows are entities, columns are attributes, stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.
+* *A clear target label.* One column holds the ground-truth answer you want to predict for new data.
+* *Feature diversity.* A healthy mix of numeric and categorical columns, that's where AutoML's automatic type inference, missing-value imputation, and encoding earn their keep.
+* *Enough volume.* At least 500–1,000 rows to prototype, and 10,000+ is typical for a serious enterprise evaluation.
+
+== When AutoML is *not* the tool
+
+Just as important is knowing when to put it down and reach for something else:
+
+* *Unstructured media*, images, audio, video. Those need specialized deep-learning pipelines.
+* *Open-ended text generation*, chatbots, document synthesis, summarization. That's the world of LLMs and AutoRAG, which we'll get to later in the course.
+* *Custom domain edge cases*, problems that hinge on hand-crafted business rules a model can't infer from the raw table.
+
+Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone. Now that you can spot a good fit, let's look at the four flavors of prediction it can actually do.
+
+////
+Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" sections 2 and 3.
+Sizing Economics: Microsecond CPU models (KB/MB) vs. GPU LLMs. Data qualification: tabular CSV, clear target, feature diversity, volume. When NOT to use: unstructured media, open-ended text, custom edge cases.
+Session type: Video Asset: Sizing & infrastructure economics explainer.
+////

@@ -4,6 +4,10 @@ Goal::
 
 Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
 
-WARNING: Not started yet.
+Here's a story you've probably lived through, or at least watched from the next desk over.
 
-This chapter introduces AutoML as the fastest path from raw data to ranked predictive models, and helps you recognize which prediction task type fits each business problem.
+A team gets handed a business problem, predict which customers are about to churn, flag the fraudulent transactions, forecast next quarter's demand. Someone spins up a notebook. Weeks go by cleaning the data. More weeks testing algorithms, tuning hyperparameters, arguing about which metric matters. Three, maybe six months later there's a model that works beautifully... on a laptop. And then it quietly dies there, because nobody ever built the path from "notebook that works" to "endpoint that serves." We even have a name for it: *PoC death*.
+
+AutoML in Red Hat OpenShift AI 3.5+ is the answer to that story. It takes the raw tabular data you already have sitting in S3, automates the tedious middle, data prep, feature engineering, algorithm selection, ensembling, and hands you back a ranked leaderboard of production-ready candidate models. Not in months. In hours.
+
+This chapter is about the *foundations*: why this matters to the business, where predictive AI fits alongside the LLMs everyone's talking about, how to tell whether your data is even a good fit, and how to match any business problem to the right kind of prediction. By the end you won't be running models yet, that comes later, but you'll know exactly when AutoML is the right tool to reach for, and why.
