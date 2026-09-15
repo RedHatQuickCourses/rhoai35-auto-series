@@ -1,11 +1,11 @@
 {
-  "totalSeconds": 3673,
+  "totalSeconds": 3682,
   "pageCount": 20,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
-      "seconds": 128
+      "seconds": 137
     },
     {
       "module": "ch1-automl",
