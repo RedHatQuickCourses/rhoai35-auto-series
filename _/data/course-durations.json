@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3168,
+  "totalSeconds": 3590,
   "pageCount": 20,
   "pages": [
     {
@@ -15,17 +15,17 @@
     {
       "module": "ch1-automl",
       "page": "s1-why-automl.adoc",
-      "seconds": 160
+      "seconds": 158
     },
     {
       "module": "ch1-automl",
       "page": "s2-predictive-vs-llms.adoc",
-      "seconds": 172
+      "seconds": 170
     },
     {
       "module": "ch1-automl",
       "page": "s3-task-types.adoc",
-      "seconds": 219
+      "seconds": 217
     },
     {
       "module": "ch2-governance",
@@ -35,17 +35,17 @@
     {
       "module": "ch2-governance",
       "page": "s1-under-the-hood.adoc",
-      "seconds": 136
+      "seconds": 134
     },
     {
       "module": "ch2-governance",
       "page": "s2-report-card.adoc",
-      "seconds": 241
+      "seconds": 239
     },
     {
       "module": "ch2-governance",
       "page": "s3-production-handoff.adoc",
-      "seconds": 127
+      "seconds": 125
     },
     {
       "module": "ch3-mlflow",
@@ -55,17 +55,17 @@
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 183
+      "seconds": 181
     },
     {
       "module": "ch3-mlflow",
       "page": "s2-prompts-as-code.adoc",
-      "seconds": 202
+      "seconds": 200
     },
     {
       "module": "ch3-mlflow",
       "page": "s3-governance.adoc",
-      "seconds": 193
+      "seconds": 191
     },
     {
       "module": "ch4-autorag",
@@ -75,32 +75,32 @@
     {
       "module": "ch4-autorag",
       "page": "s1-inputs.adoc",
-      "seconds": 191
+      "seconds": 189
     },
     {
       "module": "ch4-autorag",
       "page": "s2-search-space.adoc",
-      "seconds": 225
+      "seconds": 223
     },
     {
       "module": "ch4-autorag",
       "page": "s3-handoff.adoc",
-      "seconds": 168
+      "seconds": 166
     },
     {
       "module": "ch5-review",
       "page": "index.adoc",
-      "seconds": 15
+      "seconds": 83
     },
     {
       "module": "ch5-review",
       "page": "s1-synthesis.adoc",
-      "seconds": 68
+      "seconds": 416
     },
     {
       "module": "ch5-review",
       "page": "s2-assessment-quiz.adoc",
-      "seconds": 41
+      "seconds": 71
     }
   ]
 }

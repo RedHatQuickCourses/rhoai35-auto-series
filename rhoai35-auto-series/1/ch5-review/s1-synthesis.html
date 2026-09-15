@@ -187,9 +187,6 @@
 <h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
-</div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
@@ -198,25 +195,44 @@
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Not started yet.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Individually, each capability in this course solves one problem. Together they solve a business process. The clearest way to see that is to follow a single decision from raw data all the way to a human making a call, so let&#8217;s walk a loan desk.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_the_end_to_end_workflow_a_loan_desk"><a class="anchor" href="#_the_end_to_end_workflow_a_loan_desk"></a>The end-to-end workflow: a loan desk</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>Picture a loan officer reviewing an application. Two very different questions have to be answered before they decide, and each maps to a capability you already know.</p>
+</div>
+<div class="paragraph">
+<p><strong>Question one: how risky is this applicant?</strong> That&#8217;s a prediction over structured, tabular data, credit score, income, loan amount, history. This is textbook <strong>AutoML</strong>. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an <strong>AutoGluon ServingRuntime</strong> on KServe, and now a risk score comes back from a REST call in microseconds. That&#8217;s chapters 1 and 2, start to finish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Question two: why that score, and what does our policy say to do about it?</strong> A number alone won&#8217;t satisfy a loan officer or a compliance reviewer. Someone needs a written credit memo: "This applicant scored in the elevated-risk band; per section 4 of our lending policy, elevated-risk applications above $250k require a secondary review." That&#8217;s unstructured text grounded in <strong>your</strong> documents, which is exactly <strong>AutoRAG</strong>. It retrieves the relevant policy chunks and drafts the memo, grounded in real company policy rather than whatever the base model happened to memorize.</p>
+</div>
+<div class="paragraph">
+<p>And underneath both, quietly, is <strong>MLflow</strong>. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3. When audit season comes, you can prove exactly which prompt version wrote which memo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">                    ┌─────────────────────┐
+   Applicant  ───►  │  AutoML risk model  │  ───►  risk score (0.87)
+   tabular data     │  (KServe endpoint)  │              │
+                    └─────────────────────┘              │
+                                                         ▼
+   Company policy   ┌─────────────────────┐     ┌─────────────────────┐
+   documents   ───► │  AutoRAG retrieval  │ ──► │  Credit memo draft  │ ──► Loan officer
+                    │  + grounded LLM     │     │  (grounded in policy)│      decides
+                    └─────────────────────┘     └─────────────────────┘
+                              ▲
+                    MLflow Prompt Registry
+                    (versioned system instruction)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice what the human still does: they <strong>decide</strong>. AutoML gave them a fast, defensible score. AutoRAG gave them a grounded explanation and the relevant policy in plain language. The platform did the tedious parts so the officer could spend their judgment where it matters. That&#8217;s the whole "Connecting Data to Models" thesis in one picture: predictive AI for the numbers, generative AI for the language, governance holding both accountable.</p>
 </div>
 </div>
 </div>
@@ -224,7 +240,23 @@ Not started yet.
 <h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>Building the workflow is one skill. Knowing what to do when a metric looks wrong is the other, and it&#8217;s the one that separates someone who <strong>ran</strong> AutoML and AutoRAG from someone who can <strong>operate</strong> them.</p>
+</div>
+<div class="paragraph">
+<p>You already have both halves of this. From chapter 2, the AutoML report card: don&#8217;t trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn&#8217;t leaning on something it shouldn&#8217;t. From chapter 4, the AutoRAG metric triad and its combinations. The single most useful diagnostic to keep in your head:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>High Faithfulness + Low Correctness</strong> means the model answered honestly from what it retrieved, but retrieval handed it the wrong context. The fix lives in <strong>retrieval</strong>, chunking or the evaluation set, not in the model.</p>
+</li>
+<li>
+<p><strong>High Correctness + Low Faithfulness</strong> means the answer was right but the model pulled it from memory, not your documents. It got lucky, and luck doesn&#8217;t survive contact with unseen questions.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The habit worth building: when a result looks off, ask <strong>which stage</strong> is failing before you start changing knobs. A low score is a symptom; the metric combination is the diagnosis.</p>
 </div>
 </div>
 </div>
@@ -232,7 +264,180 @@ Not started yet.
 <h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
+<p>Here&#8217;s a question the marketing rarely answers honestly: when do you <strong>stop</strong>? Automation is powerful, but it isn&#8217;t the answer to every problem, and knowing its edges is a mark of competence, not doubt.</p>
+</div>
+<div class="paragraph">
+<p>Stay with the automated capabilities when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your problem is predictable from structured, tabular data. <strong>AutoML</strong> almost certainly beats a hand-built baseline, and faster.</p>
+</li>
+<li>
+<p>Your GenAI app needs <strong>your</strong> facts, and a good grounded answer is enough. <strong>AutoRAG</strong> plus a governed prompt handles a huge share of enterprise use cases without touching model weights.</p>
+</li>
+<li>
+<p>The base model already has the <strong>skill</strong> you need (summarizing, extracting, answering) and just lacks your <strong>knowledge</strong>. Grounding solves a knowledge gap; it can&#8217;t teach a skill.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Consider escalating beyond automation when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The model needs to reliably <strong>behave</strong> a certain way, a specialized tone, a strict output format, a domain vocabulary it keeps getting wrong, that no amount of prompting or retrieved context fixes. That&#8217;s a <strong>skill</strong> gap, and it points toward fine-tuning a smaller, specialized model.</p>
+</li>
+<li>
+<p>You&#8217;ve genuinely exhausted prompt governance and retrieval quality and the failures persist.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+That escalation, fine-tuning small language models for behavior you can&#8217;t prompt or retrieve your way to, is the subject of <strong>Course 2</strong> in this series. The goal of <strong>this</strong> course is to make sure you don&#8217;t reach for that heavier, more expensive tool until you actually need it. Most of the time, "Auto" really is enough.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_cheat_sheet_connecting_data_to_models"><a class="anchor" href="#_the_cheat_sheet_connecting_data_to_models"></a>The cheat sheet: Connecting Data to Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Keep this near your desk. It&#8217;s the one-page distillation of the whole course: match the data to the capability, then match the symptom to the fix. There&#8217;s a printable one-pager you can download and keep, and the tables below preview what&#8217;s on it.</p>
+</div>
+<a href="_attachments/connecting-data-to-models-cheat-sheet.pdf" download style="display:inline-block; background-color:#ee0000; color:#fff; font-family:'Red Hat Display',sans-serif; font-weight:700; text-decoration:none; padding:0.8em 1.5em; border-radius:8px;">⬇ Download the one-page cheat sheet (PDF)</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Which capability fits the problem?</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">If your input is&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">And you need to&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">Reach for&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structured / tabular data (CSV, database)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Predict a Yes/No, a category, a number, or a future trend</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AutoML</strong> (binary, multiclass, regression, or time-series task)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A prompt that keeps drifting across app versions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version, track, and audit prompts and generation settings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MLflow Prompt Registry</strong> (chapter 3)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A GenAI app that must answer from <strong>your</strong> documents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ground answers in a private corpus without training a model</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AutoRAG</strong> (retrieval pattern + Responses API)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A model that won&#8217;t <strong>behave</strong> right no matter the prompt or context</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change the model&#8217;s skill, tone, or format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SLM fine-tuning</strong> (Course 2), the escalation beyond "Auto"</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Pick the AutoML task type</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">The target is&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">Task type</th>
+<th class="tableblock halign-left valign-top">Default metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two outcomes (Fraud / Not fraud)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary classification</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accuracy (watch it on imbalanced data)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Three or more categories (a "menu")</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiclass classification</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accuracy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A continuous number ("how much?")</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Regression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R²</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A number over time ("next quarter")</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time-series forecasting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MASE</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Diagnose the AutoRAG metric triad</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">The pattern shows&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">Which means&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">Look at&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High Faithfulness + Low Correctness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Answered honestly, but retrieval fetched the wrong context</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chunking strategy, evaluation dataset</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High Correctness + Low Faithfulness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Right answer, but from model memory, not your docs (hallucination risk)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grounding; distrust it on unseen questions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low Context Correctness + High Answer Correctness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A strong model masked weak retrieval (fragile)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieval quality before it breaks in production</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All three solid and balanced</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trustworthy pattern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ship it (consistency beats a lucky headline score)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The downloadable PDF above expands each of these into a fuller reference, including business-problem cues, key decision trade-offs, the generated artifacts for every capability, and the full diagnostic-to-remediation matrix. Grab it and keep it handy.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -257,6 +462,7 @@ Not started yet.
 </footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/scorm-bridge.js"></script>
 <script defer src="../../../_/js/vendor/reading-time.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
