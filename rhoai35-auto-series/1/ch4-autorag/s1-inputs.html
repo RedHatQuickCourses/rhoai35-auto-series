@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting Data to Models: The End-to-End Workflow :: AutoML and AutoRAG Strategies</title>
+    <title>Preparing the Inputs: Documents and a Test Set :: AutoML and AutoRAG Strategies</title>
     <link rel="prev" href="index.html">
-    <link rel="next" href="s2-assessment-quiz.html">
+    <link rel="next" href="s2-search-space.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -114,16 +114,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch4-autorag/index.html">Generative Retrieval with AutoRAG</a>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s2-search-space.html">The Search Space and the Metric Triad</a>
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s3-handoff.html">Inspecting the Winner and Shipping It</a>
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
   </li>
 </ul>
   </li>
@@ -133,13 +133,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -174,8 +174,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
+    <li><a href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a></li>
   </ul>
 </nav>
 </div>
@@ -184,28 +184,64 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
+<h1 class="page">Preparing the Inputs: Documents and a Test Set</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>10 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Assemble the two inputs an AutoRAG run needs: a document corpus and a ground-truth evaluation dataset.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>An AutoRAG run is only as good as what you feed it, and it needs exactly two things: the <strong>documents</strong> you want to answer questions about, and a <strong>test set</strong> that defines what a good answer looks like. Get these right and the rest of the run mostly takes care of itself.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_input_1_your_document_corpus"><a class="anchor" href="#_input_1_your_document_corpus"></a>Input 1: your document corpus</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the knowledge you want the model grounded in. A few practical rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Supported formats:</strong> PDF, DOCX, PPTX, Markdown, HTML, and TXT.</p>
+</li>
+<li>
+<p><strong>Where it lives:</strong> an S3-compatible bucket, or uploaded directly through the UI.</p>
+</li>
+<li>
+<p><strong>Size:</strong> up to 32 MiB per file when you upload through the UI; no per-file limit when you point AutoRAG at an S3 folder. Either way, a run automatically <strong>samples up to 1 GiB</strong> of documents.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Not started yet.
+First time out? Start small and clean. A handful of high-quality, text-based documents will teach you more about how AutoRAG behaves than dumping in a giant messy archive. You can scale up once you trust the workflow.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In Technology Preview, AutoRAG does not run OCR on image-only PDFs or pull text out of embedded images. If your PDFs are scanned pages, the text inside them won&#8217;t be retrievable. Table structure extraction <strong>is</strong> available, but only when you choose the <strong>Better Quality</strong> run preset.
 </td>
 </tr>
 </table>
@@ -213,40 +249,74 @@ Not started yet.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_input_2_the_evaluation_dataset_the_answer_key"><a class="anchor" href="#_input_2_the_evaluation_dataset_the_answer_key"></a>Input 2: the evaluation dataset (the answer key)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>This is the piece newcomers tend to underestimate, and it&#8217;s the most important. AutoRAG can&#8217;t rank retrieval patterns unless it knows what "correct" means, so you give it an <strong>answer key</strong>: a JSON file of representative questions paired with their known-good answers and the documents those answers come from.</p>
+</div>
+<div class="paragraph">
+<p>Each entry has three fields:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  {
+    "question": "What is the return policy?",
+    "correct_answers": [
+      "Items can be returned within 30 days",
+      "The return window is 30 days from purchase"
+    ],
+    "correct_answer_document_ids": ["policies.pdf", "faq.md"]
+  }
+]</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>question</code></strong> is a real question a user might ask.</p>
+</li>
+<li>
+<p><strong><code>correct_answers</code></strong> is a list, because the same answer can be phrased many ways. Give a few variations so a good answer isn&#8217;t marked wrong on wording alone.</p>
+</li>
+<li>
+<p><strong><code>correct_answer_document_ids</code></strong> names the source documents that actually contain the answer. This is what lets AutoRAG score <strong>retrieval</strong>, not just the final text.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<code>correct_answer_document_ids</code> must use <strong>base filenames only</strong> (for example <code>policies.pdf</code>), never a folder path like <code>documents/policies.pdf</code>. This trips up a lot of first runs.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
+<h2 id="_building_it_without_the_busywork"><a class="anchor" href="#_building_it_without_the_busywork"></a>Building it without the busywork</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>In earlier releases you had to download a template, fill it in offline, and re-upload it. OpenShift AI 3.5 adds an <strong>inline evaluation-file creator</strong>: you can type a question, its answer, and the source document straight into the UI (you&#8217;ll see this in the demo). For a couple of test cases that&#8217;s the quickest path; for a serious evaluation set you&#8217;ll still want to prepare a fuller JSON file with many questions covering the range of things users will actually ask.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.</p>
+<p>With your documents and your answer key in place, AutoRAG has everything it needs to start experimenting. Next we&#8217;ll look at the <strong>search space</strong> it explores on your behalf, and, just as importantly, how to read the scores it reports back.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Knowledge Review and Assessment</a></span>
-  <span class="next"><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></span>
+  <span class="prev"><a href="index.html">Generative Retrieval with AutoRAG</a></span>
+  <span class="next"><a href="s2-search-space.html">The Search Space and the Metric Triad</a></span>
 </nav>
 </article>
   </div>

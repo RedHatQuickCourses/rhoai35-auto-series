@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting Data to Models: The End-to-End Workflow :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="s2-assessment-quiz.html">
+    <title>The Search Space and the Metric Triad :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s1-inputs.html">
+    <link rel="next" href="s3-handoff.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -114,16 +114,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch4-autorag/index.html">Generative Retrieval with AutoRAG</a>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s2-search-space.html">The Search Space and the Metric Triad</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s3-handoff.html">Inspecting the Winner and Shipping It</a>
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
   </li>
 </ul>
   </li>
@@ -133,13 +133,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -174,8 +174,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
+    <li><a href="s2-search-space.html">The Search Space and the Metric Triad</a></li>
   </ul>
 </nav>
 </div>
@@ -184,7 +184,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
+<h1 class="page">The Search Space and the Metric Triad</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -194,18 +194,63 @@
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Understand the configurations AutoRAG searches and how to interpret the three metrics it scores them on.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>This is the heart of AutoRAG. Once you kick off a run, it systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: <strong>what</strong> it&#8217;s varying, and <strong>how to read</strong> the scores that come back.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_autorag_searches"><a class="anchor" href="#_what_autorag_searches"></a>What AutoRAG searches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating for weeks. AutoRAG sweeps them for you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Chunking strategy</strong>, how documents are split. Recursive chunking versus hybrid structural chunking (the latter preserves headings and table structure, and kicks in with the <strong>Better Quality</strong> preset).</p>
+</li>
+<li>
+<p><strong>Chunk size and overlap</strong>, how big each piece is and how much neighboring pieces share.</p>
+</li>
+<li>
+<p><strong>Search mode</strong>, pure vector (semantic) search versus hybrid search that blends semantic and keyword matching.</p>
+</li>
+<li>
+<p><strong>Top-k</strong>, how many chunks to retrieve for each question.</p>
+</li>
+<li>
+<p><strong>Embedding model</strong>, the model that turns text into vectors. You can select up to <strong>2 embedding models</strong> per run.</p>
+</li>
+<li>
+<p><strong>Foundation model</strong>, the LLM that writes the final answer. Up to <strong>3 foundation models</strong> per run.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Not started yet.
+Stay within <strong>3 foundation models and 2 embedding models</strong> per run. Going over that cap causes the run to fail, so it&#8217;s a limit to respect, not push.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supports over 100 languages, does both dense and sparse retrieval, and runs with low memory overhead, which is why it shows up throughout the AutoRAG material.
 </td>
 </tr>
 </table>
@@ -213,40 +258,81 @@ Not started yet.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_a_quick_word_on_languages"><a class="anchor" href="#_a_quick_word_on_languages"></a>A quick word on languages</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>AutoRAG automatically <strong>detects the language</strong> of your evaluation questions, so you don&#8217;t declare it up front, and it handles mixed-language corpora gracefully. One caveat worth remembering: auto-detection only helps if the <strong>models</strong> you picked actually support those languages. Check the Model Catalog to confirm your chosen foundation and embedding models cover your document languages.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
+<h2 id="_reading_the_metric_triad"><a class="anchor" href="#_reading_the_metric_triad"></a>Reading the metric triad</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>AutoRAG scores every candidate on three complementary metrics. You met these by name in the course overview; here&#8217;s what each one actually tells you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Answer Faithfulness</strong>, a hallucination check. Did the answer stick to the retrieved context, or did the model make things up?</p>
+</li>
+<li>
+<p><strong>Answer Correctness</strong>, a ground-truth check. Did the answer match the known-good answers in your evaluation set?</p>
+</li>
+<li>
+<p><strong>Context Correctness</strong>, a retrieval check. Did the system fetch the <strong>right</strong> document chunks in the first place?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The reason there are three, not one, is that they isolate <strong>where</strong> a pattern succeeds or fails. And the real skill, the AutoRAG equivalent of reading a confusion matrix in chapter 2, is interpreting them <strong>in combination</strong>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
+<h2 id="_diagnosing_the_combinations"><a class="anchor" href="#_diagnosing_the_combinations"></a>Diagnosing the combinations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
+<p>This little decision guide is the most practical thing on the page. When two metrics disagree, the pattern is telling you something specific:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>High Faithfulness + Low Correctness:</strong> the model answered faithfully from what it retrieved, but the retrieved context didn&#8217;t actually contain the true answer. Suspect your <strong>chunking</strong> or a mismatch in your <strong>evaluation dataset</strong>.</p>
+</li>
+<li>
+<p><strong>High Correctness + Low Faithfulness:</strong> the answer was right, but the model pulled it from its own training memory rather than your documents. It got lucky this time; on unseen questions it&#8217;s a <strong>hallucination risk</strong>.</p>
+</li>
+<li>
+<p><strong>Low Context Correctness + High Answer Correctness:</strong> retrieval fetched irrelevant chunks, but a strong foundation model compensated. It looks fine now but is <strong>fragile</strong>, it will break on query types it hasn&#8217;t effectively memorized.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+New to evaluating RAG? Don&#8217;t chase a single top score. A pattern where all three metrics are solid is far more trustworthy in production than one with a dazzling Answer Correctness propped up by weak retrieval. Consistency beats a lucky headline number, the same lesson the AutoML report card taught.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.</p>
+<p>You can now read the leaderboard and understand <strong>why</strong> a pattern ranks where it does. The last step is turning a winning pattern into something your application can actually call, which is where inspection and export come in.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Knowledge Review and Assessment</a></span>
-  <span class="next"><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></span>
+  <span class="prev"><a href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a></span>
+  <span class="next"><a href="s3-handoff.html">Inspecting the Winner and Shipping It</a></span>
 </nav>
 </article>
   </div>

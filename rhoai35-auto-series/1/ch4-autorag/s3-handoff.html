@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting Data to Models: The End-to-End Workflow :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="s2-assessment-quiz.html">
+    <title>Inspecting the Winner and Shipping It :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s2-search-space.html">
+    <link rel="next" href="../ch5-review/index.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -114,16 +114,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch4-autorag/index.html">Generative Retrieval with AutoRAG</a>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s2-search-space.html">The Search Space and the Metric Triad</a>
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch4-autorag/s3-handoff.html">Inspecting the Winner and Shipping It</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
   </li>
 </ul>
   </li>
@@ -133,13 +133,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -174,8 +174,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
+    <li><a href="s3-handoff.html">Inspecting the Winner and Shipping It</a></li>
   </ul>
 </nav>
 </div>
@@ -184,28 +184,53 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
+<h1 class="page">Inspecting the Winner and Shipping It</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>9 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Inspect a completed run with the visual pipeline and Playground, then export the chosen pattern into an application.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>A ranked leaderboard is a great place to be, but you still shouldn&#8217;t ship a pattern you&#8217;ve only seen as a number. AutoRAG gives you two ways to <strong>inspect</strong> a run before you commit, and two ways to <strong>export</strong> the pattern you choose.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspect_the_visual_pipeline_dag"><a class="anchor" href="#_inspect_the_visual_pipeline_dag"></a>Inspect: the visual pipeline (DAG)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Earlier releases drew an AutoRAG run as a single opaque line, if a step failed, good luck figuring out where. OpenShift AI 3.5 replaces that with a full <strong>visual pipeline</strong>, a diagram of every stage in the run.</p>
+</div>
+<div class="paragraph">
+<p>When everything succeeds, it&#8217;s a satisfying green path. When something fails, it&#8217;s genuinely useful: you can see <strong>exactly which step</strong> broke, when, and what it reported, instead of staring at a generic error. For a first-time user, this is the difference between debugging and guessing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspect_try_this_pattern_in_the_playground"><a class="anchor" href="#_inspect_try_this_pattern_in_the_playground"></a>Inspect: "Try this pattern" in the Playground</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the feature people appreciate most, because it removes a classic RAG frustration: exporting a pattern, wiring it up somewhere else, testing it, and only <strong>then</strong> discovering it isn&#8217;t what you wanted.</p>
+</div>
+<div class="paragraph">
+<p>From the leaderboard, select <strong>Try this pattern</strong> on any ranked configuration to open an interactive chat panel, grounded in your document vector store, right inside OpenShift AI. Ask it real questions and watch how it answers. You can also see <strong>which chunks</strong> it retrieved and where they came from, so you&#8217;re not just judging the answer, you&#8217;re judging the <strong>evidence</strong> behind it. You can switch between candidate patterns live to compare them head to head.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Not started yet.
+Before exporting anything, throw a few of your own tricky questions at the pattern here. If it retrieves sensible chunks and grounds its answers in them, you&#8217;ve validated the pattern the cheap way, no code required.
 </td>
 </tr>
 </table>
@@ -213,40 +238,63 @@ Not started yet.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_export_responses_api_code_snippets"><a class="anchor" href="#_export_responses_api_code_snippets"></a>Export: Responses API code snippets</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>When you&#8217;re happy with a pattern, click <strong>View code</strong> to get an application-ready snippet that calls the OGX Responses API endpoint. You get your choice of language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cURL</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>Go</p>
+</li>
+<li>
+<p>Node.js</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These call the <code>/v1/responses</code> endpoint directly, so your application can start getting grounded answers without you writing the retrieval plumbing yourself.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
+<h2 id="_export_jupyter_notebooks"><a class="anchor" href="#_export_jupyter_notebooks"></a>Export: Jupyter notebooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>If you&#8217;d rather work hands-on, AutoRAG also generates two self-contained Jupyter notebooks: an <strong>indexing</strong> notebook and an <strong>inference</strong> notebook. Run them inside an OpenShift AI workbench to reproduce, audit, or batch-score the pattern locally, the same "here&#8217;s the code" escape hatch AutoML offered for predictive models.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Governance still applies here. The system instruction you settle on for your RAG app can be versioned in the MLflow Prompt Registry from chapter 3, so a production-grade prompt and a production-grade retrieval pattern are both under proper control.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.</p>
+<p>That completes the AutoRAG story, and with it, the full arc of the course&#8217;s capabilities: predictive models with AutoML, governed prompts with MLflow, and grounded generation with AutoRAG. In the final chapter we&#8217;ll bring all three together into one end-to-end workflow and check your understanding with a graded assessment.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Knowledge Review and Assessment</a></span>
-  <span class="next"><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></span>
+  <span class="prev"><a href="s2-search-space.html">The Search Space and the Metric Triad</a></span>
+  <span class="next"><a href="../ch5-review/index.html">Knowledge Review and Assessment</a></span>
 </nav>
 </article>
   </div>

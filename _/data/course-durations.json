@@ -1,6 +1,6 @@
 {
-  "totalSeconds": 2591,
-  "pageCount": 18,
+  "totalSeconds": 3168,
+  "pageCount": 20,
   "pages": [
     {
       "module": "ROOT",
@@ -70,12 +70,22 @@
     {
       "module": "ch4-autorag",
       "page": "index.adoc",
-      "seconds": 14
+      "seconds": 471
     },
     {
       "module": "ch4-autorag",
-      "page": "s1-search-space.adoc",
-      "seconds": 464
+      "page": "s1-inputs.adoc",
+      "seconds": 191
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "s2-search-space.adoc",
+      "seconds": 225
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "s3-handoff.adoc",
+      "seconds": 168
     },
     {
       "module": "ch5-review",

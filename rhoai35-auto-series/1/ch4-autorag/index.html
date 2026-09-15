@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Optimizing Retrieval with AutoRAG :: AutoML and AutoRAG Strategies</title>
+    <title>Generative Retrieval with AutoRAG :: AutoML and AutoRAG Strategies</title>
     <link rel="prev" href="../ch3-mlflow/s3-governance.html">
-    <link rel="next" href="s1-search-space.html">
+    <link rel="next" href="s1-inputs.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -114,10 +114,16 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Optimizing Retrieval with AutoRAG</a>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-search-space.html">Benchmarking the RAG Search Space</a>
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
   </li>
 </ul>
   </li>
@@ -168,7 +174,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Optimizing Retrieval with AutoRAG</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
   </ul>
 </nav>
 </div>
@@ -177,7 +183,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Optimizing Retrieval with AutoRAG</h1>
+<h1 class="page">Generative Retrieval with AutoRAG</h1>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Goal</dt>
@@ -186,24 +192,44 @@
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>At the end of chapter 3 we hit an honest limit: a beautifully governed prompt still only knows what the model already learned during training. Ask it about <strong>your</strong> company&#8217;s return policy, last quarter&#8217;s field procedures, or the fine print in a specific contract, and it will either shrug or, worse, confidently make something up.</p>
+</div>
+<div class="paragraph">
+<p>The standard fix is <strong>RAG</strong>, Retrieval-Augmented Generation: before the model answers, you retrieve the relevant chunks from your own documents and hand them over as context. It works. The catch is that building RAG <strong>well</strong> is a grind. How big should the chunks be? Recursive or structural chunking? Vector search or hybrid? Which embedding model? How many chunks to retrieve? Every combination is a knob, and tuning them by hand is weeks of trial and error, exactly the kind of manual benchmarking you learned to avoid back in chapter 1.</p>
+</div>
+<div class="paragraph">
+<p><strong>AutoRAG</strong> is AutoML&#8217;s idea applied to retrieval. Instead of hand-tuning, you give it your documents and a set of test questions, and it automatically searches across chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns. If chapter 1&#8217;s AutoML was a Sorting Hat for models, AutoRAG is a Sorting Hat for retrieval pipelines.</p>
+</div>
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Not started yet.
+AutoRAG is a <strong>Technology Preview</strong> feature in OpenShift AI 3.5. It&#8217;s the platform&#8217;s rung-3 answer, <strong>context grounding</strong>, right after prompt governance and before you&#8217;d ever consider fine-tuning a model.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>This chapter shows how AutoRAG grid-searches the RAG configuration space and how the diagnostic metric triad tells you whether a retrieval pipeline is production-ready.</p>
+<p>The demo below walks the whole thing end to end for a fictitious bank. It&#8217;s worth watching once now for the shape of it; we&#8217;ll unpack each stage in the pages that follow.</p>
+</div>
+<div class="videoblock">
+<div class="title">AutoRAG Demo - OpenShift AI 3.5</div>
+<div class="content">
+<video src="_images/autorag-demo.mp4" width="800" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll cover it in three moves: preparing the two inputs AutoRAG needs, understanding the search space it explores and how to read the metrics it reports back, and finally inspecting the winner and exporting it into a real application.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a></span>
-  <span class="next"><a href="s1-search-space.html">Benchmarking the RAG Search Space</a></span>
+  <span class="next"><a href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a></span>
 </nav>
 </article>
   </div>
