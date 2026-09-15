@@ -11,7 +11,7 @@ Time to put it together. The 15 questions below are scenario-based: each one dro
 You need *80% or higher* to pass. If you don't clear it the first time, revisit the relevant chapter and the cheat sheet in the previous section, then restart. There's no penalty for trying again.
 
 ++++
-<iframe type="text/javascript" src='_attachments/quiz.html' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
+<iframe type="text/javascript" src='_attachments/quiz.html?v=1' style="width: 1024px; height: 800px" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>
 ++++
 
 == What's Next
