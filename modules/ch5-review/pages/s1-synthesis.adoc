@@ -138,6 +138,10 @@ Keep this near your desk. It's the one-page distillation of the whole course: ma
 
 TIP: The downloadable PDF above expands each of these into a fuller reference, including business-problem cues, key decision trade-offs, the generated artifacts for every capability, and the full diagnostic-to-remediation matrix. Grab it and keep it handy.
 
+== Where this is heading: RHOAI 3.6
+
+One forward-looking note as you finish. Everything you've built in this course runs on capabilities that are *Technology Preview* in OpenShift AI 3.5. Both AutoML and AutoRAG move to *General Availability* in 3.6 (targeted November 2026), so these workflows become fully production-supported with a proper SLA. AutoRAG also gains *DSPy-based prompt pre-optimization*, which automatically tunes the prompts feeding your retrieval pattern before the search space ever runs. It's the same "let the platform do the tuning" philosophy you've seen throughout, now applied to prompt engineering itself.
+
 == What's Next
 
 With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.

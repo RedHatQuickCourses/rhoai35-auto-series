@@ -41,6 +41,8 @@ NOTE: Governance still applies here. The system instruction you settle on for yo
 
 That completes the AutoRAG story, and with it, the full arc of the course's capabilities: predictive models with AutoML, governed prompts with MLflow, and grounded generation with AutoRAG. In the final chapter we'll bring all three together into one end-to-end workflow and check your understanding with a graded assessment.
 
+NOTE: Looking ahead to RHOAI 3.6: like AutoML, AutoRAG is a *Technology Preview* feature in 3.5 and moves to *General Availability* in 3.6 (targeted November 2026). The headline 3.6 addition is *DSPy-based prompt pre-optimization*: rather than hand-writing the system instruction, AutoRAG can automatically generate and score prompt candidates against a sample of your evaluation questions, then feed the winners into the same search space you tuned on this page. Think of it as automated prompt engineering layered on top of automated retrieval tuning, the two-stage version of what you just did by hand.
+
 ////
 Source: course_design.md LO#4; appendix Autorag35.md (§4 testing/export), autorag.md (§3 playground), autorag-walkthrough.md (visual DAG, try this pattern, Responses API).
 Inspect: visual pipeline DAG (per-step success/failure); "Try this pattern" interactive chat grounded in vector store, shows retrieved chunks, switch patterns live. Export: Responses API snippets (cURL/Python/Go/Node.js) hitting /v1/responses; Indexing + Inference Jupyter notebooks. Governance tie-in: finalize system instructions in MLflow Prompt Registry.

@@ -48,6 +48,8 @@ Raw data went in one end, and a governed, validated, production-ready prediction
 
 You can now take predictive, tabular data all the way from a CSV to a served model. In the next chapter we shift from numbers to *text*: an introduction to generative AI in the GenAI Playground, and using MLflow to version and govern prompts the same disciplined way you just governed models.
 
+NOTE: Looking ahead to RHOAI 3.6: AutoML is a *Technology Preview* feature in OpenShift AI 3.5. It moves to *General Availability* in 3.6 (targeted November 2026), which means the exact workflow you just learned becomes fully production-supported, same UI, same concepts, now with a production SLA behind it.
+
 ////
 Source: course_design.md LO#2; appendix "Mastering AutoML in RHOAI" section 6 (artifacts 6-7, production handoff).
 Auto-generated Jupyter notebook (Save notebook): connect to S3, load predictor, batch scoring/validation. Register: promote winning version to RHOAI Model Registry. Deploy: AutoGluon ServingRuntime for KServe, exposes /v2/models/<name>/infer (KServe v2 REST).

@@ -17,3 +17,5 @@ It helps to see where this fits in the bigger picture. Think of enterprise GenAI
 ----
 
 You've already got rung 1. Over the next few pages we'll cover rung 2 in three moves: testing prompts interactively in the *GenAI Studio Playground*, treating those prompts as versioned *code* rather than throwaway text, and using *MLflow* to govern them across your whole organization. Rung 3, AutoRAG, is the very next chapter.
+
+NOTE: Rung 5, operational safety, is a subject in its own right. The runtime input and output rails that keep a model on-policy (for example, NeMo Guardrails) are covered in the dedicated *Enabling AI Safety with Guardrails* course, so we won't detour into them here.
