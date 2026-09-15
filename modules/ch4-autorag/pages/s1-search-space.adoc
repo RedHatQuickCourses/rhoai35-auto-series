@@ -8,6 +8,9 @@ Objective::
 
 Prepare evaluation input for AutoRAG and interpret the diagnostic metric triad that scores each retrieval configuration.
 
+.AutoRAG Demo - OpenShift AI 3.5
+video::autorag-demo.mp4[width=800,opts=controls]
+
 WARNING: Not started yet.
 
 == Input preparation
