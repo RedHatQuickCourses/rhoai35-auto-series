@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Testing Prompts and Ending Prompt Drift :: AutoML and AutoRAG Strategies</title>
+    <title>Testing Prompts in the GenAI Studio Playground :: AutoML and AutoRAG Strategies</title>
     <link rel="prev" href="index.html">
-    <link rel="next" href="../ch4-autorag/index.html">
+    <link rel="next" href="s2-prompts-as-code.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -98,7 +98,13 @@
     <a class="nav-link" href="index.html">Prompt Engineering and MLflow Governance</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-playground.html">Testing Prompts and Ending Prompt Drift</a>
+    <a class="nav-link" href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
   </li>
 </ul>
   </li>
@@ -163,7 +169,7 @@
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
     <li><a href="index.html">Prompt Engineering and MLflow Governance</a></li>
-    <li><a href="s1-playground.html">Testing Prompts and Ending Prompt Drift</a></li>
+    <li><a href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a></li>
   </ul>
 </nav>
 </div>
@@ -172,31 +178,25 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Testing Prompts and Ending Prompt Drift</h1>
+<h1 class="page">Testing Prompts in the GenAI Studio Playground</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>10 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Test generative prompts interactively and use MLflow registries to version prompt templates and generation settings.</p>
+<p>Use the Playground to test system instructions and generation settings, and understand what each knob actually does.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Not started yet.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Before you version a prompt, you have to <strong>find</strong> a prompt worth keeping. That&#8217;s what the Playground is for: a place to experiment with a language model in real time, watch how it responds, and turn knobs until the behavior is right, all before a single line of it touches your application code.</p>
+</div>
+<div class="paragraph">
+<p>In the RHOAI dashboard you&#8217;ll find this under <strong>GenAI Studio</strong>. That menu item has two areas that work together: <strong>Playground</strong>, the interactive testing surface we cover here, and <strong>Prompts</strong>, the registry where good prompts go to be saved and versioned (that&#8217;s the next section).</p>
 </div>
 </div>
 </div>
@@ -204,45 +204,87 @@ Not started yet.
 <h2 id="_from_numbers_to_text"><a class="anchor" href="#_from_numbers_to_text"></a>From numbers to text</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section bridges tabular predictions to unstructured text generation, extending the data-to-value story from predictive models into generative AI.</p>
+<p>Quick reframe as you shift gears. With AutoML, you gave the model structured columns and it returned a structured prediction. With a language model, your "input" is <strong>language itself</strong>, the instructions and context you write, and the output is generated text. The quality of that output depends enormously on how you phrase the ask. So the Playground is where prompt <strong>engineering</strong> happens: small changes in wording and settings, big changes in behavior.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_genai_studio_playground"><a class="anchor" href="#_the_genai_studio_playground"></a>The GenAI Studio Playground</h2>
+<h2 id="_the_knobs_youll_actually_turn"><a class="anchor" href="#_the_knobs_youll_actually_turn"></a>The knobs you&#8217;ll actually turn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use the Playground to interactively test system instructions, context windows, and temperature settings, observing how each parameter changes model behavior before you commit to a configuration.</p>
+<p>The Playground lets you adjust a handful of settings interactively and see the effect immediately. The three you&#8217;ll reach for most:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>System instructions</strong> set the model&#8217;s standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). This is the single biggest lever on behavior.</p>
+</li>
+<li>
+<p><strong>Temperature</strong> controls randomness. Low values keep answers focused and repeatable; higher values make them more varied and creative.</p>
+</li>
+<li>
+<p><strong>Top-p (nucleus sampling)</strong> is a second dial on variety, limiting the model to the most probable words. It&#8217;s often tuned alongside temperature rather than instead of it.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll also keep an eye on the <strong>context window</strong>, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+First time touching these? Change <strong>one</strong> setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won&#8217;t know which change fixed (or broke) the output. Treat it like tuning an instrument, not flipping every switch at once.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prompts_as_code"><a class="anchor" href="#_prompts_as_code"></a>Prompts as code</h2>
+<h2 id="_comparing_and_tracing"><a class="anchor" href="#_comparing_and_tracing"></a>Comparing and tracing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Treat prompt templates and generation settings as versioned parameters rather than ad-hoc text. This mindset makes generative behavior reproducible and reviewable.</p>
+<p>The Playground isn&#8217;t just a single chat box. Two capabilities make it a genuine evaluation tool:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>A/B comparison</strong> puts two prompt versions, or two different foundation models, side by side so you can judge outputs directly instead of relying on memory of "what it said last time."</p>
+</li>
+<li>
+<p><strong>Tracing</strong> records the call tree behind a response (using OpenTelemetry under the hood), so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The models you test against are the foundation models your platform serves (for example Llama, Granite, or Claude). A prompt that shines on one model may behave differently on another, which is exactly why comparing across models is built in.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_mlflow_prompt_governance"><a class="anchor" href="#_mlflow_prompt_governance"></a>MLflow prompt governance</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Workspace and global prompt registries solve "prompt drift" — the silent divergence of prompts over time — and provide the auditability enterprises require for generative applications.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With prompts under version control, you are ready to ground generative models in your own data. The next chapter introduces AutoRAG, which automatically optimizes the retrieval pipeline that feeds those prompts.</p>
+<p>Once the Playground gives you a prompt that behaves the way you want, the worst thing you can do is leave it sitting in a browser tab. Next we&#8217;ll treat that prompt the way you&#8217;d treat any other production asset: as versioned code.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Prompt Engineering and MLflow Governance</a></span>
-  <span class="next"><a href="../ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a></span>
+  <span class="next"><a href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a></span>
 </nav>
 </article>
   </div>

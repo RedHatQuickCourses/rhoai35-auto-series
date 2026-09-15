@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting Data to Models: The End-to-End Workflow :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="s2-assessment-quiz.html">
+    <title>Governance at Scale: Workspaces, Lineage, and Audit :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s2-prompts-as-code.html">
+    <link rel="next" href="../ch4-autorag/index.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -95,16 +95,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+    <a class="nav-link" href="index.html">Prompt Engineering and MLflow Governance</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+    <a class="nav-link" href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
+    <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
   </li>
 </ul>
   </li>
@@ -127,13 +127,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -168,8 +168,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></li>
+    <li><a href="index.html">Prompt Engineering and MLflow Governance</a></li>
+    <li><a href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a></li>
   </ul>
 </nav>
 </div>
@@ -178,28 +178,39 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
+<h1 class="page">Governance at Scale: Workspaces, Lineage, and Audit</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>9 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Explain how MLflow workspaces isolate and share prompts, and why the resulting audit lineage matters to the enterprise.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>Versioning a single prompt is a personal win. Governance is the <strong>team</strong> win: making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_workspaces_one_per_project"><a class="anchor" href="#_workspaces_one_per_project"></a>Workspaces: one per project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MLflow organizes work into <strong>workspaces</strong>, and RHOAI maps them cleanly to something you already know: an OpenShift project namespace corresponds <strong>1:1</strong> to an MLflow workspace. Your project&#8217;s experiments, runs, and registered prompts all live inside that boundary, and access is controlled by the same Kubernetes RBAC that governs the rest of the platform.</p>
+</div>
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Not started yet.
+If "namespace" and "RBAC" are new terms, the short version is: a namespace is a walled-off area for one project&#8217;s work, and RBAC is the rulebook for who&#8217;s allowed in. You don&#8217;t set this up yourself as a practitioner, you inherit the isolation your project already has.
 </td>
 </tr>
 </table>
@@ -207,40 +218,62 @@ Not started yet.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_global_registries_shared_vetted_prompts"><a class="anchor" href="#_global_registries_shared_vetted_prompts"></a>Global registries: shared, vetted prompts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as <strong>global</strong> prompt registries, granting other teams either read-only or edit access.</p>
+</div>
+<div class="paragraph">
+<p>The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
+<h2 id="_complete_audit_lineage"><a class="anchor" href="#_complete_audit_lineage"></a>Complete audit lineage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>This is the payoff that makes governance more than bookkeeping. For every inference, MLflow can log the exact prompt string, the input variables, the model ID, the generation settings, any evaluation scores, and the output that was produced. Nothing floats free.</p>
+</div>
+<div class="paragraph">
+<p>That lineage buys you three things practitioners and their organizations genuinely need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Reproducibility.</strong> You can recreate any past result because you know precisely what produced it.</p>
+</li>
+<li>
+<p><strong>Rollback.</strong> When a production response regresses, you trace it to a specific prompt version and revert, exactly the alias move from the last section, now with the evidence to justify it.</p>
+</li>
+<li>
+<p><strong>Compliance.</strong> Risk and audit teams can prove which prompt, model, and parameters generated any historical response, which is often a hard requirement in regulated industries.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
+<h2 id="_one_platform_for_models_and_prompts"><a class="anchor" href="#_one_platform_for_models_and_prompts"></a>One platform for models and prompts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
+<p>Here&#8217;s a detail that&#8217;s easy to undervalue: this is the <strong>same</strong> MLflow that tracked your AutoML accuracy scores in chapter 2. The instance versioning your predictive models also versions your prompt templates and traces your LLM calls. Your team doesn&#8217;t juggle one tool for predictive ML and a separate one for GenAI, it&#8217;s one governed platform across both, which is a big part of why the discipline actually sticks.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
+<h2 id="_where_this_leaves_you"><a class="anchor" href="#_where_this_leaves_you"></a>Where this leaves you</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.</p>
+<p>Step back and look at what you can now do. You can take raw tabular data all the way to a served predictive model (chapters 1 and 2), and you can take a raw idea for a prompt all the way to a versioned, governed, auditable instruction bound to a model (this chapter). Both halves of "connecting data to models" are now under proper control.</p>
+</div>
+<div class="paragraph">
+<p>But a well-governed prompt still only knows what the model already knows. The moment you need it grounded in <strong>your</strong> proprietary documents, prompt engineering hits a ceiling. That&#8217;s rung 3 of the ladder, and it&#8217;s where the next chapter picks up: <strong>AutoRAG</strong>, which automates the retrieval pipeline that feeds your governed prompts the right context.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Knowledge Review and Assessment</a></span>
-  <span class="next"><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></span>
+  <span class="prev"><a href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a></span>
+  <span class="next"><a href="../ch4-autorag/index.html">Optimizing Retrieval with AutoRAG</a></span>
 </nav>
 </article>
   </div>

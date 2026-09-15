@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting Data to Models: The End-to-End Workflow :: AutoML and AutoRAG Strategies</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="s2-assessment-quiz.html">
+    <title>Prompts as Code: The MLflow Prompt Registry :: AutoML and AutoRAG Strategies</title>
+    <link rel="prev" href="s1-playground.html">
+    <link rel="next" href="s3-governance.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -95,16 +95,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+    <a class="nav-link" href="index.html">Prompt Engineering and MLflow Governance</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+    <a class="nav-link" href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
   </li>
 </ul>
   </li>
@@ -127,13 +127,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Knowledge Review and Assessment</a>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
   </li>
 </ul>
   </li>
@@ -168,8 +168,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
-    <li><a href="index.html">Knowledge Review and Assessment</a></li>
-    <li><a href="s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a></li>
+    <li><a href="index.html">Prompt Engineering and MLflow Governance</a></li>
+    <li><a href="s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a></li>
   </ul>
 </nav>
 </div>
@@ -178,28 +178,63 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting Data to Models: The End-to-End Workflow</h1>
+<h1 class="page">Prompts as Code: The MLflow Prompt Registry</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Estimated reading time: <strong>12 minutes</strong>.</em></p>
+<p><em>Estimated reading time: <strong>11 minutes</strong>.</em></p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Understand why prompts deserve version control, and how the MLflow Prompt Registry versions, aliases, and binds them to model settings.</p>
 </dd>
 </dl>
 </div>
-<div class="admonitionblock warning">
+<div class="paragraph">
+<p>Let&#8217;s name the problem this section solves. A prompt is not a throwaway string, it&#8217;s a <strong>parameter</strong> that changes your application&#8217;s behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer. That&#8217;s prompt drift, and the fix is to give prompts the same discipline you already give models.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s what the <strong>MLflow Prompt Registry</strong> provides. In the dashboard it lives under <strong>GenAI Studio &#8594; Prompts</strong>, and if you governed a model in chapter 2, the idea will feel familiar: it&#8217;s a central place to create, version, tag, and reuse prompt templates across your organization.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_versioning_the_git_way"><a class="anchor" href="#_versioning_the_git_way"></a>Versioning, the Git way</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every time you register a change to a prompt, MLflow saves a new numbered version (v1, v2, v3&#8230;&#8203;) with a commit message describing what changed, just like a Git history for your instructions. Two properties make this trustworthy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Versions are immutable.</strong> Once v2 exists, it never silently changes. If you want to edit a prompt, you create v3. That guarantee is what makes a past result reproducible.</p>
+</li>
+<li>
+<p><strong>You can compare versions side by side</strong>, with the differences highlighted, so you can see exactly how the wording evolved between v1 and v2.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aliases_pointing_at_the_good_one"><a class="anchor" href="#_aliases_pointing_at_the_good_one"></a>Aliases: pointing at "the good one"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s the feature that keeps version numbers from leaking into your application code. An <strong>alias</strong> is a movable label that points at a specific version, for example a <code>production</code> alias pointing at v2, or the built-in <code>latest</code> alias that always tracks the newest version.</p>
+</div>
+<div class="paragraph">
+<p>Your application asks for the prompt <strong>by alias</strong>, not by number. So when you promote v3, you just move the <code>production</code> alias to v3 and every app picks it up, no code change, no redeploy. Need to undo a bad prompt? Move the alias back. That&#8217;s a one-click rollback.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Not started yet.
+New to this idea? Think of an alias like a "current" label on a shelf. The versioned bottles never change, but the label can be moved to whichever one is in service today. Your code always reaches for the label, never a specific bottle.
 </td>
 </tr>
 </table>
@@ -207,40 +242,50 @@ Not started yet.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow_synergy"><a class="anchor" href="#_end_to_end_workflow_synergy"></a>End-to-end workflow synergy</h2>
+<h2 id="_prompts_carry_their_settings_with_them"><a class="anchor" href="#_prompts_carry_their_settings_with_them"></a>Prompts carry their settings with them</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The capabilities in this course combine into a live business workflow: AutoML risk scores plus AutoRAG-generated credit memos power a loan officer&#8217;s decision loop, showing predictive and generative AI working together.</p>
+<p>A prompt is more than its words. The registry can store a <strong>model configuration</strong> alongside each prompt: the model name, temperature, max tokens, and the other generation settings you dialed in back in the Playground. That means the recipe travels with the prompt, so a teammate loading v2 gets not just the text but the exact settings it was tuned for.</p>
+</div>
+<div class="paragraph">
+<p>Prompts can also be <strong>bound to a specific model provider and endpoint</strong> (Llama, Granite, Claude, and so on). Because the application references the prompt rather than hardcoding a model, teams can swap the underlying model without rewriting prompt code.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Templates use <code>{{variable}}</code> placeholders, so a single registered prompt can be reused with different runtime values (a <code>{{question}}</code> or a <code>{{num_sentences}}</code> filled in at call time). You register the reusable <strong>shape</strong> of the prompt once, not a hundred near-identical copies.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
+<h2 id="_see_it_in_action"><a class="anchor" href="#_see_it_in_action"></a>See it in action</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Metric combinations tell a diagnostic story. For example, High Faithfulness combined with Low Correctness signals that the retrieval pipeline is missing document context rather than hallucinating.</p>
+<p>The end-to-end registration flow, creating a prompt, committing a v2, comparing versions, and loading one back into the Playground, is best seen rather than read.</p>
+</div>
+<div class="paragraph">
+<p>A short walkthrough demo accompanies this section and steps through registering and versioning a prompt in the UI.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Establish clear decision gates for staying with automated capabilities versus escalating to SLM fine-tuning (the subject of Course 2). Knowing where "Auto" stops is as important as knowing what it can do.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the full workflow and decision logic in view, the final section is a scenario-based graded assessment that validates your ability to diagnose enterprise data scenarios and select the optimal AI pattern.</p>
+<p>You can now version a single prompt like code. The last piece is scale: how these registries are isolated per project, shared across the enterprise, and tied into a complete audit trail. That&#8217;s governance, and it&#8217;s next.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Knowledge Review and Assessment</a></span>
-  <span class="next"><a href="s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a></span>
+  <span class="prev"><a href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a></span>
+  <span class="next"><a href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a></span>
 </nav>
 </article>
   </div>
