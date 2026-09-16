@@ -6,7 +6,7 @@ Position predictive models against LLMs on cost and behavior, and qualify whethe
 
 Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are genuinely transformational. But there's a trap hiding in all that excitement: reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.
 
-So before we go further, let's get honest about where predictive AI actually shines.
+Before examining specific use cases, let me outline the exact domains where predictive AI proves most effective.
 
 == Predictive models vs. LLMs
 
@@ -41,7 +41,7 @@ The easiest way to see it is side by side. Same job description, two very differ
 | Probabilistic reasoning needing guardrail evaluation
 |===
 
-The takeaway is worth saying plainly: *predictive models are cheap, fast, and deterministic.* They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for *why*. When the question is "will this transaction be fraud?" you don't need a model that can also write poetry. You need one that's right, fast, and explainable.
+The takeaway: *predictive models are cheap, fast, and deterministic.* They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for *why*. When the question is "will this transaction be fraud?" you don't need a model that can also write poetry. You need one that's right, fast, and explainable.
 
 == Is your data even a candidate?
 

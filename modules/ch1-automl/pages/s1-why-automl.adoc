@@ -19,9 +19,9 @@ That repetition is exactly what AutoML automates. Instead of a person hand-runni
 
 You still bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.
 
-== The "Sorting Hat"
+== The "sorting specialist"
 
-If you want a mental picture, think of AutoML as a *Sorting Hat*. You feed in raw tabular CSV data pulled from S3 storage, the platform reads the patterns hiding in it, and out comes a *ranked leaderboard* of candidate models, sorted best to worst, ready for you to inspect and promote. You're no longer building models one at a time and hoping. You're reviewing a graded shortlist.
+If you want a mental picture, think of AutoML as a *Sorting Specialist*. You feed in raw tabular CSV data pulled from S3 storage, the platform reads the patterns hiding in it, and out comes a *ranked leaderboard* of candidate models, sorted best to worst, ready for you to inspect and promote. You're no longer building models one at a time and hoping. You're reviewing a graded shortlist.
 
 == The return on investment
 
@@ -33,7 +33,7 @@ Here's how that translates when it's your turn to justify the spend:
 
 == What's next
 
-Faster and cheaper is a great pitch, but only if you're pointing it at the right kind of problem. Next we'll place predictive AI next to the large language models everyone's talking about, so you can see exactly where each one earns its keep, and learn how to tell whether your data is even a candidate for AutoML in the first place.
+Next we'll place predictive AI next to the large language models everyone's talking about, so you can see exactly where each one earns its keep, and learn how to tell whether your data is even a candidate for AutoML.
 
 ////
 Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" sections 1.
