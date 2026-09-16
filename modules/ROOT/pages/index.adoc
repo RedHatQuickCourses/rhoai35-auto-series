@@ -13,7 +13,7 @@ You will explore how Red Hat OpenShift AI’s automated capabilities: AutoML, Au
 
 Teach technical professionals how to strategically evaluate use cases and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+ to drive measurable business value by showcasing its targeted automated AI capabilities.
 
-NOTE: In OpenShift AI 3.5, AutoML and AutoRAG are *Technology Preview* features. Both are targeted to reach *General Availability* in 3.6 (November 2026). This course teaches the 3.5 workflow and flags what changes at GA as you go.
+NOTE: In OpenShift AI 3.5, AutoML and AutoRAG are *Technology Preview* features. Both are targeted to reach *General Availability* in 3.6. This course teaches the 3.5 workflow and flags what changes at GA as you go.
 
 == Objectives
 
@@ -57,11 +57,12 @@ This course requires no hands-on user labs. It uses diagrams, Summit Arcade inte
 
 For documentation about Red Hat OpenShift AI, see either its https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.5[product documentation^] or the https://github.com/red-hat-data-services/red-hat-ai-examples[Red Hat AI Examples^] upstream repositories.
 
-== Author
+== The Production Team
 
+*Aditi Saluja* +
+*Suhas Kashyap* +
 *Karlos Knox* +
-Content & Learning Lead +
-Red Hat - Product & Technical Learning Team
+*Anna Swicegood*
 
 
 NOTE: **Use of Artificial Intelligence:**
