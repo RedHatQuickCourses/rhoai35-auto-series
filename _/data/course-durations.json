@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3682,
+  "totalSeconds": 3676,
   "pageCount": 20,
   "pages": [
     {
@@ -10,12 +10,12 @@
     {
       "module": "ch1-automl",
       "page": "index.adoc",
-      "seconds": 76
+      "seconds": 77
     },
     {
       "module": "ch1-automl",
       "page": "s1-why-automl.adoc",
-      "seconds": 158
+      "seconds": 151
     },
     {
       "module": "ch1-automl",
