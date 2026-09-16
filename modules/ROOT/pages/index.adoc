@@ -1,6 +1,14 @@
 = Governing AI Data Workflows: AutoML and AutoRAG Strategies
 :navtitle: Home
 
+== Welcome
+
+Across the industry, organizations are learning a hard truth: building an AI model is easy, but getting an AI data pipeline reliably into production is remarkably difficult. More than 75% of enterprise AI initiatives quietly stall out in "PoC Death", trapped inside exploratory Jupyter notebooks that work on a developer's laptop but never survive the transition to a governed, scalable production endpoint. 
+ 
+This training course is designed to solve that specific bottleneck. Rather than focusing on platform administration or YAML cluster setup, this course places you directly in the practitioner's seat (Data Scientists, AI Engineers, and Technical Solution Architects). 
+ 
+You will explore how Red Hat OpenShift AI’s automated capabilities: AutoML, AutoRAG, and MLflow Governance; take raw enterprise data sitting in object storage and systematically convert it into production-ready, auditable inference APIs in hours rather than months.
+
 == Goal
 
 Teach technical professionals how to strategically evaluate use cases and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+ to drive measurable business value by showcasing its targeted automated AI capabilities.
