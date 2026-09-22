@@ -23,6 +23,25 @@ You still bring the judgment, the business question, the data, the decision abou
 
 If you want a mental picture, think of AutoML as a *Sorting Specialist*. You feed in raw tabular CSV data pulled from S3 storage, the platform reads the patterns hiding in it, and out comes a *ranked leaderboard* of candidate models, sorted best to worst, ready for you to inspect and promote. You're no longer building models one at a time and hoping. You're reviewing a graded shortlist.
 
+Interactive experience: click the flashing purple circle to advance the frame.  
+
+++++
+<iframe 
+  src="https://demo.arcade.software/6aXoYp5lapmz9VmsxtCW?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
+
 == The return on investment
 
 Here's how that translates when it's your turn to justify the spend:

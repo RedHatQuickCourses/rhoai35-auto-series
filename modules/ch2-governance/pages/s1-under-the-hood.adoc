@@ -6,6 +6,25 @@ Explain what AutoGluon is doing during a run and why the leaderboard is an ensem
 
 You don't strictly *need* to know what happens between "start run" and "here's your leaderboard" to use AutoML. But a little bit of under-the-hood knowledge pays off the moment you start reading results, because the names you'll see on the leaderboard suddenly mean something.
 
+Interactive experience: click the flashing purple circle to advance the frame.  
+
+++++
+<iframe 
+  src="https://demo.arcade.software/VzyYitxsdIfzOnXagZ2j?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
+
 == AutoGluon, the conductor
 
 Under the covers, RHOAI AutoML is powered by *AutoGluon*, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs *parallel sweeps* across several model families at once, then figures out which ones actually earned their place. Think of it less as a single musician and more as a conductor auditioning a whole orchestra.
@@ -29,6 +48,8 @@ These models learn by chaining together lots of yes/no splits, like a flowchart 
 Here's the part that matters most. AutoGluon doesn't just crown a single winning algorithm and walk away. It combines the predictions of the top candidates into a multi-layer *Weighted Ensemble*, letting the models cover for each other's blind spots. That stacked approach consistently beats hand-tuning any single model by roughly *2–5% in accuracy*.
 
 TIP: First time seeing these names? Don't worry about choosing between XGBoost, LightGBM, and the rest, letting you *skip* that decision is the whole point of AutoML. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn't a bug or a mystery entry: it's usually the blended model, and it's often your best performer.
+
+
 
 == What's next
 

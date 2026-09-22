@@ -19,15 +19,15 @@ NOTE: In OpenShift AI 3.5, AutoML and AutoRAG are *Technology Preview* features.
 
 On completing this course, you should be able to:
 
-* Predictive Foundations (AutoML): Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
+* *Predictive Foundations (AutoML):* Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
 
-* AutoML governance & deployment: Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.
+* *AutoML governance & deployment:* Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.
 
-* GenAI prompting & MLflow governance: Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".
+* *GenAI prompting & MLflow governance:* Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".
 
-* Generative retrieval (AutoRAG): Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and retrieval configurations (search mode, top-k, and more) to build grounded LLM applications.
+* *Generative retrieval (AutoRAG):* Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and retrieval configurations (search mode, top-k, and more) to build grounded LLM applications.
 
-* Knowledge review and assessment: Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.
+* *Knowledge review and assessment:* Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.
 
 == Audience
 
