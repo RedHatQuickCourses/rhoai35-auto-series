@@ -4,6 +4,8 @@ Objective::
 
 Interpret the leaderboard and evaluation artifacts to validate a model's business logic before promoting it.
 
+---
+
 When a run finishes, RHOAI gathers everything the pipeline produced and lays it out in the dashboard as a set of connected views. Together they're the model's *report card*. Your job here isn't to admire the top score, it's to ask each artifact a question and make sure the answers hang together before you trust the model with a real decision.
 
 Let's walk them in the order you'll naturally use them.

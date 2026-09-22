@@ -4,9 +4,11 @@ Objective::
 
 Match any predictive business problem to one of the four AutoML task types and its default optimization metric.
 
+---
+
 Here's the good news: no matter how complicated the business problem sounds, every predictive question you'll ever hand to AutoML boils down to one of just *four* task types. Learn to spot which one you're looking at and you're most of the way there.
 
-Even better, you often don't have to decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and *recommends* a task type and a sensible default metric. Think of it as the Sorting Hat whispering a suggestion, but you should understand the four houses well enough to know when it's right.
+Even better, you often don't have to decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and *recommends* a task type and a sensible default metric. You should understand the four tasks well enough to know when it's right.
 
 == Start by reading your data, not the problem statement
 
@@ -17,7 +19,7 @@ Two quick questions answer almost everything:
 . *What kind of value lives in the target column?* Is it a handful of labels, or a number that can slide up and down a scale?
 . *Is time part of the story?* Is each row anchored to a date or timestamp, with something identifying which sequence it belongs to?
 
-Answer those and the task type falls out on its own. That's the skill this section builds, so that when the dashboard recommends a task type, you can confirm it rather than take it on faith.
+Answer these and the task type falls out on its own. That's the skill this section builds, so that when the dashboard recommends a task type, you can confirm it rather than take it on faith.
 
 == The quick decision tree
 
@@ -69,7 +71,7 @@ Regression's time-aware cousin. You're not just predicting a number, you're pred
 
 == What's next
 
-You can now hear a business problem, glance at the target column, and name the task type and the metric that matters, the core reflex of a predictive practitioner. In the next chapter we'll open the hood: how AutoML actually builds and stacks these models under the covers, and how to read the evaluation "report card" before you promote a winner into production.
+In the next chapter, we'll see the results for how AutoML actually builds and stacks these models under the covers, and how to read the evaluation "report card" before you promote a winner into production.
 
 ////
 Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" section 4.

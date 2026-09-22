@@ -4,8 +4,8 @@ Goal::
 
 Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.
 
-In chapter 1 you learned to walk up to a business problem, read your data, and pick the right task type and metric. So let's pick up the story right where a first run leaves you: the pipeline has finished, and you're looking at a leaderboard full of models you didn't hand-build.
+---
 
-The tempting move is to grab whatever sits in the top row and ship it. Resist that for a few more minutes. A high score tells you a model fit the *training* data well, it doesn't yet tell you the model is measuring the *right thing*, or that it will behave in production. This chapter is about earning the confidence to promote a model on purpose rather than on faith.
+The tempting move is to grab whatever sits in the top row and ship it. Resist that for a few more minutes. A high score tells you a model fit the *training* data well, it doesn't yet tell you the model is measuring the *right thing*, or that it will act correctly in production.
 
-We'll do it in three moves: first a quick look under the hood at what AutoML was actually doing while you waited, then how to read the full evaluation "report card" that comes back with every run, and finally the paved path from a winning model to a live, serving endpoint. By the end you'll be able to validate a predictive model and put it into production without needing a platform administrator to hold your hand.
+We'll do it in three moves: first a quick look at what AutoML was actually doing while we waited, then how to read the full evaluation "report card" that comes back with every run, and finally the paved path from a winning model to a live, serving endpoint.

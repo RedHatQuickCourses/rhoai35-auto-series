@@ -4,13 +4,13 @@ Objective::
 
 Position predictive models against LLMs on cost and behavior, and qualify whether a dataset is a good fit for AutoML.
 
-Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are genuinely transformational. But there's a trap hiding in all that excitement: reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.
+---
 
-Before examining specific use cases, let me outline the exact domains where predictive AI proves most effective.
+Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are undisputedly transformational. But there's a trap hiding in all that excitement: organizations are reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.
 
 == Predictive models vs. LLMs
 
-The easiest way to see it is side by side. Same job description, two very different employees:
+The easiest way to see it is side by side.
 
 [cols="1,2,2",options="header"]
 |===
@@ -41,26 +41,32 @@ The easiest way to see it is side by side. Same job description, two very differ
 | Probabilistic reasoning needing guardrail evaluation
 |===
 
-The takeaway: *predictive models are cheap, fast, and deterministic.* They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for *why*. When the question is "will this transaction be fraud?" you don't need a model that can also write poetry. You need one that's right, fast, and explainable.
+*Predictive models are cheap, fast, and deterministic.* They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for *why*. 
 
 == Is your data even a candidate?
 
 AutoML is powerful, but it's not magic, it expects a certain shape of data. Before you kick off a run, check that your dataset qualifies:
 
-* *Tabular structure.* Rows are entities, columns are attributes, stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.
+* *Tabular structure.* Rows are entities (records), columns are attributes (properties), stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.
 * *A clear target label.* One column holds the ground-truth answer you want to predict for new data.
-* *Feature diversity.* A healthy mix of numeric and categorical columns, that's where AutoML's automatic type inference, missing-value imputation, and encoding earn their keep.
+* *Feature diversity.* A healthy mix of numeric and categorical columns.
 * *Enough volume.* At least 500–1,000 rows to prototype, and 10,000+ is typical for a serious enterprise evaluation.
 
 == When AutoML is *not* the tool
 
 Just as important is knowing when to put it down and reach for something else:
 
-* *Unstructured media*, images, audio, video. Those need specialized deep-learning pipelines.
-* *Open-ended text generation*, chatbots, document synthesis, summarization. That's the world of LLMs and AutoRAG, which we'll get to later in the course.
-* *Custom domain edge cases*, problems that hinge on hand-crafted business rules a model can't infer from the raw table.
+* *Unstructured media*: images, audio, video. Those need specialized deep-learning pipelines.
+* *Open-ended text generation*: chatbots, document synthesis, summarization. That's the world of LLMs and AutoRAG, which we'll get to later in the course.
+* *Custom domain edge cases*: problems that hinge on hand-crafted business rules a model can't infer from the raw table.
 
-Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone. Now that you can spot a good fit, let's look at the four flavors of prediction it can actually do.
+Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone.
+
+== What's next
+
+Next we'll determine how to match predictive business problems to one of the four AutoML task types.
+
+
 
 ////
 Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" sections 2 and 3.

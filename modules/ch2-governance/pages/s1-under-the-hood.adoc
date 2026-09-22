@@ -1,10 +1,12 @@
-= Under the Hood: How AutoML Builds Its Models
+= How AutoML Builds Its Models
 
 Objective::
 
 Explain what AutoGluon is doing during a run and why the leaderboard is an ensemble, not a single algorithm.
 
-You don't strictly *need* to know what happens between "start run" and "here's your leaderboard" to use AutoML. But a little bit of under-the-hood knowledge pays off the moment you start reading results, because the names you'll see on the leaderboard suddenly mean something.
+---
+
+We don't strictly *need* to know what happens between "start run" and "here's your leaderboard" to use AutoML. But a little bit of knowledge pays off the moment we start reading results, because the names we'll see on the leaderboard have meaning.
 
 Interactive experience: click the flashing purple circle to advance the frame.  
 
@@ -25,19 +27,21 @@ Interactive experience: click the flashing purple circle to advance the frame.
 ---
 
 
-== AutoGluon, the conductor
+== AutoGluon
 
-Under the covers, RHOAI AutoML is powered by *AutoGluon*, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs *parallel sweeps* across several model families at once, then figures out which ones actually earned their place. Think of it less as a single musician and more as a conductor auditioning a whole orchestra.
+Under the covers, RHOAI AutoML is powered by *AutoGluon*, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs *parallel sweeps* across several model families at once, then figures out which ones actually deserved their place. 
+
+Think of an algorithm as a mathematical recipe, and a model family (or software library) as the specific engine built to execute that recipe. What AutoGluon does as a "meta-orchestrator" is manage a whole workshop full of different engines at the same time, rather than making you guess which one will work best.
 
 Those candidates come from two broad families.
 
 == "Smart flowchart builders" (gradient-boosted decision trees)
 
-These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They're the bread and butter of tabular prediction:
+These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They're the tried and true of tabular prediction:
 
 * *XGBoost*, the meticulous veteran. Uses exact, depth-wise tree splits. A dependable default for standard spreadsheet and financial data.
 * *LightGBM*, the speed demon. Built by Microsoft, it uses fast histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with low memory overhead.
-* *CatBoost*, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don't have to manually one-hot encode them.
+* *CatBoost*, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don't have to manually encode them.
 
 == "Synthetic brains" (deep neural networks)
 
@@ -47,13 +51,13 @@ These models learn by chaining together lots of yes/no splits, like a flowchart 
 
 Here's the part that matters most. AutoGluon doesn't just crown a single winning algorithm and walk away. It combines the predictions of the top candidates into a multi-layer *Weighted Ensemble*, letting the models cover for each other's blind spots. That stacked approach consistently beats hand-tuning any single model by roughly *2–5% in accuracy*.
 
-TIP: First time seeing these names? Don't worry about choosing between XGBoost, LightGBM, and the rest, letting you *skip* that decision is the whole point of AutoML. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn't a bug or a mystery entry: it's usually the blended model, and it's often your best performer.
+TIP: First time seeing these names? Don't worry about choosing between XGBoost, LightGBM, and the rest. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn't a bug or a mystery entry: it's usually the blended model, and it's often your best performer.
 
 
 
 == What's next
 
-Now that you know the leaderboard is a graded audition rather than a single guess, let's actually read it, along with the rest of the report card AutoML hands back with every run.
+Now, let's actually read it, along with the rest of the report card AutoML hands back with every run.
 
 ////
 Source: course_design.md LO#2; appendix "Mastering AutoML in RHOAI" section 5.
