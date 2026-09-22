@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3714,
+  "totalSeconds": 3721,
   "pageCount": 20,
   "pages": [
     {
@@ -15,7 +15,7 @@
     {
       "module": "ch1-automl",
       "page": "s1-why-automl.adoc",
-      "seconds": 151
+      "seconds": 155
     },
     {
       "module": "ch1-automl",
@@ -35,7 +35,7 @@
     {
       "module": "ch2-governance",
       "page": "s1-under-the-hood.adoc",
-      "seconds": 134
+      "seconds": 137
     },
     {
       "module": "ch2-governance",
