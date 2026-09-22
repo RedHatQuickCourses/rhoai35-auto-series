@@ -2,12 +2,10 @@
 
 Goal::
 
-Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
+Evaluate when to use AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.
 
-Here's a story you've probably lived through, or at least watched from the next desk over.
+---
 
-A team gets handed a business problem, predict which customers are about to churn, flag the fraudulent transactions, forecast next quarter's demand. Someone spins up a notebook. Weeks go by cleaning the data. More weeks testing algorithms, tuning hyperparameters, arguing about which metric matters. Three, maybe six months later there's a model that works beautifully... on a laptop. And then it quietly dies there, because nobody ever built the path from "notebook that works" to "endpoint that serves." We even have a name for it: *PoC death*.
+AutoML in Red Hat OpenShift AI 3.5+ takes the raw tabular data sitting in your S3 bucket, automates the tedious middle (data prep, feature engineering, algorithm selection, and ensembling), and hands you back a ranked leaderboard of production-ready candidate models. Not in months, but in hours.
 
-AutoML in Red Hat OpenShift AI 3.5+ is the answer to that story. It takes the raw tabular data sitting in your S3 bucket, automates the tedious middle (data prep, feature engineering, algorithm selection, and ensembling), and hands you back a ranked leaderboard of production-ready candidate models. Not in months, but in hours.
-
-This chapter is about the *foundations*: why this matters to the business, where predictive AI fits alongside the LLMs everyone's talking about, how to tell whether your data is even a good fit, and how to match any business problem to the right kind of prediction. By the end you won't be running models yet, that comes later, but you'll know exactly when AutoML is the right tool to reach for, and why.
+This chapter is about the *foundations*: why this matters to the business, where predictive AI fits alongside the LLMs everyone's talking about, how to tell whether your data is even a good fit. How to match any business problem to the right kind of prediction. By the end you won't be running models yet, that comes later, but you'll know exactly when AutoML is the right tool to reach for, and why.

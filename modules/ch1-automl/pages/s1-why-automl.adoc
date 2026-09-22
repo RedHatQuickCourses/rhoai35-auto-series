@@ -4,11 +4,13 @@ Objective::
 
 Explain, in language a business leader will care about, what AutoML actually automates and the return it delivers.
 
+---
+
 Let's start with the part that gets budget approved, because if you can't explain the "why" to the person signing the checks, the coolest model in the world never ships.
 
 == The problem AutoML is solving
 
-Traditional machine learning projects have a nasty habit of taking three to six months and then stalling out. The data scientist does heroic work, cleaning messy columns, inventing features, testing XGBoost against a neural net against something they read about last week, tuning knobs until the accuracy nudges up another half a percent. It's skilled, careful, *slow* work. And a huge amount of it is the same work, every single time, on every single project.
+The data scientist does heroic work, cleaning messy columns, inventing features, testing XGBoost against something they read about last week, tuning knobs until the accuracy nudges up another half a percent. It's skilled, careful, *slow* work. And a huge amount of it is the same work, on every project.
 
 That repetition is exactly what AutoML automates. Instead of a person hand-running each step, the platform handles:
 
@@ -17,7 +19,7 @@ That repetition is exactly what AutoML automates. Instead of a person hand-runni
 * *Algorithm selection*, trying many model families in parallel instead of one at a time.
 * *Ensembling*, combining the best candidates into something stronger than any single model.
 
-You still bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.
+We bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.
 
 == The "sorting specialist"
 
@@ -47,12 +49,12 @@ Interactive experience: click the flashing purple circle to advance the frame.
 Here's how that translates when it's your turn to justify the spend:
 
 * *70–80% faster time-to-market.* Development cycles that used to run three to six months collapse into a matter of hours. Multi-quarter R&D efforts become same-week operational delivery.
-* *A 3x workforce multiplier.* You no longer need a scarce, specialized ML PhD for every project. Software engineers, data analysts, and IT practitioners can stand up high-accuracy predictive baselines themselves, which frees your specialists for the genuinely hard problems.
-* *No more PoC death.* This is the quiet one that matters most. Because AutoML produces *standardized deployment artifacts*, the winning model moves directly toward a production endpoint instead of getting stranded in a notebook. The path from experiment to production is built in, not bolted on later.
+* *A 3x workforce multiplier.* Software engineers, data analysts, and IT practitioners can stand up high-accuracy predictive baselines themselves, which frees our specialists for the genuinely hard problems.
+* *Path to production.* This is the quiet one that matters most. Because AutoML produces *standardized deployment artifacts*, the winning model moves directly toward a production endpoint instead of getting stranded in a notebook.
 
 == What's next
 
-Next we'll place predictive AI next to the large language models everyone's talking about, so you can see exactly where each one earns its keep, and learn how to tell whether your data is even a candidate for AutoML.
+Next we'll place predictive AI next to the large language models everyone's talking about, so we can see where each one earns its keep, and learn how to tell whether our data is even a candidate for AutoML.
 
 ////
 Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" sections 1.
