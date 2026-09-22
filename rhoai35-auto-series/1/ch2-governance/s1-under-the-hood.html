@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Under the Hood: How AutoML Builds Its Models :: AutoML and AutoRAG Strategies</title>
+    <title>How AutoML Builds Its Models :: AutoML and AutoRAG Strategies</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="s2-report-card.html">
     <meta name="generator" content="Antora 3.2.0">
@@ -79,7 +79,7 @@
     <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+    <a class="nav-link" href="s1-under-the-hood.html">How AutoML Builds Its Models</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
@@ -175,7 +175,7 @@
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG Strategies</a></li>
     <li><a href="index.html">Validating and Deploying AutoML Models</a></li>
-    <li><a href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a></li>
+    <li><a href="s1-under-the-hood.html">How AutoML Builds Its Models</a></li>
   </ul>
 </nav>
 </div>
@@ -184,7 +184,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Under the Hood: How AutoML Builds Its Models</h1>
+<h1 class="page">How AutoML Builds Its Models</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="dlist">
@@ -195,8 +195,9 @@
 </dd>
 </dl>
 </div>
+<hr>
 <div class="paragraph">
-<p>You don&#8217;t strictly <strong>need</strong> to know what happens between "start run" and "here&#8217;s your leaderboard" to use AutoML. But a little bit of under-the-hood knowledge pays off the moment you start reading results, because the names you&#8217;ll see on the leaderboard suddenly mean something.</p>
+<p>We don&#8217;t strictly <strong>need</strong> to know what happens between "start run" and "here&#8217;s your leaderboard" to use AutoML. But a little bit of knowledge pays off the moment we start reading results, because the names we&#8217;ll see on the leaderboard have meaning.</p>
 </div>
 <div class="paragraph">
 <p>Interactive experience: click the flashing purple circle to advance the frame.</p>
@@ -216,10 +217,13 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_autogluon_the_conductor"><a class="anchor" href="#_autogluon_the_conductor"></a>AutoGluon, the conductor</h2>
+<h2 id="_autogluon"><a class="anchor" href="#_autogluon"></a>AutoGluon</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Under the covers, RHOAI AutoML is powered by <strong>AutoGluon</strong>, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs <strong>parallel sweeps</strong> across several model families at once, then figures out which ones actually earned their place. Think of it less as a single musician and more as a conductor auditioning a whole orchestra.</p>
+<p>Under the covers, RHOAI AutoML is powered by <strong>AutoGluon</strong>, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs <strong>parallel sweeps</strong> across several model families at once, then figures out which ones actually deserved their place.</p>
+</div>
+<div class="paragraph">
+<p>Think of an algorithm as a mathematical recipe, and a model family (or software library) as the specific engine built to execute that recipe. What AutoGluon does as a "meta-orchestrator" is manage a whole workshop full of different engines at the same time, rather than making you guess which one will work best.</p>
 </div>
 <div class="paragraph">
 <p>Those candidates come from two broad families.</p>
@@ -230,7 +234,7 @@
 <h2 id="_smart_flowchart_builders_gradient_boosted_decision_trees"><a class="anchor" href="#_smart_flowchart_builders_gradient_boosted_decision_trees"></a>"Smart flowchart builders" (gradient-boosted decision trees)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They&#8217;re the bread and butter of tabular prediction:</p>
+<p>These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They&#8217;re the tried and true of tabular prediction:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -241,7 +245,7 @@
 <p><strong>LightGBM</strong>, the speed demon. Built by Microsoft, it uses fast histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with low memory overhead.</p>
 </li>
 <li>
-<p><strong>CatBoost</strong>, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don&#8217;t have to manually one-hot encode them.</p>
+<p><strong>CatBoost</strong>, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don&#8217;t have to manually encode them.</p>
 </li>
 </ul>
 </div>
@@ -272,7 +276,7 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-First time seeing these names? Don&#8217;t worry about choosing between XGBoost, LightGBM, and the rest, letting you <strong>skip</strong> that decision is the whole point of AutoML. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn&#8217;t a bug or a mystery entry: it&#8217;s usually the blended model, and it&#8217;s often your best performer.
+First time seeing these names? Don&#8217;t worry about choosing between XGBoost, LightGBM, and the rest. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn&#8217;t a bug or a mystery entry: it&#8217;s usually the blended model, and it&#8217;s often your best performer.
 </td>
 </tr>
 </table>
@@ -283,7 +287,7 @@ First time seeing these names? Don&#8217;t worry about choosing between XGBoost,
 <h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that you know the leaderboard is a graded audition rather than a single guess, let&#8217;s actually read it, along with the rest of the report card AutoML hands back with every run.</p>
+<p>Now, let&#8217;s actually read it, along with the rest of the report card AutoML hands back with every run.</p>
 </div>
 </div>
 </div>

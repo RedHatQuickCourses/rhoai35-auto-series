@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3663,
+  "totalSeconds": 3606,
   "pageCount": 20,
   "pages": [
     {
@@ -20,22 +20,22 @@
     {
       "module": "ch1-automl",
       "page": "s2-predictive-vs-llms.adoc",
-      "seconds": 170
+      "seconds": 150
     },
     {
       "module": "ch1-automl",
       "page": "s3-task-types.adoc",
-      "seconds": 217
+      "seconds": 206
     },
     {
       "module": "ch2-governance",
       "page": "index.adoc",
-      "seconds": 66
+      "seconds": 37
     },
     {
       "module": "ch2-governance",
       "page": "s1-under-the-hood.adoc",
-      "seconds": 137
+      "seconds": 140
     },
     {
       "module": "ch2-governance",

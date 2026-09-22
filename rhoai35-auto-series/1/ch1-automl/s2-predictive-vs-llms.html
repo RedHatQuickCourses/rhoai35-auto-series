@@ -79,7 +79,7 @@
     <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">How AutoML Builds Its Models</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
@@ -195,11 +195,9 @@
 </dd>
 </dl>
 </div>
+<hr>
 <div class="paragraph">
-<p>Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are genuinely transformational. But there&#8217;s a trap hiding in all that excitement: reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.</p>
-</div>
-<div class="paragraph">
-<p>Before examining specific use cases, let me outline the exact domains where predictive AI proves most effective.</p>
+<p>Walk into almost any room in 2026 and the conversation is about large language models. Which is great, LLMs are undisputedly transformational. But there&#8217;s a trap hiding in all that excitement: organizations are reaching for a giant GPU-hungry model to answer a question that a tiny, boring, deterministic model would answer better, cheaper, and a thousand times faster.</p>
 </div>
 </div>
 </div>
@@ -207,7 +205,7 @@
 <h2 id="_predictive_models_vs_llms"><a class="anchor" href="#_predictive_models_vs_llms"></a>Predictive models vs. LLMs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The easiest way to see it is side by side. Same job description, two very different employees:</p>
+<p>The easiest way to see it is side by side.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -256,7 +254,7 @@
 </tbody>
 </table>
 <div class="paragraph">
-<p>The takeaway: <strong>predictive models are cheap, fast, and deterministic.</strong> They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for <strong>why</strong>. When the question is "will this transaction be fraud?" you don&#8217;t need a model that can also write poetry. You need one that&#8217;s right, fast, and explainable.</p>
+<p><strong>Predictive models are cheap, fast, and deterministic.</strong> They scrape millions of rows on the CPU clusters you already own, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for <strong>why</strong>.</p>
 </div>
 </div>
 </div>
@@ -269,13 +267,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Tabular structure.</strong> Rows are entities, columns are attributes, stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.</p>
+<p><strong>Tabular structure.</strong> Rows are entities (records), columns are attributes (properties), stored as CSV. Files should be UTF-8, comma-delimited, with a header row. You can upload up to 32 MiB through the dashboard UI, or ingest up to 100 MB directly from S3.</p>
 </li>
 <li>
 <p><strong>A clear target label.</strong> One column holds the ground-truth answer you want to predict for new data.</p>
 </li>
 <li>
-<p><strong>Feature diversity.</strong> A healthy mix of numeric and categorical columns, that&#8217;s where AutoML&#8217;s automatic type inference, missing-value imputation, and encoding earn their keep.</p>
+<p><strong>Feature diversity.</strong> A healthy mix of numeric and categorical columns.</p>
 </li>
 <li>
 <p><strong>Enough volume.</strong> At least 500–1,000 rows to prototype, and 10,000+ is typical for a serious enterprise evaluation.</p>
@@ -293,18 +291,26 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Unstructured media</strong>, images, audio, video. Those need specialized deep-learning pipelines.</p>
+<p><strong>Unstructured media</strong>: images, audio, video. Those need specialized deep-learning pipelines.</p>
 </li>
 <li>
-<p><strong>Open-ended text generation</strong>, chatbots, document synthesis, summarization. That&#8217;s the world of LLMs and AutoRAG, which we&#8217;ll get to later in the course.</p>
+<p><strong>Open-ended text generation</strong>: chatbots, document synthesis, summarization. That&#8217;s the world of LLMs and AutoRAG, which we&#8217;ll get to later in the course.</p>
 </li>
 <li>
-<p><strong>Custom domain edge cases</strong>, problems that hinge on hand-crafted business rules a model can&#8217;t infer from the raw table.</p>
+<p><strong>Custom domain edge cases</strong>: problems that hinge on hand-crafted business rules a model can&#8217;t infer from the raw table.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone. Now that you can spot a good fit, let&#8217;s look at the four flavors of prediction it can actually do.</p>
+<p>Match the tool to the shape of the problem and AutoML feels like a superpower. Force it onto the wrong problem and it just frustrates everyone.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next we&#8217;ll determine how to match predictive business problems to one of the four AutoML task types.</p>
 </div>
 </div>
 </div>

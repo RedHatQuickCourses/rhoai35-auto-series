@@ -79,7 +79,7 @@
     <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a>
+    <a class="nav-link" href="s1-under-the-hood.html">How AutoML Builds Its Models</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
@@ -192,18 +192,16 @@
 </dd>
 </dl>
 </div>
+<hr>
 <div class="paragraph">
-<p>In chapter 1 you learned to walk up to a business problem, read your data, and pick the right task type and metric. So let&#8217;s pick up the story right where a first run leaves you: the pipeline has finished, and you&#8217;re looking at a leaderboard full of models you didn&#8217;t hand-build.</p>
+<p>The tempting move is to grab whatever sits in the top row and ship it. Resist that for a few more minutes. A high score tells you a model fit the <strong>training</strong> data well, it doesn&#8217;t yet tell you the model is measuring the <strong>right thing</strong>, or that it will act correctly in production.</p>
 </div>
 <div class="paragraph">
-<p>The tempting move is to grab whatever sits in the top row and ship it. Resist that for a few more minutes. A high score tells you a model fit the <strong>training</strong> data well, it doesn&#8217;t yet tell you the model is measuring the <strong>right thing</strong>, or that it will behave in production. This chapter is about earning the confidence to promote a model on purpose rather than on faith.</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll do it in three moves: first a quick look under the hood at what AutoML was actually doing while you waited, then how to read the full evaluation "report card" that comes back with every run, and finally the paved path from a winning model to a live, serving endpoint. By the end you&#8217;ll be able to validate a predictive model and put it into production without needing a platform administrator to hold your hand.</p>
+<p>We&#8217;ll do it in three moves: first a quick look at what AutoML was actually doing while we waited, then how to read the full evaluation "report card" that comes back with every run, and finally the paved path from a winning model to a live, serving endpoint.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a></span>
-  <span class="next"><a href="s1-under-the-hood.html">Under the Hood: How AutoML Builds Its Models</a></span>
+  <span class="next"><a href="s1-under-the-hood.html">How AutoML Builds Its Models</a></span>
 </nav>
 </article>
   </div>
