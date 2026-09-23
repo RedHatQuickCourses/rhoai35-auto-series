@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3606,
+  "totalSeconds": 3591,
   "pageCount": 20,
   "pages": [
     {
@@ -40,12 +40,12 @@
     {
       "module": "ch2-governance",
       "page": "s2-report-card.adoc",
-      "seconds": 239
+      "seconds": 232
     },
     {
       "module": "ch2-governance",
       "page": "s3-production-handoff.adoc",
-      "seconds": 140
+      "seconds": 132
     },
     {
       "module": "ch3-mlflow",
