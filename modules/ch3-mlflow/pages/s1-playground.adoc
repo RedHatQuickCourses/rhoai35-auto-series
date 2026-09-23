@@ -4,6 +4,8 @@ Objective::
 
 Use the Playground to test system instructions and generation settings, and understand what each knob actually does.
 
+---
+
 Before you version a prompt, you have to *find* a prompt worth keeping. That's what the Playground is for: a place to experiment with a language model in real time, watch how it responds, and turn knobs until the behavior is right, all before a single line of it touches your application code.
 
 In the RHOAI dashboard you'll find this under *GenAI Studio*. That menu item has two areas that work together: *Playground*, the interactive testing surface we cover here, and *Prompts*, the registry where good prompts go to be saved and versioned (that's the next section).

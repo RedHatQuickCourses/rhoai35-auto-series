@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3592,
+  "totalSeconds": 3579,
   "pageCount": 20,
   "pages": [
     {
@@ -50,7 +50,7 @@
     {
       "module": "ch3-mlflow",
       "page": "index.adoc",
-      "seconds": 100
+      "seconds": 87
     },
     {
       "module": "ch3-mlflow",

@@ -4,6 +4,8 @@ Goal::
 
 Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and vector database configurations for grounded LLM applications.
 
+---
+
 At the end of chapter 3 we hit an honest limit: a beautifully governed prompt still only knows what the model already learned during training. Ask it about *your* company's return policy, last quarter's field procedures, or the fine print in a specific contract, and it will either shrug or, worse, confidently make something up.
 
 The standard fix is *RAG*, Retrieval-Augmented Generation: before the model answers, you retrieve the relevant chunks from your own documents and hand them over as context. It works. The catch is that building RAG *well* is a grind. How big should the chunks be? Recursive or structural chunking? Vector search or hybrid? Which embedding model? How many chunks to retrieve? Every combination is a knob, and tuning them by hand is weeks of trial and error, exactly the kind of manual benchmarking you learned to avoid back in chapter 1.
