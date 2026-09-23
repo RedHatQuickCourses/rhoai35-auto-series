@@ -6,7 +6,7 @@ Follow the repeatable path that promotes a validated model from a completed run 
 
 ---
 
-Remember "PoC death" from chapter 1, the model that works beautifully and then never leaves the notebook? This is the section that prevents it. Once you've picked a model you trust, RHOAI gives you a short, repeatable path to get it serving real traffic, and none of it requires cluster-admin skills.
+Once you've picked a model you trust, RHOAI gives you a short, repeatable path to get it serving real traffic, and none of it requires cluster-admin skills.
 
 There are three exits from a completed run, and you'll use them for different reasons.
 

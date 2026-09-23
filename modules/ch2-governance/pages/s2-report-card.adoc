@@ -6,15 +6,30 @@ Interpret the leaderboard and evaluation artifacts to validate a model's busines
 
 ---
 
-When a run finishes, RHOAI gathers everything the pipeline produced and lays it out in the dashboard as a set of connected views. Together they're the model's *report card*. Your job here isn't to admire the top score, it's to ask each artifact a question and make sure the answers hang together before you trust the model with a real decision.
+When a run finishes, RHOAI gathers everything the pipeline produced and lays it out in the dashboard as a set of connected views. Together they're the model's *report card*. Your job here is to ask each artifact a question and make sure the answers string together before you trust the model with a real decision.
 
-Let's walk them in the order you'll naturally use them.
 
 == The leaderboard: who's in the running
 
 The leaderboard is your starting point. It lists every candidate model AutoML trained, ranked by the primary optimization metric for your task (the Accuracy, R^2^, or MASE you met in chapter 1). But don't stop at the ranking column. It also shows *secondary metrics*, *fit times*, and *inference latencies*, and those extra columns often decide the real winner.
 
 NOTE: The top model isn't automatically the right one to ship. If the number-one model scores a hair higher but takes ten times longer to return a prediction, a slightly lower-ranked model with microsecond latency may be the smarter production choice. Read across the row, not just down the rank.
+
+++++
+<iframe 
+  src="https://demo.arcade.software/7NwG9wrxYCrkwoX9FttF?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
 
 == Feature importance: is it learning the right thing?
 
@@ -26,7 +41,7 @@ Use it to answer three questions:
 * *Is there anything suspicious?* A single feature that dominates everything else is a classic red flag for *data leakage*, where a column accidentally encodes the answer (for example, a "cancellation_date" field sneaking into a churn model). The model looks brilliant in testing and falls apart in production.
 * *Can I explain this to a stakeholder?* Feature importance is how you turn a model into a story a business owner will actually believe.
 
-TIP: New to this? Make feature importance the *first* thing you look at after the score, not the last. Catching a leaked column here saves you from deploying a model that's secretly cheating.
+TIP: New to this? Make feature importance is the *first* thing you look at after the score, not the last. Catching a leaked column here saves you from deploying a model that's secretly cheating.
 
 == Confusion matrix: where classification goes wrong
 
@@ -50,7 +65,7 @@ None of these views is decisive on its own. A model earns promotion when the sto
 
 == What's next
 
-You've validated a model you believe in. Now let's move it out of the dashboard and into production, along the paved path from a finished run to a live serving endpoint.
+Now let's move it out of the dashboard and into production, along the paved path from a finished run to a live serving endpoint.
 
 ////
 Source: course_design.md LO#2; appendix "Mastering AutoML in RHOAI" section 6 (artifacts 1-5).
