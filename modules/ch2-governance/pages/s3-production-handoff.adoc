@@ -16,11 +16,46 @@ Click *Save notebook* and AutoML generates a Python Jupyter notebook with the co
 
 Reach for this when you want to poke at the model yourself, score a big batch of records offline, or hand a data scientist a running start. It's the "show me the code" door.
 
+++++
+<iframe 
+  src="https://demo.arcade.software/jwBIv65bLGvadZHbp2ms?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
+
+
 == Register the model (for governance)
 
 *Register* promotes the winning model version straight into the *RHOAI Model Registry*. Think of the registry as the system of record for your models: it versions them, keeps their metadata, and gives your team one trusted place to answer "which model is this, and where did it come from?"
 
 TIP: First time shipping a model? Register it even if you're eager to deploy. The registry is what makes a model *governable*, versioned, discoverable, and auditable, rather than a mystery file someone deployed one afternoon.
+
+++++
+<iframe 
+  src="https://demo.arcade.software/CjPnxZ3oa97ePxGoX958?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
 
 == Deploy to a serving endpoint (for production)
 
@@ -32,6 +67,24 @@ This is the one that turns a file into a service. RHOAI deploys the model using 
 ----
 
 That's a *KServe v2* inference endpoint. Any service that can make an HTTP request, your web app, a batch job, another microservice, can now get live predictions without knowing a thing about how the model was built.
+
+++++
+<iframe 
+  src="https://demo.arcade.software/4bLBXBUANDw70srcbhfK?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
+
 
 NOTE: If terms like KServe and "serving runtime" are new, here's the short version: KServe is the piece of OpenShift AI that runs your model as a web service and scales it for you. The AutoGluon ServingRuntime is a prebuilt engine that already knows how to load and serve AutoML models, so you don't assemble any of that plumbing yourself.
 

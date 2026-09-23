@@ -6,7 +6,7 @@ Explain what AutoGluon is doing during a run and why the leaderboard is an ensem
 
 ---
 
-We don't strictly *need* to know what happens between "start run" and "here's your leaderboard" to use AutoML. But a little bit of knowledge pays off the moment we start reading results, because the names we'll see on the leaderboard have meaning.
+You don't strictly *need* to know what happens between "start run" and "here's your leaderboard" to use AutoML. But a little bit of knowledge pays off the moment you start reading results, because the names you'll see on the leaderboard have meaning.
 
 Interactive experience: click the flashing purple circle to advance the frame.  
 
@@ -29,7 +29,7 @@ Interactive experience: click the flashing purple circle to advance the frame.
 
 == AutoGluon
 
-Under the covers, RHOAI AutoML is powered by *AutoGluon*, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs *parallel sweeps* across several model families at once, then figures out which ones actually deserved their place. 
+Under the covers, RHOAI AutoML is powered by *AutoGluon*, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs *parallel sweeps* across several model families at once, then figures out which ones actually deserved their place in the line-up. 
 
 Think of an algorithm as a mathematical recipe, and a model family (or software library) as the specific engine built to execute that recipe. What AutoGluon does as a "meta-orchestrator" is manage a whole workshop full of different engines at the same time, rather than making you guess which one will work best.
 

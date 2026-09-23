@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3591,
+  "totalSeconds": 3592,
   "pageCount": 20,
   "pages": [
     {
@@ -35,7 +35,7 @@
     {
       "module": "ch2-governance",
       "page": "s1-under-the-hood.adoc",
-      "seconds": 140
+      "seconds": 141
     },
     {
       "module": "ch2-governance",
