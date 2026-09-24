@@ -4,6 +4,8 @@ Objective::
 
 Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.
 
+---
+
 Individually, each capability in this course solves one problem. Together they solve a business process. The clearest way to see that is to follow a single decision from raw data all the way to a human making a call, so let's walk a loan desk.
 
 == The end-to-end workflow: a loan desk

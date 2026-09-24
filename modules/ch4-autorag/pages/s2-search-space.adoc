@@ -4,6 +4,8 @@ Objective::
 
 Understand the configurations AutoRAG searches and how to interpret the three metrics it scores them on.
 
+---
+
 This is the heart of AutoRAG. Once you kick off a run, it systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: *what* it's varying, and *how to read* the scores that come back.
 
 == What AutoRAG searches

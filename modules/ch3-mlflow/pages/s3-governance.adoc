@@ -4,6 +4,8 @@ Objective::
 
 Explain how MLflow workspaces isolate and share prompts, and why the resulting audit lineage matters to the enterprise.
 
+---
+
 Versioning a single prompt is a personal win. Governance is the *team* win: making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.
 
 == Workspaces: one per project
@@ -17,6 +19,23 @@ NOTE: If "namespace" and "RBAC" are new terms, the short version is: a namespace
 Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as *global* prompt registries, granting other teams either read-only or edit access.
 
 The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.
+
+.Designating a global registry (admin)
+[NOTE]
+====
+Setting up a shared registry takes three steps, all performed by a cluster administrator:
+
+. Add the namespace to `spec.globalMLflowNamespaces` in the `OdhDashboardConfig` (this field sits directly under `spec`, *not* under `spec.dashboardConfig`), or select it under *Settings -> General settings -> Global project* in the dashboard.
+. Label the namespace so the platform treats it as a shared workspace:
++
+[source,bash]
+----
+oc label namespace global-prompt-workspace opendatahub.io/global-mlflow-workspace=mlflow
+----
+. Make sure an MLflow instance is running in that namespace. The operator only creates the shared `odh-group-mlflow-view` role bindings once an active MLflow server pod is present.
+
+Once that's in place, other teams see these prompts read-only and can use *Save As* to copy one into their own project before editing.
+====
 
 == Complete audit lineage
 

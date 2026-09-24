@@ -4,6 +4,8 @@ Goal::
 
 Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.
 
+---
+
 We've covered a lot of ground. Back in chapter 1 you had a raw CSV sitting in a bucket and a question you couldn't answer by hand. By chapter 2 that data was a ranked leaderboard and a deployed model behind a REST endpoint. Chapter 3 moved from numbers to text and put your prompts under version control so they'd stop drifting. Chapter 4 grounded those prompts in your own documents with AutoRAG. Four capabilities, one platform.
 
 Here's the thing though: in a real enterprise, you rarely use just one of them. The interesting work happens when they combine, when a predictive model and a grounded generator sit in the same workflow and hand data back and forth. That's what this final chapter is about. First we'll walk one realistic end-to-end scenario so you can see the pieces click together, then we'll sharpen the decision logic you'll actually be graded on: which capability fits which problem, how to read the metrics when something looks off, and, just as important, when "Auto" is enough and when it isn't.

@@ -10,28 +10,64 @@ Before you version a prompt, you have to *find* a prompt worth keeping. That's w
 
 In the RHOAI dashboard you'll find this under *GenAI Studio*. That menu item has two areas that work together: *Playground*, the interactive testing surface we cover here, and *Prompts*, the registry where good prompts go to be saved and versioned (that's the next section).
 
+.Turning the feature on (admin)
+[NOTE]
+====
+GenAI Studio and the prompt tools are gated behind two feature flags in the `OdhDashboardConfig` resource (in the `redhat-ods-applications` namespace). An administrator sets both to `true`:
+
+[source,yaml]
+----
+spec:
+  dashboardConfig:
+    genAiStudio: true        # exposes the GenAI Studio navigation
+    promptManagement: true   # enables the Prompt tab and MLflow registry UI
+----
+
+If you enable `promptManagement` and the *Prompt* tab still doesn't appear, reload the Playground to force the dashboard to pick up the change.
+====
+
 == From numbers to text
 
 Quick reframe as you shift gears. With AutoML, you gave the model structured columns and it returned a structured prediction. With a language model, your "input" is *language itself*, the instructions and context you write, and the output is generated text. The quality of that output depends enormously on how you phrase the ask. So the Playground is where prompt *engineering* happens: small changes in wording and settings, big changes in behavior.
 
 == The knobs you'll actually turn
 
-The Playground lets you adjust a handful of settings interactively and see the effect immediately. The three you'll reach for most:
+Everything you adjust lives in the *Settings* panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, *Model*, *Prompt*, *Knowledge*, and *MCP*, plus a *Guardrails* tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape *what* the model is working with before it ever starts writing.
 
-* *System instructions* set the model's standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). This is the single biggest lever on behavior.
-* *Temperature* controls randomness. Low values keep answers focused and repeatable; higher values make them more varied and creative.
-* *Top-p (nucleus sampling)* is a second dial on variety, limiting the model to the most probable words. It's often tuned alongside temperature rather than instead of it.
+Start on the *Model* tab, home to the two direct generation controls:
 
-You'll also keep an eye on the *context window*, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.
+* *Temperature* controls randomness on a scale from `0` (focused, deterministic, repeatable) to `2` (loose and creative). This is the dial you'll reach for first when an answer feels either too rigid or too scattered.
+* *Streaming* toggles real-time token rendering. Leave it on to watch a response build word by word, which is the easiest way to *feel* latency and time-to-first-token; toggle it off to receive the whole answer at once.
+
+The Model tab is also where you pick the model itself and, if your project serves one, an *audio transcription model* (an ASR model such as Whisper) that lets you upload speech and have it transcribed before it's sent to the chat.
+
+NOTE: If you've worked with LLM APIs, you may expect a *Top-p (nucleus sampling)* slider next to temperature. It's a real concept, a second way to constrain variety, but the Playground UI deliberately keeps *Temperature* as the single interactive sampling dial. Reach for the *View code* button (top right) when you need to set parameters the UI doesn't expose.
+
+Move to the *Prompt* tab for the biggest lever of all:
+
+* *System instructions* set the model's standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). Small changes here move behavior more than any slider.
+* *Template variables* let you write reusable placeholders with `{{variable_name}}` syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.
+* *Versioned prompts* connect this tab to the MLflow prompt registry: use *Load Prompt* to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way. That round trip is the heart of the next section.
 
 TIP: First time touching these? Change *one* setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won't know which change fixed (or broke) the output. Treat it like tuning an instrument, not flipping every switch at once.
 
+You'll also keep an eye on the *context window*, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.
+
+== Grounding, tools, and safety
+
+The remaining tabs move beyond sampling and into what surrounds the model. You won't tune these on day one, but knowing they're here shapes how you think about the rest of the course:
+
+* *Knowledge* is where RAG lives. Toggle it on to attach uploaded documents or an enterprise vector store, and use the *chunking controls* (maximum chunk length, chunk overlap, and the delimiter used to split text) to shape how those documents are indexed. This is a direct preview of the next chapter.
+* *MCP* (Model Context Protocol) authorizes connected MCP servers and enables specific tools the model can call during a conversation, the bridge from a chatbot to something that can take action.
+* *Guardrails* selects a dedicated safety model and lets you independently toggle *input guardrails* (screening the request before it reaches the model) and *output guardrails* (screening the response before it reaches you), so you can watch for prompt injection and unsafe content.
+
 == Comparing and tracing
 
-The Playground isn't just a single chat box. Two capabilities make it a genuine evaluation tool:
+The Playground isn't just a single chat box. A few capabilities make it a genuine evaluation tool:
 
-* *A/B comparison* puts two prompt versions, or two different foundation models, side by side so you can judge outputs directly instead of relying on memory of "what it said last time."
-* *Tracing* records the call tree behind a response (using OpenTelemetry under the hood), so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
+* *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two prompt versions, or two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
+* *Tracing* records the call tree behind a response. Flip on *Enable tracing* and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
+* *Inline metrics* appear under each response, including *Time to First Token (TTFT)*, *Total Tokens*, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.
 
 NOTE: The models you test against are the foundation models your platform serves (for example Llama, Granite, or Claude). A prompt that shines on one model may behave differently on another, which is exactly why comparing across models is built in.
 
@@ -41,6 +77,6 @@ Once the Playground gives you a prompt that behaves the way you want, the worst 
 
 ////
 Source: course_design.md LO#3; appendix "promptgovernance.md" (GenAI Studio Playground) and "promptregistry.md".
-GenAI Studio menu item contains Playground + Prompts. Interactive testing: system instructions, temperature, top-p, context window. A/B comparison + OpenTelemetry tracing. Model-bound to served foundation models (Llama/Granite/Claude).
+GenAI Studio menu item contains Playground + Prompts. Settings/Configure panel is tabbed: Model (Temperature 0-2, Streaming, model select, audio transcription/ASR), Prompt (system instructions, {{template variables}}, versioned prompts via Load Prompt <-> MLflow registry), Knowledge (RAG: doc/vector store toggle + chunking: max chunk length, overlap, delimiter), MCP (tool authorization), Guardrails (safety model + input/output guardrails). Direct sampling controls in UI are Temperature + Streaming only; Top-p is NOT a UI slider (use View code). A/B comparison via Compare chat. Tracing = OpenTelemetry spans via Enable tracing. Inline metrics: TTFT, Total Tokens, latency, MLflow call-tree link. Context window still called out. Model-bound to served foundation models (Llama/Granite/Claude). Ref: RHOAI 3.5 docs + Playground screenshot.
 Session type: Arcade / Video Demo: Interactive walkthrough of prompt testing in the Playground.
 ////

@@ -8,7 +8,7 @@ Transition from predictive data to generative text, leveraging the GenAI Studio 
 
 This chapter is where we cross over into *text*. Same platform, same governance instinct, but now the thing you're shaping is a prompt to a large language model instead of a tabular prediction.
 
-Here's the mindset shift worth making up front. When you worked with AutoML, you never would have shipped a model without a leaderboard, feature importance, and a version in the registry. Yet the industry's default habit with prompts is the opposite: a clever instruction gets typed into a text box, copied into some code, tweaked by a teammate, pasted into a notebook, and six weeks later nobody can say which version is actually running in production. That sprawl has a name, *prompt drift*, and it's exactly the kind of chaos this chapter teaches you to prevent.
+When you worked with AutoML, you never would have shipped a model without a leaderboard, feature importance, and a version in the registry. Yet the industry's default habit with prompts is the opposite: a clever instruction gets typed into a text box, copied into some code, tweaked by a teammate, pasted into a notebook, and six weeks later nobody can say which version is actually running in production. That sprawl has a name, *prompt drift*, and it's exactly the kind of chaos this chapter teaches you to prevent.
 
 It helps to see where this fits in the bigger picture. Think of enterprise GenAI as an escalation ladder, and prompt governance is the second rung:
 

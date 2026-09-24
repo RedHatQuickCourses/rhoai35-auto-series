@@ -4,7 +4,9 @@ Objective::
 
 Understand why prompts deserve version control, and how the MLflow Prompt Registry versions, aliases, and binds them to model settings.
 
-Let's name the problem this section solves. A prompt is not a throwaway string, it's a *parameter* that changes your application's behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer. That's prompt drift, and the fix is to give prompts the same discipline you already give models.
+---
+
+A prompt is not a throwaway string, it's a *parameter* that changes your application's behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer.
 
 That's what the *MLflow Prompt Registry* provides. In the dashboard it lives under *GenAI Studio -> Prompts*, and if you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
 
@@ -23,13 +25,51 @@ Your application asks for the prompt *by alias*, not by number. So when you prom
 
 TIP: New to this idea? Think of an alias like a "current" label on a shelf. The versioned bottles never change, but the label can be moved to whichever one is in service today. Your code always reaches for the label, never a specific bottle.
 
+Because promoting an alias instantly changes what production sees, you'll want to be sure v3 is actually better before you move the label. That's where the Playground's *Compare* view earns its keep: load v2 and v3 into the two panes, run the same input against both, and judge the responses (along with time-to-first-token, total tokens, and latency) side by side. Validate first, then promote.
+
 == Prompts carry their settings with them
 
 A prompt is more than its words. The registry can store a *model configuration* alongside each prompt: the model name, temperature, max tokens, and the other generation settings you dialed in back in the Playground. That means the recipe travels with the prompt, so a teammate loading v2 gets not just the text but the exact settings it was tuned for.
 
 Prompts can also be *bound to a specific model provider and endpoint* (Llama, Granite, Claude, and so on). Because the application references the prompt rather than hardcoding a model, teams can swap the underlying model without rewriting prompt code.
 
-NOTE: Templates use `+{{variable}}+` placeholders, so a single registered prompt can be reused with different runtime values (a `+{{question}}+` or a `+{{num_sentences}}+` filled in at call time). You register the reusable *shape* of the prompt once, not a hundred near-identical copies.
+NOTE: Templates use `+{{variable}}+` placeholders, so a single registered prompt can be reused with different runtime values (a `+{{question}}+` or a `+{{num_sentences}}+` filled in at call time). You register the reusable *shape* of the prompt once, not a hundred near-identical copies. When you load a templated prompt into the Playground, the UI reads those placeholders and renders an input field for each one beneath the instructions box, so you fill in the runtime values before you run.
+
+=== When the recipe is bigger than a prompt
+
+The registry captures the prompt text, its versions, and the generation settings, but a serious experiment often involves more moving parts: a chosen model endpoint, attached RAG knowledge sources, and connected MCP tools. To capture that *entire* execution recipe as one reloadable unit, save the Playground session as a *Playground Agent*.
+
+The payoff is reproducibility at the session level. When a teammate reopens the agent, they don't just inherit the prompt text and temperature, they get the exact model runtime, the same vector store, and the same tool definitions you were experimenting with, so what they see matches what you saw.
+
+.Going deeper on Playground Agents (for the curious)
+[%collapsible]
+====
+Playground Agents (also called *Saved Agents*) are a real feature in RHOAI 3.5, but they're a *Developer Preview* feature and *disabled by default*, so you won't see the option in the Playground until an admin turns it on.
+
+*Turning it on (admin).* Set the `agentConfigManagement` feature flag to `true` in the `OdhDashboardConfig` resource (the `odh-dashboard-config` instance in the `redhat-ods-applications` namespace):
+
+[source,yaml]
+----
+spec:
+  dashboardConfig:
+    agentConfigManagement: true   # exposes Save/Load agent in the Playground
+----
+
+After saving, hard-refresh the browser (*Cmd/Ctrl + Shift + R*) so the dashboard picks up the change.
+
+*What a saved agent captures:* your model selection, inference parameters (such as temperature), MLflow prompt references, RAG knowledge sources (uploaded documents or vector stores), and MCP server connections.
+
+*What it deliberately does not capture:* chat history, guardrail settings, or secret credential values. A saved agent is the *recipe*, not the conversation or the secrets.
+
+*Scope:* saved agents are stored as Kubernetes resources in the project namespace, so everyone with access to the project can view, load, and collaborate on them, the same isolation model as the prompt registry itself.
+
+*Using them:*
+
+* *Save* -> configure the Playground, then use the header menu -> *Save agent*, give it a name and optional description.
+* *Load* -> header menu -> *Load agent*, or go to *GenAI Studio -> AI asset endpoints -> Agents* tab and click *Try in Playground*.
+* *Make a variant* -> load an agent, change a setting (temperature, prompt version...), then *Save as new agent* to branch a copy without overwriting the baseline.
+* *Manage* -> rename, edit descriptions, or delete agents from the *AI asset endpoints -> Agents* tab.
+====
 
 == See it in action
 
@@ -45,6 +85,6 @@ You can now version a single prompt like code. The last piece is scale: how thes
 
 ////
 Source: course_design.md LO#3; appendix "promptregistry.md" and "promptgovernance.md".
-MLflow Prompt Registry under GenAI Studio -> Prompts. Git-style immutable versioning + commit messages + side-by-side diff. Aliases (production/latest) = mutable pointers for A/B and rollback without code change. model_config stored with prompt (model, temperature, max_tokens). Model-bound to providers (Llama/Granite/Claude). {{variable}} templates. Registration steps deferred to demo/video per user.
+MLflow Prompt Registry under GenAI Studio -> Prompts. Git-style immutable versioning + commit messages + side-by-side diff. Aliases (production/latest) = mutable pointers for A/B and rollback without code change; validate v-vs-v in Playground Compare (TTFT/tokens/latency) BEFORE promoting alias. model_config stored with prompt (model, temperature, max_tokens). Model-bound to providers (Llama/Granite/Claude). {{variable}} templates -> Playground auto-renders input field per placeholder on load. Playground Agents = save whole execution recipe (prompt + endpoint + temperature + RAG sources + MCP tools) as one reloadable unit for session-level reproducibility. Collapsible deep-dive added: Saved Agents = Developer Preview, off by default, enable via agentConfigManagement flag in OdhDashboardConfig; captures model/params/prompt refs/RAG/MCP but NOT chat history/guardrails/secrets; project-namespace K8s resources; save/load/variant/manage via header menu + AI asset endpoints Agents tab. Project(namespace)=1:1 MLflow workspace vs Global read-only prompt library + Save As safeguard -> deferred to s3-governance. Registration steps deferred to demo/video per user. Ref: RHOAI 3.5 doc review.
 Session type: Video Demo: registering a prompt template in MLflow.
 ////

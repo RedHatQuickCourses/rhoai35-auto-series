@@ -4,6 +4,8 @@ Objective::
 
 Validate practitioner capability by diagnosing enterprise data scenarios and selecting the optimal AI pattern across AutoML, MLflow, and AutoRAG.
 
+---
+
 == Interactive Assessment
 
 Time to put it together. The 15 questions below are scenario-based: each one drops you into a situation, a CIO asking why AutoML matters, a banking team picking a task type, a RAG run with a suspicious metric combination, and asks you to make the right call. Pick an answer to see immediately whether it's right and *why*; the explanations are part of the learning, so read them even when you're sure.
