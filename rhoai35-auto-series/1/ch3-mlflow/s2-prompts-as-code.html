@@ -195,8 +195,9 @@
 </dd>
 </dl>
 </div>
+<hr>
 <div class="paragraph">
-<p>Let&#8217;s name the problem this section solves. A prompt is not a throwaway string, it&#8217;s a <strong>parameter</strong> that changes your application&#8217;s behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer. That&#8217;s prompt drift, and the fix is to give prompts the same discipline you already give models.</p>
+<p>A prompt is not a throwaway string, it&#8217;s a <strong>parameter</strong> that changes your application&#8217;s behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer.</p>
 </div>
 <div class="paragraph">
 <p>That&#8217;s what the <strong>MLflow Prompt Registry</strong> provides. In the dashboard it lives under <strong>GenAI Studio &#8594; Prompts</strong>, and if you governed a model in chapter 2, the idea will feel familiar: it&#8217;s a central place to create, version, tag, and reuse prompt templates across your organization.</p>
@@ -242,6 +243,9 @@ New to this idea? Think of an alias like a "current" label on a shelf. The versi
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Because promoting an alias instantly changes what production sees, you&#8217;ll want to be sure v3 is actually better before you move the label. That&#8217;s where the Playground&#8217;s <strong>Compare</strong> view earns its keep: load v2 and v3 into the two panes, run the same input against both, and judge the responses (along with time-to-first-token, total tokens, and latency) side by side. Validate first, then promote.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -260,10 +264,68 @@ New to this idea? Think of an alias like a "current" label on a shelf. The versi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Templates use <code>{{variable}}</code> placeholders, so a single registered prompt can be reused with different runtime values (a <code>{{question}}</code> or a <code>{{num_sentences}}</code> filled in at call time). You register the reusable <strong>shape</strong> of the prompt once, not a hundred near-identical copies.
+Templates use <code>{{variable}}</code> placeholders, so a single registered prompt can be reused with different runtime values (a <code>{{question}}</code> or a <code>{{num_sentences}}</code> filled in at call time). You register the reusable <strong>shape</strong> of the prompt once, not a hundred near-identical copies. When you load a templated prompt into the Playground, the UI reads those placeholders and renders an input field for each one beneath the instructions box, so you fill in the runtime values before you run.
 </td>
 </tr>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_when_the_recipe_is_bigger_than_a_prompt"><a class="anchor" href="#_when_the_recipe_is_bigger_than_a_prompt"></a>When the recipe is bigger than a prompt</h3>
+<div class="paragraph">
+<p>The registry captures the prompt text, its versions, and the generation settings, but a serious experiment often involves more moving parts: a chosen model endpoint, attached RAG knowledge sources, and connected MCP tools. To capture that <strong>entire</strong> execution recipe as one reloadable unit, save the Playground session as a <strong>Playground Agent</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The payoff is reproducibility at the session level. When a teammate reopens the agent, they don&#8217;t just inherit the prompt text and temperature, they get the exact model runtime, the same vector store, and the same tool definitions you were experimenting with, so what they see matches what you saw.</p>
+</div>
+<details>
+<summary class="title">Going deeper on Playground Agents (for the curious)</summary>
+<div class="content">
+<div class="paragraph">
+<p>Playground Agents (also called <strong>Saved Agents</strong>) are a real feature in RHOAI 3.5, but they&#8217;re a <strong>Developer Preview</strong> feature and <strong>disabled by default</strong>, so you won&#8217;t see the option in the Playground until an admin turns it on.</p>
+</div>
+<div class="paragraph">
+<p><strong>Turning it on (admin).</strong> Set the <code>agentConfigManagement</code> feature flag to <code>true</code> in the <code>OdhDashboardConfig</code> resource (the <code>odh-dashboard-config</code> instance in the <code>redhat-ods-applications</code> namespace):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  dashboardConfig:
+    agentConfigManagement: true   # exposes Save/Load agent in the Playground</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After saving, hard-refresh the browser (<strong>Cmd/Ctrl + Shift + R</strong>) so the dashboard picks up the change.</p>
+</div>
+<div class="paragraph">
+<p><strong>What a saved agent captures:</strong> your model selection, inference parameters (such as temperature), MLflow prompt references, RAG knowledge sources (uploaded documents or vector stores), and MCP server connections.</p>
+</div>
+<div class="paragraph">
+<p><strong>What it deliberately does not capture:</strong> chat history, guardrail settings, or secret credential values. A saved agent is the <strong>recipe</strong>, not the conversation or the secrets.</p>
+</div>
+<div class="paragraph">
+<p><strong>Scope:</strong> saved agents are stored as Kubernetes resources in the project namespace, so everyone with access to the project can view, load, and collaborate on them, the same isolation model as the prompt registry itself.</p>
+</div>
+<div class="paragraph">
+<p><strong>Using them:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Save</strong> &#8594; configure the Playground, then use the header menu &#8594; <strong>Save agent</strong>, give it a name and optional description.</p>
+</li>
+<li>
+<p><strong>Load</strong> &#8594; header menu &#8594; <strong>Load agent</strong>, or go to <strong>GenAI Studio &#8594; AI asset endpoints &#8594; Agents</strong> tab and click <strong>Try in Playground</strong>.</p>
+</li>
+<li>
+<p><strong>Make a variant</strong> &#8594; load an agent, change a setting (temperature, prompt version&#8230;&#8203;), then <strong>Save as new agent</strong> to branch a copy without overwriting the baseline.</p>
+</li>
+<li>
+<p><strong>Manage</strong> &#8594; rename, edit descriptions, or delete agents from the <strong>AI asset endpoints &#8594; Agents</strong> tab.</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
 </div>
 </div>
 </div>

@@ -195,6 +195,7 @@
 </dd>
 </dl>
 </div>
+<hr>
 <div class="paragraph">
 <p>Versioning a single prompt is a personal win. Governance is the <strong>team</strong> win: making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.</p>
 </div>
@@ -228,6 +229,42 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 </div>
 <div class="paragraph">
 <p>The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Designating a global registry (admin)</div>
+<div class="paragraph">
+<p>Setting up a shared registry takes three steps, all performed by a cluster administrator:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the namespace to <code>spec.globalMLflowNamespaces</code> in the <code>OdhDashboardConfig</code> (this field sits directly under <code>spec</code>, <strong>not</strong> under <code>spec.dashboardConfig</code>), or select it under <strong>Settings &#8594; General settings &#8594; Global project</strong> in the dashboard.</p>
+</li>
+<li>
+<p>Label the namespace so the platform treats it as a shared workspace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label namespace global-prompt-workspace opendatahub.io/global-mlflow-workspace=mlflow</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make sure an MLflow instance is running in that namespace. The operator only creates the shared <code>odh-group-mlflow-view</code> role bindings once an active MLflow server pod is present.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once that&#8217;s in place, other teams see these prompts read-only and can use <strong>Save As</strong> to copy one into their own project before editing.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

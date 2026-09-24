@@ -202,6 +202,32 @@
 <div class="paragraph">
 <p>In the RHOAI dashboard you&#8217;ll find this under <strong>GenAI Studio</strong>. That menu item has two areas that work together: <strong>Playground</strong>, the interactive testing surface we cover here, and <strong>Prompts</strong>, the registry where good prompts go to be saved and versioned (that&#8217;s the next section).</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Turning the feature on (admin)</div>
+<div class="paragraph">
+<p>GenAI Studio and the prompt tools are gated behind two feature flags in the <code>OdhDashboardConfig</code> resource (in the <code>redhat-ods-applications</code> namespace). An administrator sets both to <code>true</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  dashboardConfig:
+    genAiStudio: true        # exposes the GenAI Studio navigation
+    promptManagement: true   # enables the Prompt tab and MLflow registry UI</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you enable <code>promptManagement</code> and the <strong>Prompt</strong> tab still doesn&#8217;t appear, reload the Playground to force the dashboard to pick up the change.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -216,23 +242,51 @@
 <h2 id="_the_knobs_youll_actually_turn"><a class="anchor" href="#_the_knobs_youll_actually_turn"></a>The knobs you&#8217;ll actually turn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Playground lets you adjust a handful of settings interactively and see the effect immediately. The three you&#8217;ll reach for most:</p>
+<p>Everything you adjust lives in the <strong>Settings</strong> panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, <strong>Model</strong>, <strong>Prompt</strong>, <strong>Knowledge</strong>, and <strong>MCP</strong>, plus a <strong>Guardrails</strong> tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape <strong>what</strong> the model is working with before it ever starts writing.</p>
+</div>
+<div class="paragraph">
+<p>Start on the <strong>Model</strong> tab, home to the two direct generation controls:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>System instructions</strong> set the model&#8217;s standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). This is the single biggest lever on behavior.</p>
+<p><strong>Temperature</strong> controls randomness on a scale from <code>0</code> (focused, deterministic, repeatable) to <code>2</code> (loose and creative). This is the dial you&#8217;ll reach for first when an answer feels either too rigid or too scattered.</p>
 </li>
 <li>
-<p><strong>Temperature</strong> controls randomness. Low values keep answers focused and repeatable; higher values make them more varied and creative.</p>
-</li>
-<li>
-<p><strong>Top-p (nucleus sampling)</strong> is a second dial on variety, limiting the model to the most probable words. It&#8217;s often tuned alongside temperature rather than instead of it.</p>
+<p><strong>Streaming</strong> toggles real-time token rendering. Leave it on to watch a response build word by word, which is the easiest way to <strong>feel</strong> latency and time-to-first-token; toggle it off to receive the whole answer at once.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>You&#8217;ll also keep an eye on the <strong>context window</strong>, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.</p>
+<p>The Model tab is also where you pick the model itself and, if your project serves one, an <strong>audio transcription model</strong> (an ASR model such as Whisper) that lets you upload speech and have it transcribed before it&#8217;s sent to the chat.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you&#8217;ve worked with LLM APIs, you may expect a <strong>Top-p (nucleus sampling)</strong> slider next to temperature. It&#8217;s a real concept, a second way to constrain variety, but the Playground UI deliberately keeps <strong>Temperature</strong> as the single interactive sampling dial. Reach for the <strong>View code</strong> button (top right) when you need to set parameters the UI doesn&#8217;t expose.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Move to the <strong>Prompt</strong> tab for the biggest lever of all:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>System instructions</strong> set the model&#8217;s standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). Small changes here move behavior more than any slider.</p>
+</li>
+<li>
+<p><strong>Template variables</strong> let you write reusable placeholders with <code>{{variable_name}}</code> syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.</p>
+</li>
+<li>
+<p><strong>Versioned prompts</strong> connect this tab to the MLflow prompt registry: use <strong>Load Prompt</strong> to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way. That round trip is the heart of the next section.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -246,21 +300,48 @@ First time touching these? Change <strong>one</strong> setting at a time. If you
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>You&#8217;ll also keep an eye on the <strong>context window</strong>, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_grounding_tools_and_safety"><a class="anchor" href="#_grounding_tools_and_safety"></a>Grounding, tools, and safety</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The remaining tabs move beyond sampling and into what surrounds the model. You won&#8217;t tune these on day one, but knowing they&#8217;re here shapes how you think about the rest of the course:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Knowledge</strong> is where RAG lives. Toggle it on to attach uploaded documents or an enterprise vector store, and use the <strong>chunking controls</strong> (maximum chunk length, chunk overlap, and the delimiter used to split text) to shape how those documents are indexed. This is a direct preview of the next chapter.</p>
+</li>
+<li>
+<p><strong>MCP</strong> (Model Context Protocol) authorizes connected MCP servers and enables specific tools the model can call during a conversation, the bridge from a chatbot to something that can take action.</p>
+</li>
+<li>
+<p><strong>Guardrails</strong> selects a dedicated safety model and lets you independently toggle <strong>input guardrails</strong> (screening the request before it reaches the model) and <strong>output guardrails</strong> (screening the response before it reaches you), so you can watch for prompt injection and unsafe content.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_comparing_and_tracing"><a class="anchor" href="#_comparing_and_tracing"></a>Comparing and tracing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Playground isn&#8217;t just a single chat box. Two capabilities make it a genuine evaluation tool:</p>
+<p>The Playground isn&#8217;t just a single chat box. A few capabilities make it a genuine evaluation tool:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>A/B comparison</strong> puts two prompt versions, or two different foundation models, side by side so you can judge outputs directly instead of relying on memory of "what it said last time."</p>
+<p><strong>A/B comparison</strong> (the <strong>Compare chat</strong> button) splits the chat area into two panes so you can run two prompt versions, or two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."</p>
 </li>
 <li>
-<p><strong>Tracing</strong> records the call tree behind a response (using OpenTelemetry under the hood), so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.</p>
+<p><strong>Tracing</strong> records the call tree behind a response. Flip on <strong>Enable tracing</strong> and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.</p>
+</li>
+<li>
+<p><strong>Inline metrics</strong> appear under each response, including <strong>Time to First Token (TTFT)</strong>, <strong>Total Tokens</strong>, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.</p>
 </li>
 </ul>
 </div>
