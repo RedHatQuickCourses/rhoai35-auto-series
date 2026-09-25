@@ -64,7 +64,7 @@
 Q1: A CIO wants to know why the data science team needs AutoML when they already build models manually. What is the primary business value you should highlight?
 A: It compresses traditional ML development cycles from 3-6 months down to hours, acting as a workforce multiplier.
 Correct: AutoML dramatically accelerates time-to-market. By automating feature engineering and model ensembling, it unlocks predictive capabilities across existing teams without immediately competing for scarce PhD data scientists.
-A: It completely eliminates the need for any Data Scientists in the organization.
+A: It completely eliminates the need for any data scientists in the organization.
 Incorrect: AutoML is a workforce multiplier, not a replacement. It frees up specialized data science teams to focus on core strategic AI initiatives rather than tedious baseline model exploration.
 A: It automatically provisions new GPU hardware without infrastructure team approval.
 Incorrect: AutoML actually reduces infrastructure costs by running on lightweight CPUs, and it does not bypass IT provisioning processes.
@@ -121,11 +121,11 @@ Incorrect: AutoRAG generates code snippets for API integration, but it does not 
 A: To automatically scale GPU infrastructure up and down based on user traffic.
 Incorrect: That is a function of Kubernetes autoscaling and KServe, not AutoRAG. AutoRAG optimizes the retrieval logic, not infrastructure scaling.
 ---
-Q7: Which underlying library used by AutoML is described as a "multi-lingual analyst" because it naturally understands text categories and labels without requiring manual numerical conversion?
+Q7: Which underlying library used by AutoML is the "category specialist," able to handle categorical text columns natively without requiring manual numerical encoding?
 A: CatBoost
 Correct: CatBoost (Categorical Boosting) is specifically optimized to handle categorical data (like "City" or "Car Brand") natively, without forcing data scientists to manually encode everything into numbers first.
 A: LightGBM
-Incorrect: LightGBM is the "lightning-fast researcher" known for scanning massive datasets quickly, but it requires more categorical preprocessing than CatBoost.
+Incorrect: LightGBM is the "speed demon," known for fast histogram-based splitting on massive datasets, but it requires more categorical preprocessing than CatBoost.
 A: XGBoost
 Incorrect: XGBoost is the meticulous veteran that builds exact depth-wise splits, but categorical data typically must be encoded into numbers before feeding it to XGBoost.
 A: Deep Neural Networks (DNN)
@@ -151,11 +151,11 @@ Incorrect: Backtesting evaluates forecast consistency over time. It is not used 
 A: The GenAI Playground prompt history.
 Incorrect: Prompt history tracks LLM inputs, not tabular AutoML feature weights.
 ---
-Q10: When AutoRAG evaluates retrieval pipelines, it uses a Diagnostic Metric Triad. If a run shows High Answer Faithfulness but Low Answer Correctness, what does this indicate?
+Q10: When AutoRAG evaluates retrieval pipelines, it uses a metric triad. If a run shows high Answer Faithfulness but low Answer Correctness, what does this indicate?
 A: The model is hallucinating facts not found in the documents.
 Incorrect: High Faithfulness means the model is *not* hallucinating; it is successfully restricting its answer to the provided context.
 A: The model isn't hallucinating (it's faithful to the context), but the retrieved context itself is missing the right information to answer the question correctly.
-Correct: The Triad separates retrieval from generation. If Faithfulness is high (no hallucination) but Correctness is low (wrong answer), the vector search simply pulled the wrong chunks of text (Context Correctness was likely low).
+Correct: The triad separates retrieval from generation. If Faithfulness is high (no hallucination) but Correctness is low (wrong answer), the vector search simply pulled the wrong chunks of text (Context Correctness was likely low).
 A: The chunking strategy was too aggressive and broke the Python code snippets.
 Incorrect: This metric combination diagnoses the semantic quality of the RAG pipeline, not the structural integrity of exported code snippets.
 A: The LLM is generating answers perfectly, but the evaluation dataset is corrupted.
@@ -171,15 +171,15 @@ Incorrect: While OpenVINO is used for various deep learning tasks, the specific,
 A: Custom Flask Python Pod
 Incorrect: While you *could* manually build a Flask app, it is not the instant, scalable, native deployment path. The AutoGluon ServingRuntime is the built-in 1-click solution.
 ---
-Q12: Before running AutoML optimization in OpenShift AI 3.5, what must a cluster administrator explicitly configure in the OdhDashboardConfig custom resource?
-A: Enable the AutoML feature flag by setting 'spec.dashboardConfig.automl: true'.
-Correct: AutoML is a Technology Preview feature in 3.5, so the cluster admin must explicitly enable the UI by setting this flag to true in the OdhDashboardConfig.
-A: Assign dedicated NVIDIA GPUs to the AutoML namespace.
-Incorrect: AutoML primarily trains on lightweight CPUs. While it *can* use GPUs for DNNs, GPUs are not a strict prerequisite or flag required to enable the feature.
-A: Install the external AutoGluon Operator from the Red Hat Marketplace.
-Incorrect: AutoML is natively integrated into the RHOAI dashboard and pipelines; it does not require a separate 3rd party operator from the marketplace.
-A: Set the global model registry to public mode.
-Incorrect: Model registry visibility does not govern whether the AutoML pipeline UI is enabled or functional.
+Q12: A data scientist notices that the top entry on their AutoML leaderboard is a model called "WeightedEnsemble" rather than a single algorithm like XGBoost. What does this tell them?
+A: AutoGluon combined the predictions of the top candidate models into a stacked ensemble, which typically outperforms any single hand-tuned model.
+Correct: AutoGluon doesn't just crown one winning algorithm. It blends the strongest candidates into a multi-layer Weighted Ensemble so the models cover each other's blind spots, usually beating single-model tuning by roughly 2-5% in accuracy.
+A: It is a bug or placeholder entry that should be ignored when selecting a model.
+Incorrect: A WeightedEnsemble is not an error or mystery entry. It is a legitimate blended model and is often the best performer on the leaderboard.
+A: The run failed to converge, so AutoML averaged random guesses together.
+Incorrect: A WeightedEnsemble is a deliberate stacking of the top-performing candidate models, not a fallback for a failed run.
+A: It means only one algorithm (XGBoost) was actually trained during the run.
+Incorrect: The opposite is true. AutoGluon trains several algorithm families in parallel and then combines the best of them into the ensemble.
 ---
 Q13: How does Red Hat OpenShift AI address the issue of "prompt drift" when transitioning from predictive data to generative text?
 A: By hardcoding all prompts directly into the application's source code so they cannot be changed.
