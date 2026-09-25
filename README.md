@@ -1,7 +1,5 @@
 # Governing AI Data Workflows: AutoML and AutoRAG Strategies
 
-> ⚠️ **Work in progress (WIP).** This course is under active development. Chapter and section pages are currently scaffolded outlines — content is incomplete and subject to change, and page bodies still carry `Not started yet` warnings. Do not treat this material as final or publish it externally yet.
-
 ## About this course
 
 This course teaches technical professionals how to strategically evaluate use cases and apply **AutoML** (predictive modeling) and **AutoRAG** (generative retrieval) in **Red Hat OpenShift AI 3.5+** to drive measurable business value.
@@ -30,8 +28,8 @@ It focuses on the practitioner experience — the Data Scientist and AI Engineer
 |------|-------|
 | Course structure & navigation | ✅ Scaffolded |
 | Chapter/section outlines | ✅ Drafted from course design |
-| Page content | 🚧 In progress (`Not started yet`) |
-| Interactive assets (Arcade, video, quiz) | 🚧 Pending |
+| Page content | ✅ |
+| Interactive assets (Arcade, video, quiz) | ✅ |
 | Review & sign-off | ⬜ Not started |
 
 The authoritative design lives in [`prompts/course_design.md`](./prompts/course_design.md).
