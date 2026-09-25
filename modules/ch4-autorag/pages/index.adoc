@@ -6,13 +6,9 @@ Position AutoRAG as an automated optimization engine that benchmarks chunking, e
 
 ---
 
-At the end of chapter 3 we hit an honest limit: a beautifully governed prompt still only knows what the model already learned during training. Ask it about *your* company's return policy, last quarter's field procedures, or the fine print in a specific contract, and it will either shrug or, worse, confidently make something up.
+*AutoRAG* is AutoML's idea applied to retrieval. Instead of hand-tuning, you give it your documents and a set of test questions, and it automatically searches across chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns. 
 
-The standard fix is *RAG*, Retrieval-Augmented Generation: before the model answers, you retrieve the relevant chunks from your own documents and hand them over as context. It works. The catch is that building RAG *well* is a grind. How big should the chunks be? Recursive or structural chunking? Vector search or hybrid? Which embedding model? How many chunks to retrieve? Every combination is a knob, and tuning them by hand is weeks of trial and error, exactly the kind of manual benchmarking you learned to avoid back in chapter 1.
-
-*AutoRAG* is AutoML's idea applied to retrieval. Instead of hand-tuning, you give it your documents and a set of test questions, and it automatically searches across chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns. If chapter 1's AutoML was a Sorting Hat for models, AutoRAG is a Sorting Hat for retrieval pipelines.
-
-NOTE: AutoRAG is a *Technology Preview* feature in OpenShift AI 3.5. It's the platform's rung-3 answer, *context grounding*, right after prompt governance and before you'd ever consider fine-tuning a model.
+NOTE: AutoRAG is a *Technology Preview* feature in OpenShift AI 3.5.
 
 The demo below walks the whole thing end to end for a fictitious bank. It's worth watching once now for the shape of it; we'll unpack each stage in the pages that follow.
 

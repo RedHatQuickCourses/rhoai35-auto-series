@@ -60,7 +60,6 @@ Start on the *Model* tab, home to the two direct generation controls:
 
 The Model tab is also where you pick the model itself and, if your project serves one, an *audio transcription model* (an ASR model such as Whisper) that lets you upload speech and have it transcribed before it's sent to the chat.
 
-NOTE: If you've worked with LLM APIs, you may expect a *Top-p (nucleus sampling)* slider next to temperature. It's a real concept, a second way to constrain variety, but the Playground UI deliberately keeps *Temperature* as the single interactive sampling dial. Reach for the *View code* button (top right) when you need to set parameters the UI doesn't expose.
 
 Move to the *Prompt* tab for the biggest lever of all:
 
