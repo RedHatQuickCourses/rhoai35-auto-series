@@ -197,7 +197,7 @@
 </div>
 <hr>
 <div class="paragraph">
-<p>Versioning a single prompt is a personal win. Governance is the <strong>team</strong> win: making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.</p>
+<p>Making sure the right people can reach the right prompts, that nothing important is ever untracked, and that when someone in risk or compliance asks "what generated this answer six months ago?", you have a real answer.</p>
 </div>
 </div>
 </div>
@@ -222,7 +222,7 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_global_registries_shared_vetted_prompts"><a class="anchor" href="#_global_registries_shared_vetted_prompts"></a>Global registries: shared, vetted prompts</h2>
+<h2 id="_global_registries"><a class="anchor" href="#_global_registries"></a>Global registries</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as <strong>global</strong> prompt registries, granting other teams either read-only or edit access.</p>
@@ -272,7 +272,7 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <h2 id="_complete_audit_lineage"><a class="anchor" href="#_complete_audit_lineage"></a>Complete audit lineage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is the payoff that makes governance more than bookkeeping. For every inference, MLflow can log the exact prompt string, the input variables, the model ID, the generation settings, any evaluation scores, and the output that was produced. Nothing floats free.</p>
+<p>For every inference, MLflow can log the exact prompt string, the input variables, the model ID, the generation settings, any evaluation scores, and the output that was produced.</p>
 </div>
 <div class="paragraph">
 <p>That lineage buys you three things practitioners and their organizations genuinely need:</p>
@@ -283,12 +283,56 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <p><strong>Reproducibility.</strong> You can recreate any past result because you know precisely what produced it.</p>
 </li>
 <li>
-<p><strong>Rollback.</strong> When a production response regresses, you trace it to a specific prompt version and revert, exactly the alias move from the last section, now with the evidence to justify it.</p>
+<p><strong>Rollback.</strong> When a production response regresses, you trace it to a specific prompt version and revert the alias, now with the evidence to justify it.</p>
 </li>
 <li>
-<p><strong>Compliance.</strong> Risk and audit teams can prove which prompt, model, and parameters generated any historical response, which is often a hard requirement in regulated industries.</p>
+<p><strong>Compliance.</strong> Risk and audit teams can prove which prompt, model, and parameters generated any historical response, which is often a requirement in regulated industries.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_promotion_gate_dont_move_an_alias_on_a_hunch"><a class="anchor" href="#_the_promotion_gate_dont_move_an_alias_on_a_hunch"></a>The promotion gate: don&#8217;t move an alias on a hunch</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Promotion is powerful in both directions. Move the <code>production</code> alias to a new version and every application picks it up instantly, but if that version is worse than the last one, you&#8217;ve just shipped a regression to everyone at once.</p>
+</div>
+<div class="paragraph">
+<p>The governed answer is to put a <strong>gate</strong> in front of the alias: an automated check a candidate version must pass before it&#8217;s allowed to become <code>production</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Automated evaluation with EvalHub.</strong> Instead of judging a prompt by hand, EvalHub runs a candidate version against a standardized suite of quality benchmarks and safety scans (and, for prompts that call tools, generated tool-call checks) and scores it. Promotion only proceeds if the scores clear the thresholds you set.</p>
+</li>
+<li>
+<p><strong>A paper trail with EvalCards.</strong> Each evaluation produces an <strong>EvalCard</strong>: a structured, versioned record of what was tested and how the version scored, stored as an MLflow artifact right next to the prompt. That completes the compliance story from above, you don&#8217;t just know which prompt version served a response, you can show the evidence that it passed your quality bar before it went live.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automating_the_gate_with_gitops"><a class="anchor" href="#_automating_the_gate_with_gitops"></a>Automating the gate with GitOps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clicking to move an alias is fine while you&#8217;re experimenting. Once prompts are production assets, teams usually want the discipline they already apply to code: changes proposed as pull requests, reviewed, tested, and promoted automatically, with nothing moving by hand.</p>
+</div>
+<div class="paragraph">
+<p>Prompts, their evaluation configs, and their pipeline definitions are all declarative resources, so they can live in Git next to your application manifests and be reconciled by the same GitOps tooling (Argo CD or Flux) your platform team already runs. A pull request that edits a prompt can then kick off a pipeline that runs the EvalHub evaluation, generates the EvalCard, and moves the MLflow alias only if the checks pass. The promotion gate stops being something a person remembers to do and becomes something the system enforces on every change.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You don&#8217;t have to build this on day one. Nothing about the registry locks you out of it: the same aliases and versions you drive by hand in the dashboard are the ones a pipeline can drive automatically when you&#8217;re ready.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -296,7 +340,7 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <h2 id="_one_platform_for_models_and_prompts"><a class="anchor" href="#_one_platform_for_models_and_prompts"></a>One platform for models and prompts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here&#8217;s a detail that&#8217;s easy to undervalue: this is the <strong>same</strong> MLflow that tracked your AutoML accuracy scores in chapter 2. The instance versioning your predictive models also versions your prompt templates and traces your LLM calls. Your team doesn&#8217;t juggle one tool for predictive ML and a separate one for GenAI, it&#8217;s one governed platform across both, which is a big part of why the discipline actually sticks.</p>
+<p>Here&#8217;s a detail that&#8217;s easy to undervalue: this is the <strong>same</strong> MLflow that tracked your AutoML accuracy scores in chapter 2. The instance versioning your predictive models also versions your prompt templates and traces your LLM calls. Your team doesn&#8217;t juggle one tool for predictive ML and a separate one for GenAI, it&#8217;s one governed platform across both.</p>
 </div>
 </div>
 </div>
@@ -304,10 +348,10 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <h2 id="_where_this_leaves_you"><a class="anchor" href="#_where_this_leaves_you"></a>Where this leaves you</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Step back and look at what you can now do. You can take raw tabular data all the way to a served predictive model (chapters 1 and 2), and you can take a raw idea for a prompt all the way to a versioned, governed, auditable instruction bound to a model (this chapter). Both halves of "connecting data to models" are now under proper control.</p>
+<p>You can take raw tabular data all the way to a served predictive model (chapters 1 and 2), and you can take a raw idea for a prompt all the way to a versioned, governed, auditable instruction bound to a model (this chapter).</p>
 </div>
 <div class="paragraph">
-<p>But a well-governed prompt still only knows what the model already knows. The moment you need it grounded in <strong>your</strong> proprietary documents, prompt engineering hits a ceiling. That&#8217;s rung 3 of the ladder, and it&#8217;s where the next chapter picks up: <strong>AutoRAG</strong>, which automates the retrieval pipeline that feeds your governed prompts the right context.</p>
+<p>But a well-governed prompt still only knows what the model already knows. The moment you need it grounded in <strong>your</strong> proprietary documents, prompt engineering hits a ceiling. That&#8217;s where the next chapter picks up: <strong>AutoRAG</strong>, which automates the retrieval pipeline that feeds your governed prompts the right context.</p>
 </div>
 </div>
 </div>

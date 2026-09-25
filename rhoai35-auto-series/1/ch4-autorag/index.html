@@ -194,13 +194,7 @@
 </div>
 <hr>
 <div class="paragraph">
-<p>At the end of chapter 3 we hit an honest limit: a beautifully governed prompt still only knows what the model already learned during training. Ask it about <strong>your</strong> company&#8217;s return policy, last quarter&#8217;s field procedures, or the fine print in a specific contract, and it will either shrug or, worse, confidently make something up.</p>
-</div>
-<div class="paragraph">
-<p>The standard fix is <strong>RAG</strong>, Retrieval-Augmented Generation: before the model answers, you retrieve the relevant chunks from your own documents and hand them over as context. It works. The catch is that building RAG <strong>well</strong> is a grind. How big should the chunks be? Recursive or structural chunking? Vector search or hybrid? Which embedding model? How many chunks to retrieve? Every combination is a knob, and tuning them by hand is weeks of trial and error, exactly the kind of manual benchmarking you learned to avoid back in chapter 1.</p>
-</div>
-<div class="paragraph">
-<p><strong>AutoRAG</strong> is AutoML&#8217;s idea applied to retrieval. Instead of hand-tuning, you give it your documents and a set of test questions, and it automatically searches across chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns. If chapter 1&#8217;s AutoML was a Sorting Hat for models, AutoRAG is a Sorting Hat for retrieval pipelines.</p>
+<p><strong>AutoRAG</strong> is AutoML&#8217;s idea applied to retrieval. Instead of hand-tuning, you give it your documents and a set of test questions, and it automatically searches across chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -209,7 +203,7 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-AutoRAG is a <strong>Technology Preview</strong> feature in OpenShift AI 3.5. It&#8217;s the platform&#8217;s rung-3 answer, <strong>context grounding</strong>, right after prompt governance and before you&#8217;d ever consider fine-tuning a model.
+AutoRAG is a <strong>Technology Preview</strong> feature in OpenShift AI 3.5.
 </td>
 </tr>
 </table>

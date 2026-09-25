@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3914,
+  "totalSeconds": 3904,
   "pageCount": 20,
   "pages": [
     {
@@ -55,7 +55,7 @@
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 385
+      "seconds": 367
     },
     {
       "module": "ch3-mlflow",
@@ -65,12 +65,12 @@
     {
       "module": "ch3-mlflow",
       "page": "s3-governance.adoc",
-      "seconds": 204
+      "seconds": 289
     },
     {
       "module": "ch4-autorag",
       "page": "index.adoc",
-      "seconds": 471
+      "seconds": 416
     },
     {
       "module": "ch4-autorag",
@@ -90,7 +90,7 @@
     {
       "module": "ch5-review",
       "page": "index.adoc",
-      "seconds": 83
+      "seconds": 61
     },
     {
       "module": "ch5-review",
