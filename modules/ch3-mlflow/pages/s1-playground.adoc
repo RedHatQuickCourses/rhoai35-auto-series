@@ -30,6 +30,25 @@ If you enable `promptManagement` and the *Prompt* tab still doesn't appear, relo
 
 Quick reframe as you shift gears. With AutoML, you gave the model structured columns and it returned a structured prediction. With a language model, your "input" is *language itself*, the instructions and context you write, and the output is generated text. The quality of that output depends enormously on how you phrase the ask. So the Playground is where prompt *engineering* happens: small changes in wording and settings, big changes in behavior.
 
+Interactive experience: click the flashing purple circle to advance the frame.  
+
+++++
+<iframe 
+  src="https://demo.arcade.software/iGUgSiKsjN4cUkF5LNFY?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+---
+
+
 == The knobs you'll actually turn
 
 Everything you adjust lives in the *Settings* panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, *Model*, *Prompt*, *Knowledge*, and *MCP*, plus a *Guardrails* tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape *what* the model is working with before it ever starts writing.

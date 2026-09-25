@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3953,
+  "totalSeconds": 3914,
   "pageCount": 20,
   "pages": [
     {
@@ -50,17 +50,17 @@
     {
       "module": "ch3-mlflow",
       "page": "index.adoc",
-      "seconds": 85
+      "seconds": 44
     },
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 381
+      "seconds": 385
     },
     {
       "module": "ch3-mlflow",
       "page": "s2-prompts-as-code.adoc",
-      "seconds": 363
+      "seconds": 361
     },
     {
       "module": "ch3-mlflow",
