@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 4030,
+  "totalSeconds": 3961,
   "pageCount": 20,
   "pages": [
     {
@@ -55,17 +55,17 @@
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 361
+      "seconds": 346
     },
     {
       "module": "ch3-mlflow",
       "page": "s2-prompts-as-code.adoc",
-      "seconds": 382
+      "seconds": 368
     },
     {
       "module": "ch3-mlflow",
       "page": "s3-governance.adoc",
-      "seconds": 289
+      "seconds": 263
     },
     {
       "module": "ch4-autorag",
@@ -80,22 +80,22 @@
     {
       "module": "ch4-autorag",
       "page": "s2-search-space.adoc",
-      "seconds": 223
+      "seconds": 208
     },
     {
       "module": "ch4-autorag",
       "page": "s3-handoff.adoc",
-      "seconds": 194
+      "seconds": 193
     },
     {
       "module": "ch5-review",
       "page": "index.adoc",
-      "seconds": 61
+      "seconds": 44
     },
     {
       "module": "ch5-review",
       "page": "s1-synthesis.adoc",
-      "seconds": 442
+      "seconds": 461
     },
     {
       "module": "ch5-review",

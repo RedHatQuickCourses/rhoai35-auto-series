@@ -20,7 +20,7 @@ This is the feature people appreciate most, because it removes a classic RAG fru
 
 From the leaderboard, select *Try this pattern* on any ranked configuration to open an interactive chat panel, grounded in your document vector store, right inside OpenShift AI. Ask it real questions and watch how it answers. You can also see *which chunks* it retrieved and where they came from, so you're not just judging the answer, you're judging the *evidence* behind it. You can switch between candidate patterns live to compare them head to head.
 
-TIP: Before exporting anything, throw a few of your own tricky questions at the pattern here. If it retrieves sensible chunks and grounds its answers in them, you've validated the pattern the cheap way, no code required.
+TIP: Before exporting anything, throw a few of your own tricky questions at the pattern here. If it retrieves sensible chunks and grounds its answers in them, you've validated the pattern, no code required.
 
 == Export: Responses API code snippets
 

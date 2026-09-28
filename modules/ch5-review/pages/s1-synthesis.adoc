@@ -2,21 +2,21 @@
 
 Objective::
 
-Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.
+Combine AutoML, prompt management, and AutoRAG into a single decision workflow, and reason about when automation alone is sufficient.
 
 ---
 
-Individually, each capability in this course solves one problem. Together they solve a business process. The clearest way to see that is to follow a single decision from raw data all the way to a human making a call, so let's walk a loan desk.
+This course gave you three capabilities: *AutoML* for prediction, *AutoRAG* for grounded generation, and *prompt management* for governing what those models are told. Individually, each solves one problem. Together they solve a business process. The clearest way to see how they combine is to follow a single decision from raw data all the way to a human making a call.
 
 == The end-to-end workflow: a loan desk
 
 Picture a loan officer reviewing an application. Two very different questions have to be answered before they decide, and each maps to a capability you already know.
 
-*Question one: how risky is this applicant?* That's a prediction over structured, tabular data, credit score, income, loan amount, history. This is textbook *AutoML*. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an *AutoGluon ServingRuntime* on KServe, and now a risk score comes back from a REST call in microseconds. That's chapters 1 and 2, start to finish.
+*Question one: how risky is this applicant?* This is textbook *AutoML*. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an *AutoGluon ServingRuntime* on KServe, and now a risk score comes back from a REST call in microseconds. That's chapters 1 and 2, start to finish.
 
 *Question two: why that score, and what does our policy say to do about it?* A number alone won't satisfy a loan officer or a compliance reviewer. Someone needs a written credit memo: "This applicant scored in the elevated-risk band; per section 4 of our lending policy, elevated-risk applications above $250k require a secondary review." That's unstructured text grounded in *your* documents, which is exactly *AutoRAG*. It retrieves the relevant policy chunks and drafts the memo, grounded in real company policy rather than whatever the base model happened to memorize.
 
-And underneath both, quietly, is *MLflow*. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3. When audit season comes, you can prove exactly which prompt version wrote which memo.
+And underneath both, quietly, is *prompt management*. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3, backed by MLflow. When audit season comes, you can prove exactly which prompt version wrote which memo.
 
 [source]
 ----
@@ -30,7 +30,7 @@ And underneath both, quietly, is *MLflow*. The system instruction that shapes th
                     │  + grounded LLM     │     │  (grounded in policy)│      decides
                     └─────────────────────┘     └─────────────────────┘
                               ▲
-                    MLflow Prompt Registry
+                    Prompt Management registry
                     (versioned system instruction)
 ----
 
@@ -38,18 +38,22 @@ Notice what the human still does: they *decide*. AutoML gave them a fast, defens
 
 == Diagnostic decision logic
 
-Building the workflow is one skill. Knowing what to do when a metric looks wrong is the other, and it's the one that separates someone who *ran* AutoML and AutoRAG from someone who can *operate* them.
+Building the workflow is one skill. Knowing what to do when something looks wrong is the other, and it's the one that separates someone who *ran* these tools from someone who can *operate* them. Each of the three capabilities has its own tell, so diagnose them one at a time.
 
-You already have both halves of this. From chapter 2, the AutoML report card: don't trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn't leaning on something it shouldn't. From chapter 4, the AutoRAG metric triad and its combinations. The single most useful diagnostic to keep in your head:
+*For the AutoML model,* reach for the report card from chapter 2: don't trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn't leaning on something it shouldn't.
+
+*For the AutoRAG pattern,* reach for the metric triad from chapter 4. Read the combination, not any single score, because the pairing is what points at the fix:
 
 * *High Faithfulness + Low Correctness* means the model answered honestly from what it retrieved, but retrieval handed it the wrong context. The fix lives in *retrieval*, chunking or the evaluation set, not in the model.
 * *High Correctness + Low Faithfulness* means the answer was right but the model pulled it from memory, not your documents. It got lucky, and luck doesn't survive contact with unseen questions.
 
-The habit worth building: when a result looks off, ask *which stage* is failing before you start changing knobs. A low score is a symptom; the metric combination is the diagnosis.
+*For prompt management,* the "diagnostic" is the audit trail itself: when an answer reads wrong, the versioned prompt and its lineage from chapter 3 tell you exactly which instruction produced it, so you can compare versions and roll the alias back.
+
+The habit worth building across all three: when a result looks off, ask *which stage* is failing before you start changing knobs. A low score is a symptom; the pattern is the diagnosis.
 
 == When "Auto" is enough
 
-Here's a question the marketing rarely answers honestly: when do you *stop*? Automation is powerful, but it isn't the answer to every problem, and knowing its edges is a mark of competence, not doubt.
+You can build the workflow and diagnose it. The last piece of judgment is knowing when these three capabilities are the right answer in the first place.
 
 Stay with the automated capabilities when:
 
@@ -83,7 +87,7 @@ Keep this near your desk. It's the one-page distillation of the whole course: ma
 
 | A prompt that keeps drifting across app versions
 | Version, track, and audit prompts and generation settings
-| *MLflow Prompt Registry* (chapter 3)
+| *Prompt Management* (chapter 3, backed by MLflow)
 
 | A GenAI app that must answer from *your* documents
 | Ground answers in a private corpus without training a model

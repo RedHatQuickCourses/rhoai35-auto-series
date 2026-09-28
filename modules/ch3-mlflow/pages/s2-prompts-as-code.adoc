@@ -8,7 +8,7 @@ Understand why prompts deserve version control, and how RHOAI's Prompt Managemen
 
 A prompt is not a throwaway string, it's a *parameter* that changes your application's behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer.
 
-That's what *Prompt Management* provides. In the dashboard it's the feature you'll see as *Prompts*: it lives under *GenAI Studio -> Prompts*, and under the hood it's powered by the *MLflow prompt registry*. If you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
+That's what *Prompt Management* provides. In the dashboard, it's the feature you'll see as *Prompts*: it lives under *GenAI Studio -> Prompts*, and under the hood it's powered by the *MLflow prompt registry*. If you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
 
 NOTE: Two names, one feature. *Prompt Management* (or just *Prompts*) is what it's called in the dashboard and the docs; *MLflow prompt registry* is the engine doing the versioning and storage underneath. You'll hear both, and throughout this section they refer to the same capability.
 
@@ -24,8 +24,6 @@ Every time you register a change to a prompt, the registry saves a new numbered 
 Here's the feature that keeps version numbers from leaking into your application code. An *alias* is a movable label that points at a specific version, for example a `production` alias pointing at v2, or the built-in `latest` alias that always tracks the newest version.
 
 Your application asks for the prompt *by alias*, not by number. So when you promote v3, you just move the `production` alias to v3 and every app picks it up, no code change, no redeploy. Need to undo a bad prompt? Move the alias back. That's a one-click rollback.
-
-TIP: New to this idea? Think of an alias like a "current" label on a shelf. The versioned bottles never change, but the label can be moved to whichever one is in service today. Your code always reaches for the label, never a specific bottle.
 
 Because promoting an alias instantly changes what production sees, you'll want to be sure v3 is actually better before you move the label. That's where the Playground's *Compare* view earns its keep: load v2 and v3 into the two panes, run the same input against both, and judge the responses (along with time-to-first-token, total tokens, and latency) side by side. Validate first, then promote.
 

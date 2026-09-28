@@ -6,11 +6,11 @@ Understand the configurations AutoRAG searches and how to interpret the three me
 
 ---
 
-This is the heart of AutoRAG. Once you kick off a run, it systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: *what* it's varying, and *how to read* the scores that come back.
+Once you kick off a run, AutoRAG systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: *what* it's varying, and *how to read* the scores that come back.
 
 == What AutoRAG searches
 
-Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating for weeks. AutoRAG sweeps them for you:
+Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating. AutoRAG filters them for you:
 
 * *Chunking strategy*, how documents are split. Recursive chunking versus hybrid structural chunking (the latter preserves headings and table structure, and kicks in with the *Better Quality* preset).
 * *Chunk size and overlap*, how big each piece is and how much neighboring pieces share.
@@ -29,19 +29,20 @@ AutoRAG automatically *detects the language* of your evaluation questions, so yo
 
 == Reading the metric triad
 
-AutoRAG scores every candidate on three complementary metrics. You met these by name in the course overview; here's what each one actually tells you:
+AutoRAG scores every candidate on three complementary metrics, here's what each one actually tells you:
 
 * *Answer Faithfulness*, a hallucination check. Did the answer stick to the retrieved context, or did the model make things up?
 * *Answer Correctness*, a ground-truth check. Did the answer match the known-good answers in your evaluation set?
 * *Context Correctness*, a retrieval check. Did the system fetch the *right* document chunks in the first place?
 
-The reason there are three, not one, is that they isolate *where* a pattern succeeds or fails. And the real skill, the AutoRAG equivalent of reading a confusion matrix in chapter 2, is interpreting them *in combination*.
+The reason there are three, not one, is that they isolate *where* a pattern succeeds or fails.
 
 == Diagnosing the combinations
 
-This little decision guide is the most practical thing on the page. When two metrics disagree, the pattern is telling you something specific:
+When two metrics disagree, the pattern is telling you something specific:
 
-* *High Faithfulness + Low Correctness:* the model answered faithfully from what it retrieved, but the retrieved context didn't actually contain the true answer. Suspect your *chunking* or a mismatch in your *evaluation dataset*.
+* *High Faithfulness + Low Correctness:* the model answered faithfully from what it retrieved, but the retrieved context didn't actually contain the true answer. 
+** Suspect your *chunking* or a mismatch in your *evaluation dataset*.
 * *High Correctness + Low Faithfulness:* the answer was right, but the model pulled it from its own training memory rather than your documents. It got lucky this time; on unseen questions it's a *hallucination risk*.
 * *Low Context Correctness + High Answer Correctness:* retrieval fetched irrelevant chunks, but a strong foundation model compensated. It looks fine now but is *fragile*, it will break on query types it hasn't effectively memorized.
 

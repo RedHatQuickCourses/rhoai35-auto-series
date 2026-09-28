@@ -51,11 +51,11 @@ Interactive experience: click the flashing purple circle to advance the frame.
 
 == The knobs you'll actually turn
 
-Everything you adjust lives in the *Settings* panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, *Model*, *Prompt*, *Knowledge*, and *MCP*, plus a *Guardrails* tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape *what* the model is working with before it ever starts writing.
+Everything you adjust lives in the *Settings* panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, *Model*, *Prompt*, *Knowledge*, and *MCP*, plus a *Guardrails* tab, so each area of behavior has its own place. 
 
 Start on the *Model* tab. It holds your choice of model plus the two controls wired directly to how each token is generated:
 
-* *Model* is chosen from the AI asset endpoints available to your project. Switch the selected model and re-run a prompt to see how the answer changes, or use *compare chat* to run two models side by side on the same input and judge quality, tone, and speed head to head before you commit one to a workflow.
+* Each *model* is chosen from the AI asset endpoints available to your project. Switch the selected model and re-run a prompt to see how the answer changes, or use *compare chat* to run two models side by side on the same input and judge quality, tone, and speed head to head before you commit one to a workflow.
 * *Temperature* controls randomness on a scale from `0` (focused, deterministic, repeatable) to `2` (loose and creative). This is the dial you'll reach for first when an answer feels either too rigid or too scattered.
 * *Streaming* toggles real-time token rendering. Leave it on to watch a response build word by word, which is the easiest way to *feel* latency and time-to-first-token; toggle it off to receive the whole answer at once.
 
@@ -63,9 +63,9 @@ Move to the *Prompt* tab for the biggest lever of all:
 
 * *System instructions* set the model's standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). Small changes here move behavior more than any slider.
 * *Template variables* let you write reusable placeholders with `{{variable_name}}` syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.
-* *Versioned prompts* connect this tab to the MLflow prompt registry: use *Load Prompt* to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way. That round trip is the heart of the next section.
+* *Versioned prompts* connect this tab to the MLflow prompt registry: use *Load Prompt* to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way.
 
-TIP: First time touching these? Change *one* setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won't know which change fixed (or broke) the output. Treat it like tuning an instrument, not flipping every switch at once.
+TIP: First time touching these? Change *one* setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won't know which change fixed (or broke) the output.
 
 You'll also keep an eye on the *context window*, the total amount of text (your instructions, the conversation, any supplied content) the model can consider at once. Every model has a limit, and understanding it now will matter a lot in the next chapter when we start feeding models retrieved documents.
 
@@ -81,7 +81,7 @@ The remaining tabs move beyond sampling and into what surrounds the model. You w
 
 The Playground isn't just a single chat box. A few capabilities make it a genuine evaluation tool:
 
-* *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
+* *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two different models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
 * *Tracing* records the call tree behind a response. Flip on *Enable tracing* and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
 * *Inline metrics* appear under each response, including *Time to First Token (TTFT)*, *Total Tokens*, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.
 
