@@ -104,7 +104,7 @@
     <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces and Audit</a>
   </li>
 </ul>
   </li>
@@ -200,7 +200,7 @@
 <p>A prompt is not a throwaway string, it&#8217;s a <strong>parameter</strong> that changes your application&#8217;s behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer.</p>
 </div>
 <div class="paragraph">
-<p>That&#8217;s what <strong>Prompt Management</strong> provides. In the dashboard it&#8217;s the feature you&#8217;ll see as <strong>Prompts</strong>: it lives under <strong>GenAI Studio &#8594; Prompts</strong>, and under the hood it&#8217;s powered by the <strong>MLflow prompt registry</strong>. If you governed a model in chapter 2, the idea will feel familiar: it&#8217;s a central place to create, version, tag, and reuse prompt templates across your organization.</p>
+<p>That&#8217;s what <strong>Prompt Management</strong> provides. In the dashboard, it&#8217;s the feature you&#8217;ll see as <strong>Prompts</strong>: it lives under <strong>GenAI Studio &#8594; Prompts</strong>, and under the hood it&#8217;s powered by the <strong>MLflow prompt registry</strong>. If you governed a model in chapter 2, the idea will feel familiar: it&#8217;s a central place to create, version, tag, and reuse prompt templates across your organization.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -242,18 +242,6 @@ Two names, one feature. <strong>Prompt Management</strong> (or just <strong>Prom
 </div>
 <div class="paragraph">
 <p>Your application asks for the prompt <strong>by alias</strong>, not by number. So when you promote v3, you just move the <code>production</code> alias to v3 and every app picks it up, no code change, no redeploy. Need to undo a bad prompt? Move the alias back. That&#8217;s a one-click rollback.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-New to this idea? Think of an alias like a "current" label on a shelf. The versioned bottles never change, but the label can be moved to whichever one is in service today. Your code always reaches for the label, never a specific bottle.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>Because promoting an alias instantly changes what production sees, you&#8217;ll want to be sure v3 is actually better before you move the label. That&#8217;s where the Playground&#8217;s <strong>Compare</strong> view earns its keep: load v2 and v3 into the two panes, run the same input against both, and judge the responses (along with time-to-first-token, total tokens, and latency) side by side. Validate first, then promote.</p>
@@ -386,7 +374,7 @@ Templates use <code>{{variable}}</code> placeholders, so a single registered pro
 </div>
 <nav class="pagination">
   <span class="prev"><a href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a></span>
-  <span class="next"><a href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a></span>
+  <span class="next"><a href="s3-governance.html">Governance at Scale: Workspaces and Audit</a></span>
 </nav>
 </article>
   </div>

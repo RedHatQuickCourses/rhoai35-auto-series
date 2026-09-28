@@ -104,7 +104,7 @@
     <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces and Audit</a>
   </li>
 </ul>
   </li>
@@ -191,13 +191,13 @@
 <dl>
 <dt class="hdlist1">Objective</dt>
 <dd>
-<p>Combine AutoML, MLflow, and AutoRAG into a single decision workflow and reason about when automation alone is sufficient.</p>
+<p>Combine AutoML, prompt management, and AutoRAG into a single decision workflow, and reason about when automation alone is sufficient.</p>
 </dd>
 </dl>
 </div>
 <hr>
 <div class="paragraph">
-<p>Individually, each capability in this course solves one problem. Together they solve a business process. The clearest way to see that is to follow a single decision from raw data all the way to a human making a call, so let&#8217;s walk a loan desk.</p>
+<p>This course gave you three capabilities: <strong>AutoML</strong> for prediction, <strong>AutoRAG</strong> for grounded generation, and <strong>prompt management</strong> for governing what those models are told. Individually, each solves one problem. Together they solve a business process. The clearest way to see how they combine is to follow a single decision from raw data all the way to a human making a call.</p>
 </div>
 </div>
 </div>
@@ -208,13 +208,13 @@
 <p>Picture a loan officer reviewing an application. Two very different questions have to be answered before they decide, and each maps to a capability you already know.</p>
 </div>
 <div class="paragraph">
-<p><strong>Question one: how risky is this applicant?</strong> That&#8217;s a prediction over structured, tabular data, credit score, income, loan amount, history. This is textbook <strong>AutoML</strong>. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an <strong>AutoGluon ServingRuntime</strong> on KServe, and now a risk score comes back from a REST call in microseconds. That&#8217;s chapters 1 and 2, start to finish.</p>
+<p><strong>Question one: how risky is this applicant?</strong> This is textbook <strong>AutoML</strong>. You feed the historical loan data in, AutoML sorts through XGBoost, LightGBM, CatBoost, and neural nets, and hands back a ranked leaderboard. You promote the winner to an <strong>AutoGluon ServingRuntime</strong> on KServe, and now a risk score comes back from a REST call in microseconds. That&#8217;s chapters 1 and 2, start to finish.</p>
 </div>
 <div class="paragraph">
 <p><strong>Question two: why that score, and what does our policy say to do about it?</strong> A number alone won&#8217;t satisfy a loan officer or a compliance reviewer. Someone needs a written credit memo: "This applicant scored in the elevated-risk band; per section 4 of our lending policy, elevated-risk applications above $250k require a secondary review." That&#8217;s unstructured text grounded in <strong>your</strong> documents, which is exactly <strong>AutoRAG</strong>. It retrieves the relevant policy chunks and drafts the memo, grounded in real company policy rather than whatever the base model happened to memorize.</p>
 </div>
 <div class="paragraph">
-<p>And underneath both, quietly, is <strong>MLflow</strong>. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3. When audit season comes, you can prove exactly which prompt version wrote which memo.</p>
+<p>And underneath both, quietly, is <strong>prompt management</strong>. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3, backed by MLflow. When audit season comes, you can prove exactly which prompt version wrote which memo.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -228,7 +228,7 @@
                     │  + grounded LLM     │     │  (grounded in policy)│      decides
                     └─────────────────────┘     └─────────────────────┘
                               ▲
-                    MLflow Prompt Registry
+                    Prompt Management registry
                     (versioned system instruction)</code></pre>
 </div>
 </div>
@@ -241,10 +241,13 @@
 <h2 id="_diagnostic_decision_logic"><a class="anchor" href="#_diagnostic_decision_logic"></a>Diagnostic decision logic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Building the workflow is one skill. Knowing what to do when a metric looks wrong is the other, and it&#8217;s the one that separates someone who <strong>ran</strong> AutoML and AutoRAG from someone who can <strong>operate</strong> them.</p>
+<p>Building the workflow is one skill. Knowing what to do when something looks wrong is the other, and it&#8217;s the one that separates someone who <strong>ran</strong> these tools from someone who can <strong>operate</strong> them. Each of the three capabilities has its own tell, so diagnose them one at a time.</p>
 </div>
 <div class="paragraph">
-<p>You already have both halves of this. From chapter 2, the AutoML report card: don&#8217;t trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn&#8217;t leaning on something it shouldn&#8217;t. From chapter 4, the AutoRAG metric triad and its combinations. The single most useful diagnostic to keep in your head:</p>
+<p><strong>For the AutoML model,</strong> reach for the report card from chapter 2: don&#8217;t trust Accuracy on imbalanced data, read the confusion matrix and ROC/PR curves, and check Feature Importance to make sure the model isn&#8217;t leaning on something it shouldn&#8217;t.</p>
+</div>
+<div class="paragraph">
+<p><strong>For the AutoRAG pattern,</strong> reach for the metric triad from chapter 4. Read the combination, not any single score, because the pairing is what points at the fix:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -257,7 +260,10 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>The habit worth building: when a result looks off, ask <strong>which stage</strong> is failing before you start changing knobs. A low score is a symptom; the metric combination is the diagnosis.</p>
+<p><strong>For prompt management,</strong> the "diagnostic" is the audit trail itself: when an answer reads wrong, the versioned prompt and its lineage from chapter 3 tell you exactly which instruction produced it, so you can compare versions and roll the alias back.</p>
+</div>
+<div class="paragraph">
+<p>The habit worth building across all three: when a result looks off, ask <strong>which stage</strong> is failing before you start changing knobs. A low score is a symptom; the pattern is the diagnosis.</p>
 </div>
 </div>
 </div>
@@ -265,7 +271,7 @@
 <h2 id="_when_auto_is_enough"><a class="anchor" href="#_when_auto_is_enough"></a>When "Auto" is enough</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here&#8217;s a question the marketing rarely answers honestly: when do you <strong>stop</strong>? Automation is powerful, but it isn&#8217;t the answer to every problem, and knowing its edges is a mark of competence, not doubt.</p>
+<p>You can build the workflow and diagnose it. The last piece of judgment is knowing when these three capabilities are the right answer in the first place.</p>
 </div>
 <div class="paragraph">
 <p>Stay with the automated capabilities when:</p>
@@ -340,7 +346,7 @@ That escalation, fine-tuning small language models for behavior you can&#8217;t 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A prompt that keeps drifting across app versions</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Version, track, and audit prompts and generation settings</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MLflow Prompt Registry</strong> (chapter 3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Prompt Management</strong> (chapter 3, backed by MLflow)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A GenAI app that must answer from <strong>your</strong> documents</p></td>

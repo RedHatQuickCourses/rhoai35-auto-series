@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Governance at Scale: Workspaces, Lineage, and Audit :: AutoML and AutoRAG on OpenShift AI</title>
+    <title>Governance at Scale: Workspaces and Audit :: AutoML and AutoRAG on OpenShift AI</title>
     <link rel="prev" href="s2-prompts-as-code.html">
     <link rel="next" href="../ch4-autorag/index.html">
     <meta name="generator" content="Antora 3.2.0">
@@ -104,7 +104,7 @@
     <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces and Audit</a>
   </li>
 </ul>
   </li>
@@ -175,7 +175,7 @@
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></li>
     <li><a href="index.html">Prompt Engineering and MLflow Governance</a></li>
-    <li><a href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a></li>
+    <li><a href="s3-governance.html">Governance at Scale: Workspaces and Audit</a></li>
   </ul>
 </nav>
 </div>
@@ -184,7 +184,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Governance at Scale: Workspaces, Lineage, and Audit</h1>
+<h1 class="page">Governance at Scale: Workspaces and Audit</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="dlist">
@@ -205,7 +205,7 @@
 <h2 id="_workspaces_one_per_project"><a class="anchor" href="#_workspaces_one_per_project"></a>Workspaces: one per project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MLflow organizes work into <strong>workspaces</strong>, and RHOAI maps them cleanly to something you already know: an OpenShift project namespace corresponds <strong>1:1</strong> to an MLflow workspace. Your project&#8217;s experiments, runs, and registered prompts all live inside that boundary, and access is controlled by the same Kubernetes RBAC that governs the rest of the platform.</p>
+<p>MLflow organizes work into <strong>workspaces</strong>, and RHOAI maps them to something you already know, an OpenShift project namespace corresponds <strong>1:1</strong> to an MLflow workspace. Your project&#8217;s experiments, runs, and registered prompts all live inside that boundary, and access is controlled by the same Kubernetes RBAC that governs the rest of the platform.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -228,7 +228,7 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <p>Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as <strong>Global Prompt Registry Namespaces</strong>, granting other teams either read-only or edit access.</p>
 </div>
 <div class="paragraph">
-<p>The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.</p>
+<p>The result is a central, trusted library of enterprise prompts. Individual teams iterate in their own workspaces, while the organization maintains a shared templates of approved prompts.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -275,7 +275,7 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <p>For every inference, MLflow can log the exact prompt string, the input variables, the model ID, the generation settings, any evaluation scores, and the output that was produced.</p>
 </div>
 <div class="paragraph">
-<p>That lineage buys you three things practitioners and their organizations genuinely need:</p>
+<p>That lineage buys you three things:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -293,13 +293,13 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_promotion_gate_dont_move_an_alias_on_a_hunch"><a class="anchor" href="#_the_promotion_gate_dont_move_an_alias_on_a_hunch"></a>The promotion gate: don&#8217;t move an alias on a hunch</h2>
+<h2 id="_the_promotion_gate"><a class="anchor" href="#_the_promotion_gate"></a>The promotion gate</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Promotion is powerful in both directions. Move the <code>production</code> alias to a new version and every application picks it up instantly, but if that version is worse than the last one, you&#8217;ve just shipped a regression to everyone at once.</p>
 </div>
 <div class="paragraph">
-<p>The governed answer is to put a <strong>gate</strong> in front of the alias: an automated check a candidate version must pass before it&#8217;s allowed to become <code>production</code>.</p>
+<p>The governed answer is to put a <strong>gate</strong> in front of the alias, an automated check, a candidate version must pass before it&#8217;s allowed to become <code>production</code>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -307,15 +307,12 @@ If "namespace" and "RBAC" are new terms, the short version is: a namespace is a 
 <p><strong>Automated evaluation with EvalHub.</strong> Instead of judging a prompt by hand, EvalHub runs a candidate version against a standardized suite of quality benchmarks and safety scans (and, for prompts that call tools, generated tool-call checks) and scores it. Promotion only proceeds if the scores clear the thresholds you set.</p>
 </li>
 <li>
-<p><strong>A paper trail with EvalCards.</strong> Each evaluation produces an <strong>EvalCard</strong>: a structured, versioned record of what was tested and how the version scored, stored as an MLflow artifact right next to the prompt. That completes the compliance story from above, you don&#8217;t just know which prompt version served a response, you can show the evidence that it passed your quality bar before it went live.</p>
+<p><strong>A paper trail with EvalCards.</strong> Each evaluation produces an <strong>EvalCard</strong>: a structured, versioned record of what was tested and how the version scored, stored as an MLflow artifact right next to the prompt.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_automating_the_gate_with_gitops"><a class="anchor" href="#_automating_the_gate_with_gitops"></a>Automating the gate with GitOps</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_automating_the_gate_with_gitops"><a class="anchor" href="#_automating_the_gate_with_gitops"></a>Automating the gate with GitOps</h3>
 <div class="paragraph">
 <p>Clicking to move an alias is fine while you&#8217;re experimenting. Once prompts are production assets, teams usually want the discipline they already apply to code: changes proposed as pull requests, reviewed, tested, and promoted automatically, with nothing moving by hand.</p>
 </div>
@@ -336,6 +333,7 @@ You don&#8217;t have to build this on day one. Nothing about the registry locks 
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="_one_platform_for_models_and_prompts"><a class="anchor" href="#_one_platform_for_models_and_prompts"></a>One platform for models and prompts</h2>
 <div class="sectionbody">
@@ -345,13 +343,10 @@ You don&#8217;t have to build this on day one. Nothing about the registry locks 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_where_this_leaves_you"><a class="anchor" href="#_where_this_leaves_you"></a>Where this leaves you</h2>
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can take raw tabular data all the way to a served predictive model (chapters 1 and 2), and you can take a raw idea for a prompt all the way to a versioned, governed, auditable instruction bound to a model (this chapter).</p>
-</div>
-<div class="paragraph">
-<p>But a well-governed prompt still only knows what the model already knows. The moment you need it grounded in <strong>your</strong> proprietary documents, prompt engineering hits a ceiling. That&#8217;s where the next chapter picks up: <strong>AutoRAG</strong>, which automates the retrieval pipeline that feeds your governed prompts the right context.</p>
+<p>A well-governed prompt still only knows what the model already knows. The moment you need it grounded in <strong>your</strong> proprietary documents, prompt engineering hits a ceiling. That&#8217;s where the next chapter picks up: <strong>AutoRAG</strong>, which automates the retrieval pipeline that feeds your governed prompts the right context.</p>
 </div>
 </div>
 </div>

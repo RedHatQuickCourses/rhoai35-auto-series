@@ -104,7 +104,7 @@
     <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces and Audit</a>
   </li>
 </ul>
   </li>
@@ -197,7 +197,7 @@
 </div>
 <hr>
 <div class="paragraph">
-<p>This is the heart of AutoRAG. Once you kick off a run, it systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: <strong>what</strong> it&#8217;s varying, and <strong>how to read</strong> the scores that come back.</p>
+<p>Once you kick off a run, AutoRAG systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: <strong>what</strong> it&#8217;s varying, and <strong>how to read</strong> the scores that come back.</p>
 </div>
 </div>
 </div>
@@ -205,7 +205,7 @@
 <h2 id="_what_autorag_searches"><a class="anchor" href="#_what_autorag_searches"></a>What AutoRAG searches</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating for weeks. AutoRAG sweeps them for you:</p>
+<p>Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating. AutoRAG filters them for you:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -267,7 +267,7 @@ The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supp
 <h2 id="_reading_the_metric_triad"><a class="anchor" href="#_reading_the_metric_triad"></a>Reading the metric triad</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AutoRAG scores every candidate on three complementary metrics. You met these by name in the course overview; here&#8217;s what each one actually tells you:</p>
+<p>AutoRAG scores every candidate on three complementary metrics, here&#8217;s what each one actually tells you:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -283,7 +283,7 @@ The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supp
 </ul>
 </div>
 <div class="paragraph">
-<p>The reason there are three, not one, is that they isolate <strong>where</strong> a pattern succeeds or fails. And the real skill, the AutoRAG equivalent of reading a confusion matrix in chapter 2, is interpreting them <strong>in combination</strong>.</p>
+<p>The reason there are three, not one, is that they isolate <strong>where</strong> a pattern succeeds or fails.</p>
 </div>
 </div>
 </div>
@@ -291,12 +291,19 @@ The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supp
 <h2 id="_diagnosing_the_combinations"><a class="anchor" href="#_diagnosing_the_combinations"></a>Diagnosing the combinations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This little decision guide is the most practical thing on the page. When two metrics disagree, the pattern is telling you something specific:</p>
+<p>When two metrics disagree, the pattern is telling you something specific:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>High Faithfulness + Low Correctness:</strong> the model answered faithfully from what it retrieved, but the retrieved context didn&#8217;t actually contain the true answer. Suspect your <strong>chunking</strong> or a mismatch in your <strong>evaluation dataset</strong>.</p>
+<p><strong>High Faithfulness + Low Correctness:</strong> the model answered faithfully from what it retrieved, but the retrieved context didn&#8217;t actually contain the true answer.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Suspect your <strong>chunking</strong> or a mismatch in your <strong>evaluation dataset</strong>.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>High Correctness + Low Faithfulness:</strong> the answer was right, but the model pulled it from its own training memory rather than your documents. It got lucky this time; on unseen questions it&#8217;s a <strong>hallucination risk</strong>.</p>

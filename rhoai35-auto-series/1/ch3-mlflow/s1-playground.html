@@ -104,7 +104,7 @@
     <a class="nav-link" href="s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
+    <a class="nav-link" href="s3-governance.html">Governance at Scale: Workspaces and Audit</a>
   </li>
 </ul>
   </li>
@@ -257,7 +257,7 @@
 <h2 id="_the_knobs_youll_actually_turn"><a class="anchor" href="#_the_knobs_youll_actually_turn"></a>The knobs you&#8217;ll actually turn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Everything you adjust lives in the <strong>Settings</strong> panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, <strong>Model</strong>, <strong>Prompt</strong>, <strong>Knowledge</strong>, and <strong>MCP</strong>, plus a <strong>Guardrails</strong> tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape <strong>what</strong> the model is working with before it ever starts writing.</p>
+<p>Everything you adjust lives in the <strong>Settings</strong> panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, <strong>Model</strong>, <strong>Prompt</strong>, <strong>Knowledge</strong>, and <strong>MCP</strong>, plus a <strong>Guardrails</strong> tab, so each area of behavior has its own place.</p>
 </div>
 <div class="paragraph">
 <p>Start on the <strong>Model</strong> tab. It holds your choice of model plus the two controls wired directly to how each token is generated:</p>
@@ -265,7 +265,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Model</strong> is chosen from the AI asset endpoints available to your project. Switch the selected model and re-run a prompt to see how the answer changes, or use <strong>compare chat</strong> to run two models side by side on the same input and judge quality, tone, and speed head to head before you commit one to a workflow.</p>
+<p>Each <strong>model</strong> is chosen from the AI asset endpoints available to your project. Switch the selected model and re-run a prompt to see how the answer changes, or use <strong>compare chat</strong> to run two models side by side on the same input and judge quality, tone, and speed head to head before you commit one to a workflow.</p>
 </li>
 <li>
 <p><strong>Temperature</strong> controls randomness on a scale from <code>0</code> (focused, deterministic, repeatable) to <code>2</code> (loose and creative). This is the dial you&#8217;ll reach for first when an answer feels either too rigid or too scattered.</p>
@@ -287,7 +287,7 @@
 <p><strong>Template variables</strong> let you write reusable placeholders with <code>{{variable_name}}</code> syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.</p>
 </li>
 <li>
-<p><strong>Versioned prompts</strong> connect this tab to the MLflow prompt registry: use <strong>Load Prompt</strong> to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way. That round trip is the heart of the next section.</p>
+<p><strong>Versioned prompts</strong> connect this tab to the MLflow prompt registry: use <strong>Load Prompt</strong> to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way.</p>
 </li>
 </ul>
 </div>
@@ -298,7 +298,7 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-First time touching these? Change <strong>one</strong> setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won&#8217;t know which change fixed (or broke) the output. Treat it like tuning an instrument, not flipping every switch at once.
+First time touching these? Change <strong>one</strong> setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won&#8217;t know which change fixed (or broke) the output.
 </td>
 </tr>
 </table>
@@ -338,7 +338,7 @@ First time touching these? Change <strong>one</strong> setting at a time. If you
 <div class="ulist">
 <ul>
 <li>
-<p><strong>A/B comparison</strong> (the <strong>Compare chat</strong> button) splits the chat area into two panes so you can run two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."</p>
+<p><strong>A/B comparison</strong> (the <strong>Compare chat</strong> button) splits the chat area into two panes so you can run two different models, side by side and judge outputs directly instead of relying on memory of "what it said last time."</p>
 </li>
 <li>
 <p><strong>Tracing</strong> records the call tree behind a response. Flip on <strong>Enable tracing</strong> and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.</p>
