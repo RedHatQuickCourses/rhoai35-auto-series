@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Governing AI Data Workflows: AutoML and AutoRAG Strategies :: AutoML and AutoRAG Strategies</title>
+    <title>From Raw Data to a Working Model with AutoML and AutoRAG on OpenShift AI :: AutoML and AutoRAG on OpenShift AI</title>
     <link rel="next" href="ch1-automl/index.html">
     <meta name="generator" content="Antora 3.2.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -18,7 +18,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
-      <a class="navbar-item" style="font-size: 24px; color: white" href="../..">AutoML and AutoRAG Strategies</a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../..">AutoML and AutoRAG on OpenShift AI</a>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <input id="search-input" type="text" placeholder="Search the docs" autofocus>
@@ -43,7 +43,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">AutoML and AutoRAG Strategies</a></h3>
+    <h3 class="title"><a href="index.html">AutoML and AutoRAG on OpenShift AI</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -100,7 +100,7 @@
     <a class="nav-link" href="ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: The MLflow Prompt Registry</a>
+    <a class="nav-link" href="ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces, Lineage, and Audit</a>
@@ -149,12 +149,12 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">AutoML and AutoRAG Strategies</span>
+    <span class="title">AutoML and AutoRAG on OpenShift AI</span>
     <span class="version">1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="index.html">AutoML and AutoRAG Strategies</a>
+      <a class="title" href="index.html">AutoML and AutoRAG on OpenShift AI</a>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="index.html">1</a>
@@ -172,7 +172,7 @@
   <a href="index.html" class="home-link is-current"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">AutoML and AutoRAG Strategies</a></li>
+    <li><a href="index.html">AutoML and AutoRAG on OpenShift AI</a></li>
     <li><a href="index.html">Home</a></li>
   </ul>
 </nav>
@@ -182,18 +182,29 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Governing AI Data Workflows: AutoML and AutoRAG Strategies</h1>
+<h1 class="page">From Raw Data to a Working Model with AutoML and AutoRAG on OpenShift AI</h1>
 <div class="sect1">
-<h2 id="_welcome"><a class="anchor" href="#_welcome"></a>Welcome</h2>
+<h2 id="_data_without_the_dread"><a class="anchor" href="#_data_without_the_dread"></a>Data Without the Dread</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Across the industry, organizations are learning a hard truth: getting an AI data pipeline reliably into production is still remarkably difficult. More than 75% of enterprise AI data initiatives stall out, trapped inside exploratory notebooks that work on a developer&#8217;s laptop but never survive the transition to a governed, scalable production endpoint.</p>
+<p>Data is the part a lot of us quietly avoid. There is so much to hold in your head: how to structure it, how to clean it, how to back it up, how to shape it for machine learning. If you have ever thought "I don&#8217;t want to become a data-cleaning specialist, I just want to use this data to get the results my business needs," you are exactly who this course is for.</p>
 </div>
 <div class="paragraph">
-<p>Rather than focusing on platform administration or YAML cluster setup, this course places you directly in the practitioner&#8217;s seat (Data Scientists, AI Engineers, and Technical Solution Architects).</p>
+<p>That instinct is backed by a hard industry truth. More than 75% of enterprise AI data initiatives stall out, trapped inside exploratory notebooks that run fine on a developer&#8217;s laptop but never survive the trip to a governed, scalable production endpoint.</p>
 </div>
 <div class="paragraph">
-<p>You will explore how Red Hat OpenShift AI’s "Auto" capabilities: AutoML, AutoRAG, and MLflow governance; take raw enterprise data sitting in object storage and systematically convert it into production-ready, auditable inference APIs in hours rather than months.</p>
+<p>This course puts you in the practitioner&#8217;s seat, not the platform administrator&#8217;s. No YAML cluster setup, no infrastructure plumbing. Instead, you&#8217;ll see how Red Hat OpenShift AI&#8217;s "Auto" capabilities (AutoML, AutoRAG, and prompt management) take raw enterprise data sitting in object storage and turn it into production-ready, auditable inference APIs in hours rather than months.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keep_the_bigger_picture_in_view"><a class="anchor" href="#_keep_the_bigger_picture_in_view"></a>Keep the bigger picture in view</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AutoML, AutoRAG, and prompt management are not the whole story, and they are not trying to be. What they do is remove the manual grind between raw data and a working model, without asking you to be an ML specialist who hand-tunes algorithms or hand-builds pipelines. For plenty of real business problems, the model they produce is good enough to put into production as-is. Not every solution needs the highest accuracy possible, and reaching a good-enough result in hours frees your team to spend its energy on the harder, higher-value deliverables. When a problem does demand more, that same fast result tells you early whether the data is even worth the deeper investment.</p>
+</div>
+<div class="paragraph">
+<p>The platform carries a different kind of weight. Red Hat OpenShift AI is the integration point that connects this data to everything else you will build on top of it: inference serving, GPUs and hardware profiles, workbenches, the model registry, and the data connections that feed real applications. AutoML and AutoRAG get you to a working model fast. The platform is what you use to actually put it to work.</p>
 </div>
 </div>
 </div>
@@ -201,7 +212,7 @@
 <h2 id="_goal"><a class="anchor" href="#_goal"></a>Goal</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Teach technical professionals how to strategically evaluate use cases, and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+,  to drive measurable business value by showcasing its targeted automated ML/RAG capabilities.</p>
+<p>Teach technical professionals how to evaluate use cases and apply AutoML (predictive modeling) and AutoRAG (generative retrieval) in Red Hat OpenShift AI 3.5+ to drive measurable business value.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -226,19 +237,19 @@ In OpenShift AI 3.5, AutoML and AutoRAG are <strong>technology preview</strong> 
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Predictive Foundations (AutoML):</strong> Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.</p>
+<p>Evaluate when to apply AutoML to convert raw tabular data or time series into production-ready predictive models across classification, regression, and time-series tasks.</p>
 </li>
 <li>
-<p><strong>AutoML governance &amp; deployment:</strong> Use AutoML evaluation artifacts (leaderboards, feature importance, ROC/PR curves) to validate business logic and promote winning models to production.</p>
+<p>Use AutoML&#8217;s built-in evaluation reports, the scorecards that tell you which model won and why, to check the results against your business logic before you promote a model to production. (leaderboards, feature importance, ROC/PR curves)</p>
 </li>
 <li>
-<p><strong>GenAI prompting &amp; MLflow governance:</strong> Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".</p>
+<p>Transition from predictive data to generative text, leveraging the GenAI Playground and prompt management to version, track, and eliminate "prompt drift".</p>
 </li>
 <li>
-<p><strong>Generative retrieval (AutoRAG):</strong> Position AutoRAG as an automated optimization engine that benchmarks chunking, embedding, and retrieval configurations (search mode, top-k, and more) to build grounded LLM applications.</p>
+<p>Let AutoRAG do the tuning for you. It automatically tests different ways of slicing and searching your documents to find the setup that gives an LLM the most grounded, accurate answers. (chunking, embedding, search mode, top-k, and more)</p>
 </li>
 <li>
-<p><strong>Knowledge review and assessment:</strong> Track core enablement concepts across AutoML, MLflow prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.</p>
+<p>Track core enablement concepts across AutoML, prompt tracking, and AutoRAG to validate practitioner capability in diagnosing enterprise data scenarios and selecting optimal AI patterns.</p>
 </li>
 </ul>
 </div>
@@ -263,26 +274,26 @@ In OpenShift AI 3.5, AutoML and AutoRAG are <strong>technology preview</strong> 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_what_you_bring_to_the_table"><a class="anchor" href="#_what_you_bring_to_the_table"></a>What you bring to the table</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This course assumes that you have the following experience:</p>
+<p>You do not need to be an expert in any of this. You just need to be comfortable enough to follow along. It helps if you have:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Familiarity with core machine learning concepts (classification, regression, time series).</p>
+<p>A working sense of core machine learning ideas (classification, regression, time series). You don&#8217;t need to have built them, just to recognize them.</p>
 </li>
 <li>
-<p>Familiarity with generative AI concepts (LLMs, prompting, retrieval-augmented generation).</p>
+<p>A working sense of generative AI ideas (LLMs, prompting, retrieval-augmented generation).</p>
 </li>
 <li>
-<p>Familiarity with Red Hat OpenShift AI 3.5+ from a practitioner (Data Scientist / AI Engineer) perspective.</p>
-</li>
-<li>
-<p>No cluster administration or infrastructure setup experience is assumed or required.</p>
+<p>Some exposure to Red Hat OpenShift AI 3.5+ as a practitioner, not as an administrator.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>And here is what you can leave at the door: no cluster administration, no infrastructure setup, no data-engineering pipeline building. That is the whole point.</p>
 </div>
 </div>
 </div>
@@ -291,6 +302,18 @@ In OpenShift AI 3.5, AutoML and AutoRAG are <strong>technology preview</strong> 
 <div class="sectionbody">
 <div class="paragraph">
 <p>This course requires no hands-on user labs. It uses Summit or created Arcade interactive clickthroughs, and video walkthroughs to demonstrate AutoML and AutoRAG capabilities, and it closes with a scenario-based graded knowledge check.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Each capability is shown through Arcade interactive click-throughs and video walkthroughs, following the same examples the AI Business Unit uses. You watch it work, understand <strong>why</strong> each choice was made, then learn how to read the results yourself.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -339,7 +362,7 @@ This publication contains content or media that is generated or assisted by AI t
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script defer src="../../_/js/vendor/tabs.js"></script>
 <script defer src="../../_/js/vendor/scorm-bridge.js"></script>
-<script>window.__courseDuration = {"totalSeconds":3904,"pageCount":20};</script>
+<script>window.__courseDuration = {"totalSeconds":4030,"pageCount":20};</script>
 <script defer src="../../_/js/vendor/course-total-duration.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

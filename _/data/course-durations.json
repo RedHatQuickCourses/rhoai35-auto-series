@@ -1,11 +1,11 @@
 {
-  "totalSeconds": 3904,
+  "totalSeconds": 4030,
   "pageCount": 20,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
-      "seconds": 168
+      "seconds": 266
     },
     {
       "module": "ch1-automl",
@@ -25,7 +25,7 @@
     {
       "module": "ch1-automl",
       "page": "s3-task-types.adoc",
-      "seconds": 206
+      "seconds": 217
     },
     {
       "module": "ch2-governance",
@@ -55,12 +55,12 @@
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 367
+      "seconds": 361
     },
     {
       "module": "ch3-mlflow",
       "page": "s2-prompts-as-code.adoc",
-      "seconds": 361
+      "seconds": 382
     },
     {
       "module": "ch3-mlflow",
@@ -100,7 +100,7 @@
     {
       "module": "ch5-review",
       "page": "s2-assessment-quiz.adoc",
-      "seconds": 71
+      "seconds": 73
     }
   ]
 }
