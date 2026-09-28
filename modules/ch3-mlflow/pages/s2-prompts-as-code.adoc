@@ -1,18 +1,20 @@
-= Prompts as Code: The MLflow Prompt Registry
+= Prompts as Code: Prompt Management
 
 Objective::
 
-Understand why prompts deserve version control, and how the MLflow Prompt Registry versions, aliases, and binds them to model settings.
+Understand why prompts deserve version control, and how RHOAI's Prompt Management feature (built on the MLflow prompt registry) versions, aliases, and binds them to model settings.
 
 ---
 
 A prompt is not a throwaway string, it's a *parameter* that changes your application's behavior just as surely as any line of code. Yet prompts tend to get treated like sticky notes: copied, pasted, tweaked, and scattered. When a production answer suddenly regresses, "which prompt caused this?" becomes a question nobody can answer.
 
-That's what the *MLflow Prompt Registry* provides. In the dashboard it lives under *GenAI Studio -> Prompts*, and if you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
+That's what *Prompt Management* provides. In the dashboard it's the feature you'll see as *Prompts*: it lives under *GenAI Studio -> Prompts*, and under the hood it's powered by the *MLflow prompt registry*. If you governed a model in chapter 2, the idea will feel familiar: it's a central place to create, version, tag, and reuse prompt templates across your organization.
+
+NOTE: Two names, one feature. *Prompt Management* (or just *Prompts*) is what it's called in the dashboard and the docs; *MLflow prompt registry* is the engine doing the versioning and storage underneath. You'll hear both, and throughout this section they refer to the same capability.
 
 == Versioning, the Git way
 
-Every time you register a change to a prompt, MLflow saves a new numbered version (v1, v2, v3...) with a commit message describing what changed, just like a Git history for your instructions. Two properties make this trustworthy:
+Every time you register a change to a prompt, the registry saves a new numbered version (v1, v2, v3...) with a commit message describing what changed, just like a Git history for your instructions. Two properties make this trustworthy:
 
 * *Versions are immutable.* Once v2 exists, it never silently changes. If you want to edit a prompt, you create v3. That guarantee is what makes a past result reproducible.
 * *You can compare versions side by side*, with the differences highlighted, so you can see exactly how the wording evolved between v1 and v2.

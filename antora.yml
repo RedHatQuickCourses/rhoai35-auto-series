@@ -1,5 +1,5 @@
 name: rhoai35-auto-series
-title: AutoML and AutoRAG Strategies
+title: AutoML and AutoRAG on OpenShift AI
 version: 1
 nav:
 - modules/ROOT/nav.adoc

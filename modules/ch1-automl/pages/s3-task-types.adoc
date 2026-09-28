@@ -10,9 +10,11 @@ Here's the good news: no matter how complicated the business problem sounds, eve
 
 Even better, you often don't have to decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and *recommends* a task type and a sensible default metric. You should understand the four tasks well enough to know when it's right.
 
-== Start by reading your data, not the problem statement
+== Turn the business problem into a data question
 
-If this is your first time driving one of these tools, here's the habit to build early: don't start from how the business *describes* the problem, start from what your data actually looks like. The stakeholder might say "I want to know who's going to leave us," but the platform doesn't see intentions, it sees columns. So the very first thing you do is open your CSV and look hard at *one* column: the *target*, the value you want the model to predict for new rows.
+Every project starts with a business problem: someone wants to know who's going to leave, how much something will cost, what next quarter's demand looks like. That's always your starting point. The catch is that the platform can't act on an intention, it can only act on columns. So the habit to build early is translating that business question into a data question, and that translation almost always comes down to *one* column: the *target*, the value you want the model to predict for new rows.
+
+When a stakeholder says "I want to know who's going to leave us," your next move is to open the CSV and find the column that records who actually left, then look hard at what's in it.
 
 Two quick questions answer almost everything:
 

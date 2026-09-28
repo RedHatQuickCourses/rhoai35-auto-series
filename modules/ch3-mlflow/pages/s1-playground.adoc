@@ -26,7 +26,7 @@ spec:
 If you enable `promptManagement` and the *Prompt* tab still doesn't appear, reload the Playground to force the dashboard to pick up the change.
 ====
 
-== From numbers to text
+== From structured data to unstructured text
 
 Quick reframe as you shift gears. With AutoML, you gave the model structured columns and it returned a structured prediction. With a language model, your "input" is *language itself*, the instructions and context you write, and the output is generated text. The quality of that output depends enormously on how you phrase the ask. So the Playground is where prompt *engineering* happens: small changes in wording and settings, big changes in behavior.
 
@@ -53,13 +53,11 @@ Interactive experience: click the flashing purple circle to advance the frame.
 
 Everything you adjust lives in the *Settings* panel that opens on the right side of the Playground. Rather than a single wall of sliders, the controls are grouped into tabs, *Model*, *Prompt*, *Knowledge*, and *MCP*, plus a *Guardrails* tab, so each area of behavior has its own place. Two of these controls are wired directly to how the model generates each token; the rest shape *what* the model is working with before it ever starts writing.
 
-Start on the *Model* tab, home to the two direct generation controls:
+Start on the *Model* tab. It holds your choice of model plus the two controls wired directly to how each token is generated:
 
+* *Model* is chosen from the AI asset endpoints available to your project. Switch the selected model and re-run a prompt to see how the answer changes, or use *compare chat* to run two models side by side on the same input and judge quality, tone, and speed head to head before you commit one to a workflow.
 * *Temperature* controls randomness on a scale from `0` (focused, deterministic, repeatable) to `2` (loose and creative). This is the dial you'll reach for first when an answer feels either too rigid or too scattered.
 * *Streaming* toggles real-time token rendering. Leave it on to watch a response build word by word, which is the easiest way to *feel* latency and time-to-first-token; toggle it off to receive the whole answer at once.
-
-The Model tab is also where you pick the model itself and, if your project serves one, an *audio transcription model* (an ASR model such as Whisper) that lets you upload speech and have it transcribed before it's sent to the chat.
-
 
 Move to the *Prompt* tab for the biggest lever of all:
 
@@ -83,11 +81,10 @@ The remaining tabs move beyond sampling and into what surrounds the model. You w
 
 The Playground isn't just a single chat box. A few capabilities make it a genuine evaluation tool:
 
-* *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two prompt versions, or two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
+* *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two different foundation models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
 * *Tracing* records the call tree behind a response. Flip on *Enable tracing* and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
 * *Inline metrics* appear under each response, including *Time to First Token (TTFT)*, *Total Tokens*, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.
 
-NOTE: The models you test against are the foundation models your platform serves (for example Llama, Granite, or Claude). A prompt that shines on one model may behave differently on another, which is exactly why comparing across models is built in.
 
 == What's next
 

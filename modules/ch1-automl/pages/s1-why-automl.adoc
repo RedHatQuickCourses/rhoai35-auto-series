@@ -19,7 +19,7 @@ That repetition is exactly what AutoML automates. Instead of a person hand-runni
 * *Algorithm selection*, trying many model families in parallel instead of one at a time.
 * *Ensembling*, combining the best candidates into something stronger than any single model.
 
-We bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.
+You bring the judgment, the business question, the data, the decision about what "good" looks like. AutoML takes over the grind in the middle.
 
 == The "sorting specialist"
 

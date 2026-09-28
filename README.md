@@ -1,4 +1,4 @@
-# Governing AI Data Workflows: AutoML and AutoRAG Strategies
+# From Raw Data to a Working Model with AutoML and AutoRAG on OpenShift AI
 
 ## About this course
 

@@ -1,5 +1,5 @@
 site:
-  title: AutoML and AutoRAG Strategies
+  title: AutoML and AutoRAG on OpenShift AI
   start_page: rhoai35-auto-series::index.adoc
 
 antora:

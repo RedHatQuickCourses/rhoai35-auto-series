@@ -1,4 +1,4 @@
-= Governing AI Data Workflows: AutoML and AutoRAG Strategies
+= From Raw Data to a Working Model with AutoML and AutoRAG on OpenShift AI
 :navtitle: Home
 
 == Data Without the Dread
@@ -7,13 +7,13 @@ Data is the part a lot of us quietly avoid. There is so much to hold in your hea
 
 That instinct is backed by a hard industry truth. More than 75% of enterprise AI data initiatives stall out, trapped inside exploratory notebooks that run fine on a developer's laptop but never survive the trip to a governed, scalable production endpoint.
 
-This course puts you in the practitioner's seat, not the platform administrator's. No YAML cluster setup, no infrastructure plumbing. Instead, you'll see how Red Hat OpenShift AI's "Auto" capabilities (AutoML, AutoRAG, and MLflow prompt governance) take raw enterprise data sitting in object storage and turn it into production-ready, auditable inference APIs in hours rather than months.
+This course puts you in the practitioner's seat, not the platform administrator's. No YAML cluster setup, no infrastructure plumbing. Instead, you'll see how Red Hat OpenShift AI's "Auto" capabilities (AutoML, AutoRAG, and prompt management) take raw enterprise data sitting in object storage and turn it into production-ready, auditable inference APIs in hours rather than months.
 
 == Keep the bigger picture in view
 
-AutoML, AutoRAG, and prompt management are not the whole story, and they are not trying to be. Their job is to give you a fast, honest signal. The models and retrieval setups they produce are good enough to tell you whether your data is worth pursuing for a given task, before you invest weeks building around it. Think of them as a go/no-go check on the data itself.
+AutoML, AutoRAG, and prompt management are not the whole story, and they are not trying to be. What they do is remove the manual grind between raw data and a working model, without asking you to be an ML specialist who hand-tunes algorithms or hand-builds pipelines. For plenty of real business problems, the model they produce is good enough to put into production as-is. Not every solution needs the highest accuracy possible, and reaching a good-enough result in hours frees your team to spend its energy on the harder, higher-value deliverables. When a problem does demand more, that same fast result tells you early whether the data is even worth the deeper investment.
 
-The platform carries a different kind of weight. Red Hat OpenShift AI is the integration point that connects this data to everything else you will build on top of it: inference serving, GPUs and hardware profiles, workbenches, the model registry, and the data connections that feed real applications. AutoML and AutoRAG help you decide the data is worth it. The platform is what you use to actually put it to work.
+The platform carries a different kind of weight. Red Hat OpenShift AI is the integration point that connects this data to everything else you will build on top of it: inference serving, GPUs and hardware profiles, workbenches, the model registry, and the data connections that feed real applications. AutoML and AutoRAG get you to a working model fast. The platform is what you use to actually put it to work.
 
 == Goal
 
@@ -29,7 +29,7 @@ On completing this course, you should be able to:
 
 * Use AutoML's built-in evaluation reports, the scorecards that tell you which model won and why, to check the results against your business logic before you promote a model to production. (leaderboards, feature importance, ROC/PR curves)
 
-* Transition from predictive data to generative text, leveraging the GenAI Playground and MLflow to version, track, and eliminate "prompt drift".
+* Transition from predictive data to generative text, leveraging the GenAI Playground and prompt management to version, track, and eliminate "prompt drift".
 
 * Let AutoRAG do the tuning for you. It automatically tests different ways of slicing and searching your documents to find the setup that gives an LLM the most grounded, accurate answers. (chunking, embedding, search mode, top-k, and more)
 

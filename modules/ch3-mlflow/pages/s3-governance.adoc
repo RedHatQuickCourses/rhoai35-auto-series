@@ -14,9 +14,9 @@ MLflow organizes work into *workspaces*, and RHOAI maps them cleanly to somethin
 
 NOTE: If "namespace" and "RBAC" are new terms, the short version is: a namespace is a walled-off area for one project's work, and RBAC is the rulebook for who's allowed in. You don't set this up yourself as a practitioner, you inherit the isolation your project already has.
 
-== Global registries
+== Global prompt registries
 
-Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as *global* prompt registries, granting other teams either read-only or edit access.
+Isolation is great for day-to-day work, but some prompts deserve to be shared across the whole company, think a security-vetted system instruction that every team should build on. For that, a cluster administrator can designate certain namespaces as *Global Prompt Registry Namespaces*, granting other teams either read-only or edit access.
 
 The result is a central, trusted library of enterprise prompts: individual teams iterate in their own workspaces, while the organization maintains a shared shelf of approved instructions nobody has to reinvent.
 
@@ -61,7 +61,7 @@ The governed answer is to put a *gate* in front of the alias: an automated check
 
 Clicking to move an alias is fine while you're experimenting. Once prompts are production assets, teams usually want the discipline they already apply to code: changes proposed as pull requests, reviewed, tested, and promoted automatically, with nothing moving by hand.
 
-Prompts, their evaluation configs, and their pipeline definitions are all declarative resources, so they can live in Git next to your application manifests and be reconciled by the same GitOps tooling (Argo CD or Flux) your platform team already runs. A pull request that edits a prompt can then kick off a pipeline that runs the EvalHub evaluation, generates the EvalCard, and moves the MLflow alias only if the checks pass. The promotion gate stops being something a person remembers to do and becomes something the system enforces on every change.
+Prompts, their evaluation configs, and their pipeline definitions are all declarative resources, so they can live in Git next to your application manifests and be reconciled by the same GitOps tooling (Argo CD or Flux) your platform team already runs. A pull request that edits a prompt can then kick off a pipeline that runs the EvalHub evaluation, generates the EvalCard, and moves the prompt's alias only if the checks pass. The promotion gate stops being something a person remembers to do and becomes something the system enforces on every change.
 
 NOTE: You don't have to build this on day one. Nothing about the registry locks you out of it: the same aliases and versions you drive by hand in the dashboard are the ones a pipeline can drive automatically when you're ready.
 
