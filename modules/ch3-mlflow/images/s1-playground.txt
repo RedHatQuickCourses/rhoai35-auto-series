@@ -1,0 +1,36 @@
+In this lesson, we will explore how to test prompts in the GenAI Studio Playground. By the end of this session, you will know how to use the Playground to experiment with system instructions and generation settings, and understand how to fine-tune your model's behavior.
+
+The Playground is your workspace for real-time experimentation. It allows you to interact with a language model, observe how it responds to different inputs, and adjust various parameters to achieve the desired outcome—all before a single line of your prompt is integrated into your application code.
+
+You can find the Playground within the RHOAI dashboard under the GenAI Studio menu. This menu contains two integrated areas: the Playground, which is our interactive testing surface, and Prompts, which is the registry where you save and version your successful prompts.
+
+Before we begin, a note for administrators: GenAI Studio and its associated tools are controlled by feature flags within the `OdhDashboardConfig` resource. Administrators must set both the `genAiStudio` and `promptManagement` flags to true to enable these features. If you enable these settings and the Prompt tab does not appear, simply reload your Playground to ensure the dashboard picks up the changes.
+
+To understand the role of the Playground, it helps to reframe how you think about model inputs. Unlike traditional AutoML, where you provide structured columns to receive a structured prediction, a language model treats language itself as the input. Your instructions and the context you provide act as the "code," and the quality of the generated output depends heavily on how you phrase your request. The Playground is where this "prompt engineering" happens: small adjustments to your wording or settings can result in significant changes in model behavior.
+
+As you begin testing, you will use the Settings panel located on the right side of the screen. Controls are organized into tabs—Model, Prompt, Knowledge, MCP, and Guardrails—to keep each functional area distinct.
+
+Let’s start with the Model tab. This is where you choose your specific model and manage two essential generation controls:
+First, the Temperature setting. This controls randomness on a scale from zero to two. A temperature of zero results in focused, deterministic, and repeatable output, while higher values lead to more creative and loose responses. Reach for this dial first if your model’s answers feel too rigid or too scattered.
+Second, Streaming. When toggled on, this displays the response in real-time as it is generated, which is the best way to observe latency and time-to-first-token. Turning it off will simply present the entire response at once.
+
+Next, move to the Prompt tab, which contains your most powerful tools:
+System instructions allow you to set the model’s standing orders, such as its role, tone, and specific rules. Small changes here often have a greater impact on behavior than any other setting.
+Template variables allow you to create reusable placeholders using double-curly-brace syntax. When you load a prompt with these variables, the UI automatically creates text fields, making it easy to test the same prompt against multiple inputs.
+Finally, Versioned prompts link directly to the MLflow registry, allowing you to load saved system prompts or save your refinements for later use.
+
+A useful tip for your first time in the Playground: change only one setting at a time. If you adjust the temperature and rewrite your system instructions simultaneously, it will be difficult to determine which change improved—or hindered—the output.
+
+Also, keep an eye on the context window. This represents the total amount of text the model can process at once, including your instructions and conversation history. Understanding these limits is critical for your future work, especially when we begin feeding models retrieved documents.
+
+Beyond basic testing, the Playground includes advanced features for grounding and safety:
+The Knowledge tab is where you manage Retrieval Augmented Generation, or RAG. Here, you can attach documents or vector stores and define how they are chunked and indexed.
+The MCP tab, or Model Context Protocol, allows you to authorize specific tools the model can use to perform external actions.
+The Guardrails tab lets you toggle input and output screening, which helps you monitor for issues like prompt injection or unsafe content.
+
+Finally, the Playground functions as a professional evaluation environment through several key capabilities:
+A/B comparison allows you to split the screen and run two different models side-by-side, so you can judge quality, tone, and speed head-to-head.
+Tracing records the call tree for every response. By enabling this, you can view OpenTelemetry spans to see exactly what happened during the generation process.
+Inline metrics provide data such as time-to-first-token and total token count. These metrics turn subjective feelings—like "this feels slow"—into objective data that you can measure.
+
+Once the Playground helps you find a prompt that behaves exactly as you intended, the next step is to treat that prompt like any other production asset: as versioned code. We will cover how to do that in the next section.

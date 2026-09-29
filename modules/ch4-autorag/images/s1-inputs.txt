@@ -1,0 +1,19 @@
+To get the most out of an AutoRAG run, you need to prepare two essential components: your document corpus and a ground-truth evaluation dataset. By getting these two inputs right, you lay the foundation for a successful and accurate retrieval run.
+
+Let’s start with your document corpus. This represents the knowledge base you want the model to be grounded in. Keep a few practical rules in mind regarding your files. First, AutoRAG supports several common formats, including PDF, DOCX, PPTX, Markdown, HTML, and TXT. You can host these in an S3-compatible bucket or upload them directly through the user interface. 
+
+Regarding file size, if you upload through the interface, there is a limit of 32 megabytes per file. If you point AutoRAG to an S3 folder, there is no per-file limit, though keep in mind that a run will automatically sample up to one gigabyte of documents total. 
+
+A helpful tip for your first time: start small and keep your files clean. Using a handful of high-quality, text-based documents will teach you more about how AutoRAG behaves than uploading a giant, messy archive. You can always scale up once you are comfortable with the workflow. 
+
+Also, please note that in the Technology Preview, AutoRAG does not run optical character recognition on image-only PDFs, nor can it extract text from embedded images. If your PDFs consist of scanned pages, that text will not be retrievable. Furthermore, while table structure extraction is available, it is only supported when you select the "Better Quality" run preset.
+
+Now, let’s look at the second input: the evaluation dataset, which acts as your answer key. This is the most important component because AutoRAG cannot rank retrieval patterns without knowing what a "correct" answer looks like. You will provide an answer key in the form of a JSON file that pairs representative questions with their known-good answers and the specific source documents where those answers are found. 
+
+Each entry in your JSON file requires three fields. First, the "question," which should be a real inquiry a user might ask. Second, "correct_answers," which is a list of acceptable phrasings; by providing a few variations, you ensure a good answer is not marked wrong just because of minor differences in wording. Third, "correct_answer_document_ids," which identifies the specific source documents containing the answer. This is what allows AutoRAG to score the quality of retrieval, not just the final text generation. 
+
+An important caution here: when listing your document IDs, you must use only the base filenames, such as "policies.pdf." Never include a folder path, as this is a common mistake that causes errors during the initial run.
+
+To make this easier, OpenShift AI 3.5 introduced an inline evaluation-file creator. This allows you to type a question, its answer, and the source document directly into the user interface. While this is the fastest way to get started with a few test cases, for a comprehensive evaluation, you will still want to prepare a full JSON file containing a wide range of questions that reflect what your users will actually ask.
+
+With your documents and answer key ready, AutoRAG has everything it needs to begin its work. In the next section, we will look at the search space it explores on your behalf and, just as importantly, how to interpret the scores it reports back to you.

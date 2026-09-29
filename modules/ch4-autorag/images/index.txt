@@ -1,0 +1,9 @@
+Welcome to this module on Generative Retrieval with AutoRAG. Our primary goal today is to position AutoRAG as an automated optimization engine that benchmarks your chunking, embedding, and vector database configurations for grounded Large Language Model applications.
+
+You can think of AutoRAG as applying the concept of AutoML specifically to retrieval. Instead of spending time on manual tuning, you simply provide your documents and a set of test questions. AutoRAG automatically searches across various chunking, embedding, and retrieval configurations. It then scores each one against your questions and hands back a ranked leaderboard of production-ready RAG patterns.
+
+Before we dive in, please note that AutoRAG is currently a technology preview feature in OpenShift AI 3.5.
+
+We have included a demonstration that walks through this entire process using a scenario from a fictitious bank. I recommend watching this demo once now to get a sense of the overall workflow, as we will unpack each individual stage in the following lessons.
+
+We will cover this topic in three main moves. First, we will discuss how to prepare the two essential inputs that AutoRAG requires. Second, we will look at the search space it explores and explain how to interpret the metrics it reports back. And finally, we will explore how to inspect the winning configuration and export it into a real application.

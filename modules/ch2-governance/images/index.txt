@@ -1,0 +1,5 @@
+Welcome to this session on Validating and Deploying AutoML Models. By the end of this module, you will know how to use AutoML evaluation artifacts—including leaderboards, feature importance, and ROC and PR curves—to validate your business logic and confidently promote your best models to production.
+
+When you see a model sitting at the top of an AutoML leaderboard, it is tempting to simply select it and ship it to production. I encourage you to resist that urge for just a few more minutes. Remember, a high score only tells you that a model fits the training data well. It does not necessarily mean the model is measuring the right thing, or that it will perform as expected once it is handling live data in production.
+
+To ensure your model is ready, we will follow three key steps. First, we will take a quick look at what the AutoML process was actually doing while it was running. Second, we will learn how to read the full evaluation report card that accompanies every run. And finally, we will walk through the paved path for taking your winning model and deploying it to a live, serving endpoint.

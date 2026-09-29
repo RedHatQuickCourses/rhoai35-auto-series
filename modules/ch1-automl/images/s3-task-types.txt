@@ -1,0 +1,21 @@
+In this module, our learning objective is to help you match any predictive business problem to one of the four AutoML task types and its corresponding default optimization metric.
+
+The good news is that no matter how complex a business problem may seem, every predictive question you will provide to AutoML boils down to one of just four task types. Once you learn to identify which one you are looking at, you are most of the way to a successful model.
+
+You won't always have to make this decision alone. When you upload a CSV file into the Red Hat OpenShift AI dashboard, the system automatically inspects your columns, infers their data types, and recommends both a task type and a sensible default metric. However, you should understand these four tasks well enough to verify the system's recommendations rather than taking them on faith.
+
+Every project begins with a business problem—perhaps someone wants to know which customers are likely to leave, how much a project will cost, or what the demand will look like next quarter. The platform, however, cannot act on an intention; it can only act on data columns. Therefore, your first step is to translate that business question into a data question by identifying your "target"—the specific column containing the value you want the model to predict.
+
+To identify the task, ask yourself two questions. First, what kind of value lives in the target column? Is it a handful of labels, or is it a number that slides up and down a scale? Second, is time part of the story? Specifically, is each row anchored to a date or timestamp that indicates a sequence of events? Answering these two questions will reveal the correct task type.
+
+Let’s look at the four task types in detail, starting with how to identify them based on your target column.
+
+First is binary classification, which answers the question, "Yes or No?" This is the workhorse of enterprise machine learning. You will use this when your target column has exactly two values, such as zero or one, True or False, or Churn versus No-Churn. Common use cases include customer churn prevention, fraud detection, and credit-risk approval. While the default metric is Accuracy, be aware that if your classes are lopsided—such as a dataset that is 99 percent legitimate and 1 percent fraud—accuracy can be misleading. In those cases, you should switch to ROC-AUC or F1 scores.
+
+Second is multiclass classification, which is used when you need to "Pick one from a menu." This is similar to binary classification, but with three or more possible categories. You will see this used for tasks like routing support tickets, customer segmentation, or classifying the specific type of equipment failure. The default metric here is Accuracy.
+
+Third is regression, which answers the question, "How much?" This applies when your answer is not a category, but a number on a continuous scale. You will use this for price estimation, predicting medical charges, or estimating the duration of an operation. The default metric is R-squared, which represents the share of variance the model explains on a scale from zero to one. In this case, a value closer to one indicates a better model.
+
+Finally, we have time series forecasting, which answers, "What's next over time?" Think of this as the time-aware cousin of regression. You are predicting a value forward while respecting the chronological order of events. This requires a timestamp column, an ID column to identify each unique sequence—such as a specific store or product—and a numeric target. This is used for retail inventory demand, sales projections, and capacity planning. The default metric is MASE, or Mean Absolute Scaled Error. This grades your forecast against a baseline of "tomorrow looks like today," allowing you to see if your model is genuinely adding value.
+
+In the next chapter, we will examine how AutoML builds and stacks these models, and how to read the evaluation report card to determine if a model is ready for production.
