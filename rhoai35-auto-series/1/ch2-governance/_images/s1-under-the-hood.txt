@@ -1,0 +1,29 @@
+In this module, we’ll explore what AutoGluon is doing behind the scenes during a run, and why the leaderboard you see is an ensemble of models rather than just a single algorithm.
+
+While you don't strictly need to understand the mechanics between starting a run and viewing your results to use AutoML, gaining a little insight pays off. When you know what these model names on your leaderboard actually represent, you can make better decisions about your data.
+
+To see this process in action, take a moment to interact with the demonstration on screen.
+
+Behind the scenes, RHOAI AutoML is powered by AutoGluon, which acts as a meta-orchestrator. Instead of forcing you to bet on one algorithm and tune it manually, AutoGluon runs parallel sweeps across several model families simultaneously. It then evaluates which models performed best and deserves a place in your final results.
+
+You can think of an algorithm as a mathematical recipe, and a model family as the specific engine built to execute that recipe. As a meta-orchestrator, AutoGluon manages a whole workshop of these different engines at the same time, removing the guesswork from your workflow.
+
+These candidate models generally come from two broad families.
+
+The first are what we might call "smart flowchart builders," also known as gradient-boosted decision trees. These models learn by chaining together many yes-or-no splits, essentially creating a flowchart that continuously corrects its own mistakes. They are the standard for tabular prediction. Within this group, you’ll encounter three primary models:
+
+First is XGBoost, the meticulous veteran. It uses exact, depth-wise tree splits, making it a dependable default for standard spreadsheet and financial data.
+
+Second is LightGBM, the speed demon. Developed by Microsoft, it uses fast, histogram-based, leaf-wise splitting, which allows it to chew through massive, multi-gigabyte datasets with very low memory overhead.
+
+Third is CatBoost, the category specialist. Developed by Yandex, this model handles categorical text columns natively, so you don't need to manually encode your data before processing.
+
+The second family consists of "synthetic brains," or deep neural networks. These include Tabular MLPs based on PyTorch and FastAI. These multi-layer perceptrons are excellent at capturing complex, non-linear interactions between columns—patterns that tree-based models might otherwise miss.
+
+This leads us to the real trick: stacked ensembling. 
+
+AutoGluon doesn't just crown a single winning algorithm and stop there. It combines the predictions of the top candidates into a multi-layer "Weighted Ensemble." This allows the different models to cover for each other’s blind spots. This stacked approach is powerful; it consistently outperforms manual tuning of any single model by roughly two to five percent in accuracy.
+
+A useful tip if you are new to these terms: don't feel pressured to choose between XGBoost, LightGBM, or the others. Just remember that when a "WeightedEnsemble" model tops your leaderboard, it isn't a bug or a mystery entry. It’s a blended model, and it is frequently your best-performing option.
+
+Now that we understand how these models are built, let’s move on to reading the leaderboard and interpreting the rest of the report card that AutoML provides with every run.

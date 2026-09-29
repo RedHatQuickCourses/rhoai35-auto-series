@@ -1,0 +1,24 @@
+In this module, we will explore the governance framework for MLflow at scale, focusing on how workspaces isolate and share prompts, and why maintaining a clear audit lineage is essential for enterprise operations. Our goal is to ensure the right people have access to the right resources, that every interaction is tracked, and that if a compliance officer asks what generated a specific response months ago, you have a definitive, documented answer.
+
+Let’s begin by looking at how MLflow organizes work through workspaces.
+
+In the Red Hat OpenShift AI environment, workspaces are mapped one-to-one with your OpenShift project namespaces. This means all your experiments, runs, and registered prompts reside within that specific boundary. Access is managed through standard Kubernetes Role-Based Access Control, or RBAC. If you aren't familiar with these terms, think of a namespace as a secure, walled-off area for your project, while RBAC acts as the rulebook defining who is allowed to enter. As a practitioner, you don’t need to set this up yourself; you simply inherit the isolation already configured for your project.
+
+While isolation is excellent for day-to-day development, some prompts need to be shared across the entire organization—for example, a security-vetted system instruction that every team should use as a foundation. To handle this, cluster administrators can designate specific namespaces as Global Prompt Registry Namespaces. This allows other teams to be granted read-only or edit access, creating a central, trusted library of enterprise-approved prompts.
+
+If you are a cluster administrator, setting up a shared registry involves three steps. First, add the namespace to the globalMLflowNamespaces field within the OdhDashboardConfig, or select it directly via the dashboard settings. Second, label the namespace using the oc label command to identify it as a shared workspace. Finally, ensure an MLflow instance is running in that namespace, as the operator requires an active server pod to create the necessary role bindings. Once this is established, other teams can view these prompts and use the "Save As" function to copy them into their own projects for further iteration.
+
+Beyond organization, governance requires a complete audit lineage. For every inference, MLflow can automatically log the exact prompt string, input variables, model ID, generation settings, evaluation scores, and the final output. This audit trail is critical for three main reasons:
+First, it ensures reproducibility, allowing you to recreate any past result.
+Second, it simplifies rollbacks; if a production response regresses, you can trace it to a specific prompt version and revert to a known good state with full evidence.
+And third, it ensures compliance, providing risk and audit teams with the data needed to satisfy regulatory requirements.
+
+Of course, governance also includes the promotion process. Moving a production alias is powerful, but if you promote a version that performs poorly, you risk shipping a regression to all users at once. The solution is to place a "gate" in front of the alias. 
+
+This gate relies on two components. First, automated evaluation via EvalHub, which runs candidate versions against standardized quality benchmarks and safety scans. Promotion only proceeds if the scores meet your predefined thresholds. Second, it uses EvalCards, which are structured, versioned records of every test, stored as an MLflow artifact right alongside your prompt.
+
+While you can move aliases manually during experimentation, production assets benefit from a GitOps approach. By treating prompts and their evaluation configurations as code, you can use tools like Argo CD or Flux to manage them. This means a pull request can trigger an automated pipeline that evaluates the prompt, generates an EvalCard, and promotes the alias only if all checks pass. You don't have to build this on day one, but the system is designed to scale with your needs.
+
+Finally, it is worth noting that this is the same MLflow platform you use for your predictive models. By using one unified platform, your team avoids juggling separate tools for predictive machine learning and generative AI.
+
+In our next chapter, we will discuss how to move beyond the limitations of pre-trained models. When you need a prompt to be grounded in your own proprietary data, you hit a ceiling—and that is where AutoRAG comes in to automate the retrieval pipeline for you.

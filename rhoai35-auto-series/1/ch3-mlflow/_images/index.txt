@@ -1,0 +1,7 @@
+In this chapter, we are crossing over into the world of generative text. We will be using the same platform and governance principles you are already familiar with, but instead of shaping tabular predictions, we are now crafting prompts for large language models.
+
+Our goal for this session is to transition from predictive data to generative text. We will leverage the GenAI Studio Playground and MLflow to version, track, and eliminate what we call "prompt drift."
+
+Think back to your work with AutoML. You would never ship a model without checking the leaderboard, verifying feature importance, and ensuring a specific version was documented in the registry. Yet, in the industry, the default habit with prompts is often the opposite. A clever instruction gets typed into a text box, copied into code, tweaked by a teammate, and pasted into a notebook. Six weeks later, nobody can say for sure which version of the prompt is actually running in production. 
+
+That sprawl is known as prompt drift, and it is exactly the kind of chaos this chapter will teach you how to prevent.

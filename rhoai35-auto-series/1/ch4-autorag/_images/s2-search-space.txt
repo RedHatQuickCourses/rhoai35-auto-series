@@ -1,0 +1,23 @@
+In this lesson, we will explore the AutoRAG search space and learn how to interpret the three core metrics used to evaluate your configurations.
+
+Once you kick off a run, AutoRAG systematically tests various combinations of retrieval settings, scores each one against your evaluation set, and ranks them. To make the most of this process, it is essential to understand exactly what the system is testing and how to read the resulting performance scores.
+
+Let’s begin by looking at the search space. You can think of every configuration setting as a dial. Tuning these by hand is usually a slow process of testing, waiting, adjusting, and repeating. AutoRAG automates this by filtering the combinations for you. The system adjusts several key factors, including your chunking strategy—which determines how your documents are split—as well as the chunk size and the overlap between those pieces. It also tests the search mode, comparing pure vector semantic search against a hybrid approach that blends semantic and keyword matching. Finally, it optimizes the top-k parameter, which dictates how many chunks to retrieve per question, and experiments with different embedding and foundation models.
+
+Regarding those models, keep in mind that you can select up to two embedding models and three foundation models per run. It is important to stay within these limits; exceeding this cap will cause your run to fail. Also, as a useful tip, the recommended default embedding model is BAAI/bge-m3. It is highly versatile, supporting over 100 languages, performing both dense and sparse retrieval, and running with low memory overhead.
+
+A common question is how AutoRAG handles different languages. You don't need to declare a language upfront, as the system automatically detects the language of your evaluation questions and handles mixed-language corpora gracefully. However, there is one important caveat: auto-detection only works if your chosen models actually support those languages. Always check the Model Catalog to confirm that your selected foundation and embedding models cover the languages present in your documents.
+
+Now, let’s talk about the metric triad. AutoRAG scores every candidate configuration on three complementary metrics. Understanding these is the key to effective diagnostics.
+
+First, there is Answer Faithfulness, which acts as a hallucination check by determining if the answer stuck to the retrieved context or if the model made things up. Second, we have Answer Correctness, a ground-truth check that compares the model's answer to the known-good answers in your evaluation set. Finally, there is Context Correctness, which is a retrieval check that tells you if the system actually fetched the right document chunks in the first place.
+
+These three metrics are designed to work together to isolate exactly where a pattern succeeds or fails. By looking at how these metrics interact, you can diagnose specific issues. For example, if you see high faithfulness but low correctness, the model answered faithfully, but the retrieved context simply didn't contain the true answer. In this case, you should suspect your chunking strategy or a potential mismatch in your evaluation dataset.
+
+If you see high correctness combined with low faithfulness, the answer was correct, but the model likely pulled it from its own training memory rather than your documents. While this might look like a success, it is a significant hallucination risk for unseen questions.
+
+Conversely, if you see low context correctness but high answer correctness, the retrieval step fetched irrelevant chunks, but a strong foundation model compensated for it. This is a fragile state; it may work for now, but it will likely break on query types the model hasn't effectively memorized.
+
+A final piece of advice: if you are new to evaluating RAG systems, don't just chase a single top score. A configuration where all three metrics are solid is far more trustworthy in production than one with a high correctness score propped up by weak retrieval. Consistency beats a lucky headline number every time.
+
+Now that you understand how to read the leaderboard and why a pattern ranks the way it does, you are ready for the next step: turning that winning pattern into an application-ready configuration through inspection and export.

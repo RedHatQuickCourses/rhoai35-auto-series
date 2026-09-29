@@ -1,0 +1,9 @@
+Welcome to this module on Predictive Foundations with AutoML. 
+
+Our primary goal today is to help you evaluate when to use AutoML to convert your raw tabular data or time-series information into production-ready predictive models. We will cover classification, regression, and time-series tasks.
+
+In Red Hat OpenShift AI version 3.5 and higher, AutoML is designed to take raw tabular data stored in your S3 bucket and automate the most tedious parts of the process. This includes data preparation, feature engineering, algorithm selection, and ensembling. Ultimately, the system provides you with a ranked leaderboard of production-ready candidate models—moving the timeline from months down to just hours.
+
+In this chapter, we are going to focus on the foundations of this technology. We will explore why this matters to the business, where predictive AI fits alongside the large language models everyone is talking about, and how to determine if your data is a good fit for these tools. 
+
+We will also discuss how to match a specific business problem to the correct type of prediction. By the end of this session, you won't be running models just yet—that comes later—but you will have a clear understanding of when AutoML is the right tool to reach for, and why it provides such significant value.
