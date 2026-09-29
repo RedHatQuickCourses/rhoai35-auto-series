@@ -1,4 +1,6 @@
 = Inspecting the Winner and Shipping It
+:page-audio-src: s3-handoff.wav
+:page-transcript-src: s3-handoff.txt
 
 Objective::
 

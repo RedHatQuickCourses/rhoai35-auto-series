@@ -1,4 +1,6 @@
 = Predictive Foundations with AutoML
+:page-audio-src: index.wav
+:page-transcript-src: index.txt
 
 Goal::
 

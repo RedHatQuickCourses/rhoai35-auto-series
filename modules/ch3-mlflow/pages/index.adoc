@@ -1,4 +1,6 @@
 = Prompt Engineering and MLflow Governance
+:page-audio-src: index.wav
+:page-transcript-src: index.txt
 
 Goal::
 

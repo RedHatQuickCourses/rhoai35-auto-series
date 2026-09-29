@@ -1,4 +1,6 @@
 = Knowledge Review and Assessment
+:page-audio-src: index.wav
+:page-transcript-src: index.txt
 
 Goal::
 

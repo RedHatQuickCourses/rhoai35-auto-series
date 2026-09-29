@@ -1,4 +1,6 @@
 = Reading the Report Card
+:page-audio-src: s2-report-card.wav
+:page-transcript-src: s2-report-card.txt
 
 Objective::
 

@@ -1,4 +1,6 @@
 = Testing Prompts in the GenAI Studio Playground
+:page-audio-src: s1-playground.wav
+:page-transcript-src: s1-playground.txt
 
 Objective::
 

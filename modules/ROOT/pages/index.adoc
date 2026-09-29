@@ -1,4 +1,6 @@
 = From Raw Data to a Working Model with AutoML and AutoRAG on OpenShift AI
+:page-audio-src: index.wav
+:page-transcript-src: index.txt
 :navtitle: Home
 
 == Data Without the Dread

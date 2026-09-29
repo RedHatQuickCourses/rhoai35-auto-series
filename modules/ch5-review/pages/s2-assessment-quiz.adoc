@@ -1,4 +1,6 @@
 = Quiz: Diagnosing Scenarios and Selecting AI Patterns
+:page-audio-src: s2-assessment-quiz.wav
+:page-transcript-src: s2-assessment-quiz.txt
 
 Objective::
 

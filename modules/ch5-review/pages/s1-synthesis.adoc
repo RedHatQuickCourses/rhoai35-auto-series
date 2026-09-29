@@ -1,4 +1,6 @@
 = Connecting Data to Models: The End-to-End Workflow
+:page-audio-src: s1-synthesis.wav
+:page-transcript-src: s1-synthesis.txt
 
 Objective::
 

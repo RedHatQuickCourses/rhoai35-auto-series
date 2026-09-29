@@ -1,4 +1,6 @@
 = Governance at Scale: Workspaces and Audit
+:page-audio-src: s3-governance.wav
+:page-transcript-src: s3-governance.txt
 
 Objective::
 
