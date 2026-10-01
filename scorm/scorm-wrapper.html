@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading course...</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+    #content-frame { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body>
+  <iframe id="content-frame" src="rhoai35-auto-series/1/index.html" allowfullscreen></iframe>
+
+  <script>
+  (function () {
+    var COMPONENT = 'rhoai35-auto-series';
+    var VERSION = '1';
+    var BASE_PATH = COMPONENT + '/' + VERSION + '/';
+
+    var API = null;
+    var initialized = false;
+    var finished = false;
+    var state = { scores: {}, pages: [], lastPage: '' };
+    var COMMIT_INTERVAL = 20000;
+    var commitTimer = null;
+
+    // --- SCORM 1.2 API Discovery ---
+    function findAPI(win) {
+      var attempts = 0;
+      while (win && !win.API && attempts < 10) {
+        if (win.parent && win.parent !== win) {
+          win = win.parent;
+        } else if (win.opener) {
+          win = win.opener;
+        } else {
+          break;
+        }
+        attempts++;
+      }
+      return win ? win.API || null : null;
+    }
+
+    function lmsGet(key) {
+      if (!API) return '';
+      try { return API.LMSGetValue(key) || ''; } catch (e) { return ''; }
+    }
+
+    function lmsSet(key, val) {
+      if (!API) return;
+      try { API.LMSSetValue(key, String(val)); } catch (e) {}
+    }
+
+    function lmsCommit() {
+      if (!API) return;
+      try { API.LMSCommit(''); } catch (e) {}
+    }
+
+    function lmsFinish() {
+      if (!API || finished) return;
+      finished = true;
+      try { API.LMSFinish(''); } catch (e) {}
+    }
+
+    // --- State Management ---
+    function loadState() {
+      var raw = lmsGet('cmi.suspend_data');
+      if (raw) {
+        try { state = JSON.parse(raw); } catch (e) {
+          state = { scores: {}, pages: [], lastPage: '' };
+        }
+      }
+      if (!state.scores) state.scores = {};
+      if (!state.pages) state.pages = [];
+      if (!state.lastPage) state.lastPage = '';
+    }
+
+    function saveState() {
+      var json = JSON.stringify(state);
+      // SCORM 1.2 limit: cmi.suspend_data maxes at 4,096 characters.
+      // Monitor approach to this limit; if exceeded, data may be truncated by LMS.
+      if (json.length > 3900) {
+        console.warn('SCORM suspend_data approaching 4KB limit: ' + json.length + ' bytes. Consider archiving old page history.');
+      }
+      lmsSet('cmi.suspend_data', json);
+    }
+
+    function getHighestScore() {
+      var scores = state.scores;
+      var highest = -1;
+      for (var key in scores) {
+        if (scores.hasOwnProperty(key) && scores[key] > highest) {
+          highest = scores[key];
+        }
+      }
+      return highest > -1 ? highest : null;
+    }
+
+    // --- Event Handlers ---
+    function handleQuizScore(data) {
+      var chapterId = data.chapterId || 'unknown';
+      var score = data.score || 0;
+      var passed = data.passed || false;
+
+      var prev = state.scores[chapterId] || 0;
+      if (score > prev) {
+        state.scores[chapterId] = score;
+      }
+
+      // Report the score from the final quiz to the LMS.
+      // Change 'final' to match the chapterId of your course's final assessment.
+      if (chapterId === 'final') {
+        var finalScore = state.scores['final'] || 0;
+        lmsSet('cmi.core.score.raw', finalScore);
+        lmsSet('cmi.core.score.min', 0);
+        lmsSet('cmi.core.score.max', 100);
+        lmsSet('cmi.core.lesson_status', finalScore >= 80 ? 'passed' : 'failed');
+      }
+
+      saveState();
+      lmsCommit();
+    }
+
+    function handlePageViewed(data) {
+      var url = data.url || '';
+      if (!url) return;
+
+      var pattern = new RegExp('.*\\/' + COMPONENT + '\\/' + VERSION + '\\/');
+      var shortKey = url.replace(pattern, '').replace(/\.html$/, '');
+      if (!shortKey) shortKey = 'index';
+
+      if (state.pages.indexOf(shortKey) === -1) {
+        state.pages.push(shortKey);
+      }
+      state.lastPage = shortKey;
+
+      lmsSet('cmi.core.lesson_location', shortKey);
+      saveState();
+      lmsCommit();
+    }
+
+    // --- Initialization ---
+    function init() {
+      API = findAPI(window);
+
+      if (!API) {
+        return;
+      }
+
+      try {
+        var result = API.LMSInitialize('');
+        initialized = (result === 'true' || result === true);
+      } catch (e) {
+        initialized = false;
+      }
+
+      if (!initialized) return;
+
+      var currentStatus = lmsGet('cmi.core.lesson_status');
+      if (!currentStatus || currentStatus === 'not attempted') {
+        lmsSet('cmi.core.lesson_status', 'incomplete');
+      }
+
+      loadState();
+
+      if (state.lastPage) {
+        var frame = document.getElementById('content-frame');
+        var targetUrl = BASE_PATH + state.lastPage + '.html';
+        frame.src = targetUrl;
+      }
+
+      lmsCommit();
+
+      commitTimer = setInterval(function () {
+        if (initialized && !finished) {
+          lmsCommit();
+        }
+      }, COMMIT_INTERVAL);
+
+      window.addEventListener('message', function (event) {
+        if (!event.data || !event.data.action) return;
+
+        switch (event.data.action) {
+          case 'quiz_score':
+            handleQuizScore(event.data);
+            break;
+          case 'page_viewed':
+            handlePageViewed(event.data);
+            break;
+        }
+      });
+    }
+
+    // --- Cleanup ---
+    window.addEventListener('beforeunload', function () {
+      if (commitTimer) clearInterval(commitTimer);
+      if (initialized) {
+        saveState();
+        lmsCommit();
+        lmsFinish();
+      }
+    });
+
+    init();
+  })();
+  </script>
+</body>
+</html>
