@@ -1,31 +1,9 @@
-Where do predictive models fit, and where do they not? In this section we'll put them side by side with large language models on cost and behavior, and figure out what kind of data actually makes a good Auto M L candidate.
+Welcome to the first chapter, Predictive Foundations with Auto M L.
 
-Walk into almost any room today and the conversation is about large language models. LLMs are transformational, no argument there. But there's a trap in all that excitement: organizations reach for a massive, GPU-hungry model to answer a question a tiny, deterministic model would answer better, cheaper, and a thousand times faster.
+Here's what we're after: by the end, you'll know when to reach for Auto M L to turn raw tabular data or a time series into a production-ready predictive model, whether that's a classification, a regression, or a forecasting problem.
 
-Let's go side by side to see why.
+So what does Auto M L actually do? In Red Hat OpenShift AI 3.5 and above, it takes the raw tabular data already sitting in your S3-compatible object storage, say S3 or ODF, and automates the tedious middle: data preparation, feature engineering, algorithm selection, and ensembling. What you get back is a ranked leaderboard of production-ready candidate models, in hours, not months.
 
-Predictive models, the Auto M L and tabular world, are built for narrow, single-task structured decisions: churn, fraud, pricing. LLMs are built for broad, open-domain reasoning and text generation.
+This chapter is about the foundations. We'll look at why this matters to the business, where predictive AI fits alongside the large language models everyone's talking about, and how to tell whether your data is even a good fit.
 
-On input, predictive models handle low-dimensional structured data, think a spreadsheet with dozens or hundreds of features. LLMs chew through high-dimensional, unstructured text across billions of tokens.
-
-On size, predictive model artifacts are lightweight, kilobytes to a few megabytes. LLMs run tens to hundreds of gigabytes. That's why predictive models run happily on the CPU infrastructure you already own, while LLMs need high-VRAM GPU clusters.
-
-Performance splits them too. Predictive models give you microsecond inference for high-throughput systems; LLMs answer in seconds. And predictive models offer deterministic logic with clear feature importance, so they're easy to audit, while LLMs reason probabilistically and need guardrails around them.
-
-So the short version: predictive models are cheap, fast, and deterministic. They scrape millions of rows on hardware you already have, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for why.
-
-So is your data a good candidate for Auto M L? It's powerful, but it isn't magic, and it expects a certain shape of data. Before you start, check your dataset against four things.
-
-First, tabular structure. Rows are entities, columns are attributes, stored as CSV, UTF-8 encoded with a header row. You can upload up to 32 megabytes through the dashboard, or ingest up to 100 megabytes straight from S3-compatible object storage.
-
-Second, a clear target label. That's the single column holding the ground-truth answer you want to predict for new rows.
-
-Third, feature diversity. You want a healthy mix of numeric and categorical columns.
-
-Fourth, enough volume. At least 500 to 1,000 rows to prototype, and 10,000 or more is typical for a serious enterprise evaluation.
-
-It's just as important to know when to put Auto M L down. Don't reach for it with unstructured media like images, audio, or video; those need specialized deep-learning pipelines. Don't use it for open-ended text generation like chatbots or document synthesis; that's LLM and Auto RAG territory, which we'll get to later. And if your problem hinges on hand-crafted business rules a model can't infer from a raw table, Auto M L probably isn't your tool.
-
-The takeaway: match the tool to the shape of the problem. Do that, and Auto M L feels like a superpower. Force it onto the wrong problem, and it just frustrates everyone.
-
-Next, we'll match specific predictive business problems to one of the four Auto M L task types.
+We'll also work on matching a business problem to the right kind of prediction. By the end you won't be running models yet, that comes later in the course, but you'll know exactly when Auto M L is the right tool to reach for, and why.
