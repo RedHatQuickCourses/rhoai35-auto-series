@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Inspecting the Winner and Shipping It :: AutoML and AutoRAG on OpenShift AI</title>
+    <link rel="prev" href="s2-search-space.html">
+    <link rel="next" href="../ch5-review/index.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG on OpenShift AI</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and Prompt Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces and Audit</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
+    <li><a href="s3-handoff.html">Inspecting the Winner and Shipping It</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Inspecting the Winner and Shipping It</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Inspect a completed run with the visual pipeline and Playground, then export the chosen pattern into an application.</p>
+</dd>
+</dl>
+</div>
+<hr>
+<div class="paragraph">
+<p>A ranked leaderboard is a great place to be, but you still shouldn&#8217;t ship a pattern you&#8217;ve only seen as a number. AutoRAG gives you two ways to <strong>inspect</strong> a run before you commit, and two ways to <strong>export</strong> the pattern you choose.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspect_the_visual_pipeline_dag"><a class="anchor" href="#_inspect_the_visual_pipeline_dag"></a>Inspect: the visual pipeline (DAG)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Earlier releases drew an AutoRAG run as a single opaque line, if a step failed, good luck figuring out where. OpenShift AI 3.5 replaces that with a full <strong>visual pipeline</strong>, a diagram of every stage in the run.</p>
+</div>
+<div class="paragraph">
+<p>When everything succeeds, it&#8217;s a satisfying green path. When something fails, it&#8217;s genuinely useful: you can see <strong>exactly which step</strong> broke, when, and what it reported, instead of staring at a generic error. For a first-time user, this is the difference between debugging and guessing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspect_try_this_pattern_in_the_playground"><a class="anchor" href="#_inspect_try_this_pattern_in_the_playground"></a>Inspect: "Try this pattern" in the Playground</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the feature people appreciate most, because it removes a classic RAG frustration: exporting a pattern, wiring it up somewhere else, testing it, and only <strong>then</strong> discovering it isn&#8217;t what you wanted.</p>
+</div>
+<div class="paragraph">
+<p>From the leaderboard, select <strong>Try this pattern</strong> on any ranked configuration to open an interactive chat panel, grounded in your document vector store, right inside OpenShift AI. Ask it real questions and watch how it answers. You can also see <strong>which chunks</strong> it retrieved and where they came from, so you&#8217;re not just judging the answer, you&#8217;re judging the <strong>evidence</strong> behind it. You can switch between candidate patterns live to compare them head to head.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Before exporting anything, throw a few of your own tricky questions at the pattern here. If it retrieves sensible chunks and grounds its answers in them, you&#8217;ve validated the pattern, no code required.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_export_responses_api_code_snippets"><a class="anchor" href="#_export_responses_api_code_snippets"></a>Export: Responses API code snippets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you&#8217;re happy with a pattern, click <strong>View code</strong> to get an application-ready snippet that calls the OGX Responses API endpoint. You get your choice of language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cURL</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>Go</p>
+</li>
+<li>
+<p>Node.js</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These call the <code>/v1/responses</code> endpoint directly, so your application can start getting grounded answers without you writing the retrieval plumbing yourself.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_export_jupyter_notebooks"><a class="anchor" href="#_export_jupyter_notebooks"></a>Export: Jupyter notebooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you&#8217;d rather work hands-on, AutoRAG also generates two self-contained Jupyter notebooks: an <strong>indexing</strong> notebook and an <strong>inference</strong> notebook. Run them inside an OpenShift AI workbench to reproduce, audit, or batch-score the pattern locally, the same "here&#8217;s the code" escape hatch AutoML offered for predictive models.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Governance still applies here. The system instruction you settle on for your RAG app can be versioned in the MLflow Prompt Registry from chapter 3, so a production-grade prompt and a production-grade retrieval pattern are both under proper control.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That completes the AutoRAG story, and with it, the full arc of the course&#8217;s capabilities: predictive models with AutoML, governed prompts with MLflow, and grounded generation with AutoRAG. In the final chapter we&#8217;ll bring all three together into one end-to-end workflow and check your understanding with a graded assessment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Looking ahead to RHOAI 3.6: like AutoML, AutoRAG is a <strong>Technology Preview</strong> feature in 3.5 and moves to <strong>General Availability</strong> in 3.6 (targeted November 2026). The headline 3.6 addition is <strong>DSPy-based prompt pre-optimization</strong>: rather than hand-writing the system instruction, AutoRAG can automatically generate and score prompt candidates against a sample of your evaluation questions, then feed the winners into the same search space you tuned on this page. Think of it as automated prompt engineering layered on top of automated retrieval tuning, the two-stage version of what you just did by hand.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="s2-search-space.html">The Search Space and the Metric Triad</a></span>
+  <span class="next"><a href="../ch5-review/index.html">Knowledge Review and Assessment</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/scorm-bridge.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

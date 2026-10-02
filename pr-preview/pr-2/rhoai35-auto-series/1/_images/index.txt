@@ -1,0 +1,25 @@
+Welcome to this course, From Raw Data to a Working Model with Auto M L and Auto RAG on OpenShift AI.
+
+Let's be honest, data can be a bit of a dread. There's so much to hold in your head: how to structure it, clean it, back it up, and shape it so a model can even use it. If you've ever thought, "I don't want to become a data-cleaning specialist, I just want results," this course is for you.
+
+That instinct is backed by a hard truth: more than 75 percent of enterprise AI initiatives stall out, trapped in notebooks that run on a laptop but never survive the trip to production. The gap we care about is the one between "it worked once" and "it runs reliably." That's where this course lives.
+
+So I'm putting you in the practitioner's seat, not the administrator's. We'll skip the YAML, the cluster setup, and the plumbing. Instead, you'll see how OpenShift AI's "Auto" capabilities, Auto M L, Auto RAG, and prompt management, turn raw enterprise data into production-ready, auditable inference APIs in hours, not months.
+
+Let's keep the bigger picture in view, though. These tools aren't the whole story. What they do is remove the manual grind between raw data and a working model, without asking you to hand-tune algorithms or build pipelines. And for many real problems, the model they produce is good enough for production as-is. Reaching a good-enough result in hours frees your team for higher-value work. When a problem needs more, that fast result tells you early whether the data is worth the deeper investment.
+
+Where does the platform fit? Think of OpenShift AI as the integration point, connecting your data to inference serving, hardware profiles, workbenches, and the model registry. Auto M L and Auto RAG get you a working model fast; the platform is what you use to put it to work.
+
+That's the goal: learn to evaluate use cases and apply Auto M L for predictive modeling and Auto RAG for generative retrieval in OpenShift AI 3.5 and above. One note to set expectations: in 3.5, both are technology preview features, targeting general availability in 3.6. We'll teach the 3.5 workflow and flag what changes at GA.
+
+Here's what you'll be able to do by the end. One, evaluate when to apply Auto M L to turn raw tabular data or time series into predictive models for classification, regression, or forecasting. Two, read Auto M L's built-in evaluation reports, the leaderboards, feature importance, and curves that tell you which model won and why, so you can check results against your business logic before promoting. Three, move from predictive data to generative text, using the GenAI Playground and prompt management to version and track prompts and stop prompt drift. Four, let Auto RAG do the tuning, automatically testing how your documents are chunked and searched to give a language model the most grounded answers. And five, carry these concepts forward to diagnose real data scenarios and pick the right pattern.
+
+Who's this for? Data scientists, AI engineers, and solution architects evaluating or adopting OpenShift AI 3.5 and above. It's aimed at practitioners who want the "why," the decision points and trade-offs, not the admin setup.
+
+What do you need to bring? Less than you'd think. A working sense of machine learning ideas, classification, regression, time series, enough to recognize them. A working sense of generative AI, language models, prompting, and retrieval. And some exposure to OpenShift AI as a practitioner. What you can leave at the door: cluster administration, infrastructure setup, and pipeline building.
+
+A word on the classroom. There are no hands-on labs. Instead, you'll learn through interactive click-throughs and video walkthroughs, and the course closes with a graded knowledge check. My tip: watch why each choice is made, then practice reading the results yourself. That habit is what separates running the tool from understanding it.
+
+To go deeper, see the official OpenShift AI product documentation or the Red Hat AI Examples repositories on GitHub.
+
+One last note. This content was generated or assisted by AI tools, but all deliverables have primarily human authorship and were reviewed by a domain expert. With that, let's get started.

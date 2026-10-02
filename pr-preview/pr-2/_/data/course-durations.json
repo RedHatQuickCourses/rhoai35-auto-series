@@ -1,0 +1,106 @@
+{
+  "totalSeconds": 4007,
+  "pageCount": 20,
+  "pages": [
+    {
+      "module": "ROOT",
+      "page": "index.adoc",
+      "seconds": 269
+    },
+    {
+      "module": "ch1-automl",
+      "page": "index.adoc",
+      "seconds": 45
+    },
+    {
+      "module": "ch1-automl",
+      "page": "s1-why-automl.adoc",
+      "seconds": 139
+    },
+    {
+      "module": "ch1-automl",
+      "page": "s2-predictive-vs-llms.adoc",
+      "seconds": 151
+    },
+    {
+      "module": "ch1-automl",
+      "page": "s3-task-types.adoc",
+      "seconds": 227
+    },
+    {
+      "module": "ch2-governance",
+      "page": "index.adoc",
+      "seconds": 37
+    },
+    {
+      "module": "ch2-governance",
+      "page": "s1-under-the-hood.adoc",
+      "seconds": 141
+    },
+    {
+      "module": "ch2-governance",
+      "page": "s2-report-card.adoc",
+      "seconds": 232
+    },
+    {
+      "module": "ch2-governance",
+      "page": "s3-production-handoff.adoc",
+      "seconds": 133
+    },
+    {
+      "module": "ch3-mlflow",
+      "page": "index.adoc",
+      "seconds": 45
+    },
+    {
+      "module": "ch3-mlflow",
+      "page": "s1-playground.adoc",
+      "seconds": 360
+    },
+    {
+      "module": "ch3-mlflow",
+      "page": "s2-prompts-as-code.adoc",
+      "seconds": 368
+    },
+    {
+      "module": "ch3-mlflow",
+      "page": "s3-governance.adoc",
+      "seconds": 263
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "index.adoc",
+      "seconds": 416
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "s1-inputs.adoc",
+      "seconds": 191
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "s2-search-space.adoc",
+      "seconds": 221
+    },
+    {
+      "module": "ch4-autorag",
+      "page": "s3-handoff.adoc",
+      "seconds": 193
+    },
+    {
+      "module": "ch5-review",
+      "page": "index.adoc",
+      "seconds": 44
+    },
+    {
+      "module": "ch5-review",
+      "page": "s1-synthesis.adoc",
+      "seconds": 459
+    },
+    {
+      "module": "ch5-review",
+      "page": "s2-assessment-quiz.adoc",
+      "seconds": 73
+    }
+  ]
+}

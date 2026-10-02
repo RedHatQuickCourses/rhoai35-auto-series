@@ -1,0 +1,17 @@
+In this section we'll follow the repeatable path that promotes a validated model from a finished run to a live serving endpoint.
+
+Once you've picked a model you trust, OpenShift AI gives you a short, repeatable path to get it serving real traffic, and none of it requires cluster-admin skills. There are three exits from a completed run, and you'll reach for each one for a different reason.
+
+First, exporting the notebook. This one's for the tinkerers. Click "Save notebook" and Auto M L generates a Python Jupyter notebook with the code already written to connect to your S3-compatible object storage, load the trained predictor, and run batch scoring or your own custom validation. Reach for this when you want to poke at the model yourself, score a big batch of records offline, or hand a data scientist a running start. It's the "show me the code" door.
+
+Second, registering the model. This is the one for governance. "Register" promotes the winning model version straight into the OpenShift AI Model Registry. Think of the registry as your system of record: it versions your models, keeps their metadata, and gives your team one trusted place to answer "which model is this, and where did it come from?" A tip if you're shipping a model for the first time: register it even if you're eager to deploy. The registry is what makes a model governable, versioned, discoverable, and auditable, rather than a mystery file someone deployed one afternoon.
+
+Third, deploying to a serving endpoint. This is the path for production, and it's the one that turns a file into a service. OpenShift AI deploys the model using the AutoGluon ServingRuntime for KServe, which instantly stands up a scalable REST API. Your application then gets predictions by sending a POST request to a standard KServe version two inference endpoint. Any service that can make an HTTP request, your web app, a batch job, another microservice, can now get live predictions without knowing a thing about how the model was built.
+
+If terms like "KServe" and "serving runtime" are new, here's the short version: KServe is the piece of OpenShift AI that runs your model as a web service and scales it for you. The AutoGluon ServingRuntime is a prebuilt engine that already knows how to load and serve Auto M L models, so you don't have to assemble any of that plumbing yourself.
+
+Step back and look at the full arc you've traced across these two chapters. You started with raw data in S3, moved through an Auto M L run to a leaderboard and an evaluation report card, promoted the winner to the registry, and ended at a KServe REST endpoint. Raw data went in one end, and a governed, validated, production-ready prediction service came out the other, in hours rather than months, and without you ever touching a cluster.
+
+So what's next? Now that you can take predictive, tabular data all the way from a CSV to a served model, we shift from numbers to text. In the next chapter, we'll introduce generative AI in the GenAI Playground, and use MLflow to version and govern prompts with the same discipline you just applied to your models.
+
+One last note. As of OpenShift AI 3.5, Auto M L is a Technology Preview feature. It moves to General Availability in 3.6, targeted for November 2026, which means the exact workflow you just learned becomes fully production-supported, same interface, same concepts, now with a production service level agreement behind it.

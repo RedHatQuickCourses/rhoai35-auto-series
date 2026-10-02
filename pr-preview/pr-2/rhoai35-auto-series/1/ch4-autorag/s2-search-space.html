@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>The Search Space and the Metric Triad :: AutoML and AutoRAG on OpenShift AI</title>
+    <link rel="prev" href="s1-inputs.html">
+    <link rel="next" href="s3-handoff.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG on OpenShift AI</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch2-governance/index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s1-under-the-hood.html">How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch2-governance/s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and Prompt Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces and Audit</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Generative Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s2-search-space.html">The Search Space and the Metric Triad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-handoff.html">Inspecting the Winner and Shipping It</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></li>
+    <li><a href="index.html">Generative Retrieval with AutoRAG</a></li>
+    <li><a href="s2-search-space.html">The Search Space and the Metric Triad</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">The Search Space and the Metric Triad</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Understand the configurations AutoRAG searches and how to interpret the three metrics it scores them on.</p>
+</dd>
+</dl>
+</div>
+<hr>
+<div class="paragraph">
+<p>Once you kick off a run, AutoRAG systematically tries combinations of retrieval settings, scores each against your evaluation set, and ranks them. Two things are worth understanding here: <strong>what</strong> it&#8217;s varying, and <strong>how to read</strong> the scores that come back.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_autorag_searches"><a class="anchor" href="#_what_autorag_searches"></a>What AutoRAG searches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Think of every setting below as a dial. Tuning them by hand means testing one combination, waiting, adjusting, and repeating. AutoRAG filters them for you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Chunking strategy</strong>, how documents are split. Recursive chunking versus hybrid structural chunking (the latter preserves headings and table structure, and kicks in with the <strong>Better Quality</strong> preset).</p>
+</li>
+<li>
+<p><strong>Chunk size and overlap</strong>, how big each piece is and how much neighboring pieces share.</p>
+</li>
+<li>
+<p><strong>Contextual retrieval</strong>, whether each chunk is enriched with document-level context before it&#8217;s embedded and indexed, instead of being stored as a bare fragment. This option activates with the <strong>Better Quality</strong> preset, and AutoRAG weighs it against standard recursive chunking to see if it actually improves your results.</p>
+</li>
+<li>
+<p><strong>Search mode</strong>, pure vector (semantic) search versus hybrid search that blends semantic and keyword matching.</p>
+</li>
+<li>
+<p><strong>Top-k</strong>, how many chunks to retrieve for each question.</p>
+</li>
+<li>
+<p><strong>Embedding model</strong>, the model that turns text into vectors. You can select up to <strong>2 embedding models</strong> per run.</p>
+</li>
+<li>
+<p><strong>Foundation model</strong>, the LLM that writes the final answer. Up to <strong>3 foundation models</strong> per run.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Stay within <strong>3 foundation models and 2 embedding models</strong> per run. Going over that cap causes the run to fail, so it&#8217;s a limit to respect, not push.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supports over 100 languages, does both dense and sparse retrieval, and runs with low memory overhead, which is why it shows up throughout the AutoRAG material.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_quick_word_on_languages"><a class="anchor" href="#_a_quick_word_on_languages"></a>A quick word on languages</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reading_the_metric_triad"><a class="anchor" href="#_reading_the_metric_triad"></a>Reading the metric triad</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AutoRAG scores every candidate on three complementary metrics, here&#8217;s what each one actually tells you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Answer Faithfulness</strong>, a hallucination check. Did the answer stick to the retrieved context, or did the model make things up?</p>
+</li>
+<li>
+<p><strong>Answer Correctness</strong>, a ground-truth check. Did the answer match the known-good answers in your evaluation set?</p>
+</li>
+<li>
+<p><strong>Context Correctness</strong>, a retrieval check. Did the system fetch the <strong>right</strong> document chunks in the first place?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The reason there are three, not one, is that they isolate <strong>where</strong> a pattern succeeds or fails.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagnosing_the_combinations"><a class="anchor" href="#_diagnosing_the_combinations"></a>Diagnosing the combinations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When two metrics disagree, the pattern is telling you something specific:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>High Faithfulness + Low Correctness:</strong> the model answered faithfully from what it retrieved, but the retrieved context didn&#8217;t actually contain the true answer.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Suspect your <strong>chunking</strong> or a mismatch in your <strong>evaluation dataset</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>High Correctness + Low Faithfulness:</strong> the answer was right, but the model pulled it from its own training memory rather than your documents. It got lucky this time; on unseen questions it&#8217;s a <strong>hallucination risk</strong>.</p>
+</li>
+<li>
+<p><strong>Low Context Correctness + High Answer Correctness:</strong> retrieval fetched irrelevant chunks, but a strong foundation model compensated. It looks fine now but is <strong>fragile</strong>, it will break on query types it hasn&#8217;t effectively memorized.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+New to evaluating RAG? Don&#8217;t chase a single top score. A pattern where all three metrics are solid is far more trustworthy in production than one with a dazzling Answer Correctness propped up by weak retrieval. Consistency beats a lucky headline number, the same lesson the AutoML report card taught.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now read the leaderboard and understand <strong>why</strong> a pattern ranks where it does. The last step is turning a winning pattern into something your application can actually call, which is where inspection and export come in.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a></span>
+  <span class="next"><a href="s3-handoff.html">Inspecting the Winner and Shipping It</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/scorm-bridge.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
