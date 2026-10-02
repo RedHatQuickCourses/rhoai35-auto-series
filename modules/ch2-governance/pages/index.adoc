@@ -1,6 +1,6 @@
 = Validating and Deploying AutoML Models
-:page-audio-src: index.wav
-:page-transcript-src: index.txt
+// :page-audio-src: index.wav
+// :page-transcript-src: index.txt
 
 Goal::
 

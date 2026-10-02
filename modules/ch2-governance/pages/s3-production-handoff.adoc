@@ -1,6 +1,6 @@
 = From Winner to Endpoint: The Production Handoff
-:page-audio-src: s3-production-handoff.wav
-:page-transcript-src: s3-production-handoff.txt
+// :page-audio-src: s3-production-handoff.wav
+// :page-transcript-src: s3-production-handoff.txt
 
 Objective::
 

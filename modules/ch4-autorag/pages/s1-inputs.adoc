@@ -1,6 +1,6 @@
 = Preparing the Inputs: Documents and a Test Set
-:page-audio-src: s1-inputs.wav
-:page-transcript-src: s1-inputs.txt
+// :page-audio-src: s1-inputs.wav
+// :page-transcript-src: s1-inputs.txt
 
 Objective::
 

@@ -1,6 +1,6 @@
 = Why AutoML? The Business Case
-:page-audio-src: s1-why-automl.wav
-:page-transcript-src: s1-why-automl.txt
+// :page-audio-src: s1-why-automl.wav
+// :page-transcript-src: s1-why-automl.txt
 
 Objective::
 

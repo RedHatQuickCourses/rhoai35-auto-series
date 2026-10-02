@@ -1,6 +1,6 @@
 = Prompts as Code: Prompt Management
-:page-audio-src: s2-prompts-as-code.wav
-:page-transcript-src: s2-prompts-as-code.txt
+// :page-audio-src: s2-prompts-as-code.wav
+// :page-transcript-src: s2-prompts-as-code.txt
 
 Objective::
 

@@ -1,6 +1,6 @@
 = Where Predictive AI Fits (and Where It Doesn't)
-:page-audio-src: s2-predictive-vs-llms.wav
-:page-transcript-src: s2-predictive-vs-llms.txt
+// :page-audio-src: s2-predictive-vs-llms.wav
+// :page-transcript-src: s2-predictive-vs-llms.txt
 
 Objective::
 
