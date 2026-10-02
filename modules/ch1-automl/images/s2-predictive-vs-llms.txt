@@ -1,31 +1,31 @@
-In this lesson, we will learn how to position predictive models against large language models, specifically comparing their costs and performance behaviors. We will also define exactly what kind of data makes for a good AutoML candidate.
+Where do predictive models fit, and where do they not? In this section we'll put them side by side with large language models on cost and behavior, and figure out what kind of data actually makes a good Auto M L candidate.
 
-Walk into almost any room today, and the conversation is focused on large language models. While LLMs are undisputedly transformational, there is a trap in that excitement. Many organizations are reaching for massive, GPU-hungry models to answer questions that a tiny, deterministic model could answer better, cheaper, and a thousand times faster.
+Walk into almost any room today and the conversation is about large language models. LLMs are transformational, no argument there. But there's a trap in all that excitement: organizations reach for a massive, GPU-hungry model to answer a question a tiny, deterministic model would answer better, cheaper, and a thousand times faster.
 
-Let’s look at a side-by-side comparison of predictive models versus large language models to understand why.
+Let's go side by side to see why.
 
-Predictive models, typically used in AutoML and tabular data scenarios, are designed for narrow, single-task structured decisions, such as predicting churn, fraud, or pricing. In contrast, LLMs are built for broad, open-domain reasoning and text generation.
+Predictive models, the Auto M L and tabular world, are built for narrow, single-task structured decisions: churn, fraud, pricing. LLMs are built for broad, open-domain reasoning and text generation.
 
-When it comes to data input, predictive models handle low-dimensional structured data—think of a spreadsheet with dozens or hundreds of features. LLMs, however, process high-dimensional, unstructured text across billions of tokens.
+On input, predictive models handle low-dimensional structured data, think a spreadsheet with dozens or hundreds of features. LLMs chew through high-dimensional, unstructured text across billions of tokens.
 
-In terms of scale, predictive model artifacts are lightweight, ranging from kilobytes to a few megabytes. LLMs require massive infrastructure, often spanning tens to hundreds of gigabytes. Because of this, predictive models can run on standard CPU infrastructure, while LLMs require high-VRAM GPU clusters. 
+On size, predictive model artifacts are lightweight, kilobytes to a few megabytes. LLMs run tens to hundreds of gigabytes. That's why predictive models run happily on the CPU infrastructure you already own, while LLMs need high-VRAM GPU clusters.
 
-Performance is also a major differentiator. Predictive models offer microsecond inference for high-throughput systems, whereas LLMs generally operate with second-level response times. Finally, predictive models provide deterministic logic with clear feature importance, making them highly auditable. LLMs rely on probabilistic reasoning, which requires additional guardrails.
+Performance splits them too. Predictive models give you microsecond inference for high-throughput systems; LLMs answer in seconds. And predictive models offer deterministic logic with clear feature importance, so they're easy to audit, while LLMs reason probabilistically and need guardrails around them.
 
-In short, predictive models are cheap, fast, and deterministic. They can process millions of rows on the hardware you already own, at a fraction of the cost of a GPU fleet, and they provide a clear, repeatable paper trail for every decision.
+So the short version: predictive models are cheap, fast, and deterministic. They scrape millions of rows on hardware you already have, at a fraction of the cost of a GPU fleet, and they give you the same answer every time with a clear paper trail for why.
 
-Now, you might be wondering: is your data a good candidate for AutoML? While AutoML is powerful, it is not magic. It expects a specific shape of data. Before you start a project, ensure your dataset meets these four criteria:
+So is your data a good candidate for Auto M L? It's powerful, but it isn't magic, and it expects a certain shape of data. Before you start, check your dataset against four things.
 
-First, it must be in a tabular structure. This means your data consists of rows as entities and columns as attributes, stored in a CSV format. Use UTF-8 encoding with a header row. You can upload up to 32 megabytes through the dashboard, or ingest up to 100 megabytes directly from S3-compatible object storage.
+First, tabular structure. Rows are entities, columns are attributes, stored as CSV, UTF-8 encoded with a header row. You can upload up to 32 megabytes through the dashboard, or ingest up to 100 megabytes straight from S3-compatible object storage.
 
-Second, ensure you have a clear target label. This is the single column that holds the ground-truth answer you want to predict for new data.
+Second, a clear target label. That's the single column holding the ground-truth answer you want to predict for new rows.
 
-Third, look for feature diversity. Your dataset should have a healthy mix of both numeric and categorical columns.
+Third, feature diversity. You want a healthy mix of numeric and categorical columns.
 
-Fourth, consider the volume. You need at least 500 to 1,000 rows to create a prototype, though 10,000 rows or more is the standard for a serious enterprise evaluation.
+Fourth, enough volume. At least 500 to 1,000 rows to prototype, and 10,000 or more is typical for a serious enterprise evaluation.
 
-It is just as important to know when to put the AutoML tool down and reach for something else. Do not use AutoML for unstructured media, such as images, audio, or video—those require specialized deep-learning pipelines. Likewise, if your goal is open-ended text generation, like building a chatbot or performing document synthesis, that is the domain of LLMs. Finally, if your problem hinges on complex, hand-crafted business rules that a model cannot infer from a raw table, AutoML is likely not the right solution.
+It's just as important to know when to put Auto M L down. Don't reach for it with unstructured media like images, audio, or video; those need specialized deep-learning pipelines. Don't use it for open-ended text generation like chatbots or document synthesis; that's LLM and Auto RAG territory, which we'll get to later. And if your problem hinges on hand-crafted business rules a model can't infer from a raw table, Auto M L probably isn't your tool.
 
-The key takeaway is to match the tool to the shape of the problem. When you do that, AutoML feels like a superpower. Force it onto the wrong problem, and it will only lead to frustration.
+The takeaway: match the tool to the shape of the problem. Do that, and Auto M L feels like a superpower. Force it onto the wrong problem, and it just frustrates everyone.
 
-In the next lesson, we will look at how to match specific predictive business problems to one of the four primary AutoML task types.
+Next, we'll match specific predictive business problems to one of the four Auto M L task types.
