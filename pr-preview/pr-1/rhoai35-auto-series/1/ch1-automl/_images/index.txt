@@ -1,9 +1,0 @@
-Welcome to the first chapter, Predictive Foundations with Auto M L.
-
-Here's what we're after: by the end, you'll know when to reach for Auto M L to turn raw tabular data or a time series into a production-ready predictive model, whether that's a classification, a regression, or a forecasting problem.
-
-So what does Auto M L actually do? In Red Hat OpenShift AI 3.5 and above, it takes the raw tabular data already sitting in your S3-compatible object storage, say S3 or ODF, and automates the tedious middle: data preparation, feature engineering, algorithm selection, and ensembling. What you get back is a ranked leaderboard of production-ready candidate models, in hours, not months.
-
-This chapter is about the foundations. We'll look at why this matters to the business, where predictive AI fits alongside the large language models everyone's talking about, and how to tell whether your data is even a good fit.
-
-We'll also work on matching a business problem to the right kind of prediction. By the end you won't be running models yet, that comes later in the course, but you'll know exactly when Auto M L is the right tool to reach for, and why.
