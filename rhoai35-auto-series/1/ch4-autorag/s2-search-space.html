@@ -216,6 +216,9 @@
 <p><strong>Chunk size and overlap</strong>, how big each piece is and how much neighboring pieces share.</p>
 </li>
 <li>
+<p><strong>Contextual retrieval</strong>, whether each chunk is enriched with document-level context before it&#8217;s embedded and indexed, instead of being stored as a bare fragment. This option activates with the <strong>Better Quality</strong> preset, and AutoRAG weighs it against standard recursive chunking to see if it actually improves your results.</p>
+</li>
+<li>
 <p><strong>Search mode</strong>, pure vector (semantic) search versus hybrid search that blends semantic and keyword matching.</p>
 </li>
 <li>
@@ -258,9 +261,7 @@ The recommended default embedding model is <strong>BAAI/bge-m3</strong>. It supp
 <div class="sect1">
 <h2 id="_a_quick_word_on_languages"><a class="anchor" href="#_a_quick_word_on_languages"></a>A quick word on languages</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>AutoRAG automatically <strong>detects the language</strong> of your evaluation questions, so you don&#8217;t declare it up front, and it handles mixed-language corpora gracefully. One caveat worth remembering: auto-detection only helps if the <strong>models</strong> you picked actually support those languages. Check the Model Catalog to confirm your chosen foundation and embedding models cover your document languages.</p>
-</div>
+
 </div>
 </div>
 <div class="sect1">
