@@ -1,0 +1,27 @@
+In this section we'll look at what AutoGluon is doing behind the scenes during a run, and why the leaderboard you get back is an ensemble of models, not just a single algorithm.
+
+You don't strictly need to know what happens between "start run" and "here's your leaderboard" to use Auto M L. But a little insight pays off the moment you start reading results, because the model names on that leaderboard actually mean something.
+
+To see it in action, take a moment with the demonstration on screen. Click the flashing purple circle to advance the frame.
+
+So what's under the covers? OpenShift AI's Auto M L is powered by AutoGluon, which acts as a meta-orchestrator. Instead of making you bet on one algorithm and tune it by hand, AutoGluon runs parallel sweeps across several model families at once, then works out which ones actually earned their place in the line-up.
+
+Think of an algorithm as a mathematical recipe, and a model family as the specific engine built to run that recipe. As a meta-orchestrator, AutoGluon manages a whole workshop of these engines at the same time, so you're not left guessing which one will work best.
+
+Those candidates come from two broad families.
+
+The first are what we might call "smart flowchart builders," also known as gradient-boosted decision trees. These models learn by chaining together lots of yes-or-no splits, like a flowchart that keeps correcting its own mistakes. They're the tried and true of tabular prediction, and you'll meet three of them.
+
+First, XGBoost, the meticulous veteran. It uses exact, depth-wise tree splits, which makes it a dependable default for standard spreadsheet and financial data.
+
+Second, LightGBM, the speed demon. Built by Microsoft, it uses fast, histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with very low memory overhead.
+
+Third, CatBoost, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don't have to encode them by hand.
+
+The second family is the "synthetic brains," or deep neural networks. These are the Tabular MLPs built on PyTorch and FastAI. They're multi-layer perceptrons, and they're great at capturing complex, non-linear interactions between your columns, the kind of patterns tree models can miss.
+
+Which brings us to the real trick: stacked ensembling. AutoGluon doesn't just crown a single winning algorithm and walk away. It blends the predictions of the top candidates into a multi-layer Weighted Ensemble, letting the models cover for each other's blind spots. That stacked approach consistently beats hand-tuning any single model by roughly two to five percent in accuracy.
+
+A quick tip if these names are new: don't feel like you have to choose between XGBoost, LightGBM, and the rest. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn't a bug or a mystery entry. It's the blended model, and it's often your best performer.
+
+Now that we know how these models get built, let's actually read the leaderboard, along with the rest of the report card Auto M L hands back with every run.

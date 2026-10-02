@@ -1,0 +1,5 @@
+Welcome to chapter two, Validating and Deploying Auto M L Models. By the end, you'll know how to use Auto M L's evaluation artifacts, the leaderboards, feature importance, and ROC and Precision-Recall curves, to validate your business logic and promote your best models to production with confidence.
+
+Here's the temptation: a model is sitting at the top of the leaderboard, and you just want to grab it and ship it. Resist that for a few more minutes. A high score only tells you the model fit the training data well. It doesn't tell you the model is measuring the right thing, or that it'll behave itself once it's handling live data in production.
+
+So we'll get there in three moves. One, a quick look at what Auto M L was actually doing while you waited. Two, how to read the full evaluation report card that comes back with every run. And three, the paved path from a winning model to a live, serving endpoint.

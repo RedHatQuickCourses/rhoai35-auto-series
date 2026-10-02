@@ -1,0 +1,9 @@
+Now it's time to put your knowledge to the test. This interactive assessment is 15 scenario-based questions, built to check that you can diagnose enterprise data scenarios and pick the right AI pattern, whether that's Auto M L, MLflow, or Auto RAG.
+
+You'll meet a range of real-world situations: explaining the value of Auto M L to a CIO, helping a banking team choose the right task type, or troubleshooting suspicious metrics in a RAG run. As you work through them, read the explanation after each answer, even when you're sure you got it right. Those explanations are a real part of the learning.
+
+To pass, you need a score of 80 percent or higher. If you don't clear that on your first attempt, don't worry, there's no penalty for retaking it. Just revisit the relevant chapters and the cheat sheet from the previous section, and restart the assessment when you're ready.
+
+Congratulations on completing this course, From Raw Data to a Working Model with Auto M L and Auto RAG on OpenShift AI. You've taken a real step toward evaluating use cases strategically and applying these tools in OpenShift AI version 3.5 and above to drive measurable business value.
+
+And keep in mind this is the first entry in our Connecting Data to Models and Agents series. When you're ready to keep going, move on to the second course, which digs into SLM fine-tuning for the scenarios where automation alone isn't enough. Good luck with the quiz.

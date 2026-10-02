@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>How AutoML Builds Its Models :: AutoML and AutoRAG on OpenShift AI</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="s2-report-card.html">
+    <meta name="generator" content="Antora 3.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">AutoML and AutoRAG on OpenShift AI</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoai35-auto-series" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch1-automl/index.html">Predictive Foundations with AutoML</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s1-why-automl.html">Why AutoML? The Business Case</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s2-predictive-vs-llms.html">Where Predictive AI Fits (and Where It Doesn&#8217;t)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch1-automl/s3-task-types.html">The Four Prediction Task Types</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Validating and Deploying AutoML Models</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="s1-under-the-hood.html">How AutoML Builds Its Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s2-report-card.html">Reading the Report Card</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="s3-production-handoff.html">From Winner to Endpoint: The Production Handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and Prompt Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s2-prompts-as-code.html">Prompts as Code: Prompt Management</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch3-mlflow/s3-governance.html">Governance at Scale: Workspaces and Audit</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch4-autorag/index.html">Generative Retrieval with AutoRAG</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s1-inputs.html">Preparing the Inputs: Documents and a Test Set</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s2-search-space.html">The Search Space and the Metric Triad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch4-autorag/s3-handoff.html">Inspecting the Winner and Shipping It</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../ch5-review/index.html">Knowledge Review and Assessment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s1-synthesis.html">Connecting Data to Models: The End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ch5-review/s2-assessment-quiz.html">Quiz: Diagnosing Scenarios and Selecting AI Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">AutoML and AutoRAG on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">AutoML and AutoRAG on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></li>
+    <li><a href="index.html">Validating and Deploying AutoML Models</a></li>
+    <li><a href="s1-under-the-hood.html">How AutoML Builds Its Models</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc" data-audio-src="s1-under-the-hood.wav" data-transcript-src="s1-under-the-hood.txt">
+<h1 class="page">How AutoML Builds Its Models</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Objective</dt>
+<dd>
+<p>Explain what AutoGluon is doing during a run and why the leaderboard is an ensemble, not a single algorithm.</p>
+</dd>
+</dl>
+</div>
+<hr>
+<div class="paragraph">
+<p>You don&#8217;t strictly <strong>need</strong> to know what happens between "start run" and "here&#8217;s your leaderboard" to use AutoML. But a little bit of knowledge pays off the moment you start reading results, because the names you&#8217;ll see on the leaderboard have meaning.</p>
+</div>
+<div class="paragraph">
+<p>Interactive experience: click the flashing purple circle to advance the frame.</p>
+</div>
+<iframe
+  src="https://demo.arcade.software/VzyYitxsdIfzOnXagZ2j?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_autogluon"><a class="anchor" href="#_autogluon"></a>AutoGluon</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Under the covers, RHOAI AutoML is powered by <strong>AutoGluon</strong>, which acts as a meta-orchestrator. Instead of asking you to bet on one algorithm and tune it by hand, AutoGluon runs <strong>parallel sweeps</strong> across several model families at once, then figures out which ones actually deserved their place in the line-up.</p>
+</div>
+<div class="paragraph">
+<p>Think of an algorithm as a mathematical recipe, and a model family (or software library) as the specific engine built to execute that recipe. What AutoGluon does as a "meta-orchestrator" is manage a whole workshop full of different engines at the same time, rather than making you guess which one will work best.</p>
+</div>
+<div class="paragraph">
+<p>Those candidates come from two broad families.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_smart_flowchart_builders_gradient_boosted_decision_trees"><a class="anchor" href="#_smart_flowchart_builders_gradient_boosted_decision_trees"></a>"Smart flowchart builders" (gradient-boosted decision trees)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These models learn by chaining together lots of yes/no splits, like a flowchart that keeps correcting its own mistakes. They&#8217;re the tried and true of tabular prediction:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>XGBoost</strong>, the meticulous veteran. Uses exact, depth-wise tree splits. A dependable default for standard spreadsheet and financial data.</p>
+</li>
+<li>
+<p><strong>LightGBM</strong>, the speed demon. Built by Microsoft, it uses fast histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with low memory overhead.</p>
+</li>
+<li>
+<p><strong>CatBoost</strong>, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don&#8217;t have to manually encode them.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synthetic_brains_deep_neural_networks"><a class="anchor" href="#_synthetic_brains_deep_neural_networks"></a>"Synthetic brains" (deep neural networks)</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tabular MLPs (PyTorch / FastAI)</strong>, multi-layer perceptrons that capture complex, non-linear interactions between your columns, patterns the tree models can miss.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_real_trick_stacked_ensembling"><a class="anchor" href="#_the_real_trick_stacked_ensembling"></a>The real trick: stacked ensembling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s the part that matters most. AutoGluon doesn&#8217;t just crown a single winning algorithm and walk away. It combines the predictions of the top candidates into a multi-layer <strong>Weighted Ensemble</strong>, letting the models cover for each other&#8217;s blind spots. That stacked approach consistently beats hand-tuning any single model by roughly <strong>2–5% in accuracy</strong>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+First time seeing these names? Don&#8217;t worry about choosing between XGBoost, LightGBM, and the rest. Just know that when a "WeightedEnsemble" model tops your leaderboard, it isn&#8217;t a bug or a mystery entry: it&#8217;s usually the blended model, and it&#8217;s often your best performer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, let&#8217;s actually read it, along with the rest of the report card AutoML hands back with every run.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Validating and Deploying AutoML Models</a></span>
+  <span class="next"><a href="s2-report-card.html">Reading the Report Card</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/scorm-bridge.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script defer src="../../../_/js/vendor/audio-transcript.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
