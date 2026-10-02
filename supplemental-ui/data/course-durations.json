@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 3994,
+  "totalSeconds": 4030,
   "pageCount": 20,
   "pages": [
     {
@@ -80,7 +80,7 @@
     {
       "module": "ch4-autorag",
       "page": "s2-search-space.adoc",
-      "seconds": 208
+      "seconds": 244
     },
     {
       "module": "ch4-autorag",
