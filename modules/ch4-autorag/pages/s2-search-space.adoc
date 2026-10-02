@@ -1,6 +1,6 @@
 = The Search Space and the Metric Triad
-:page-audio-src: s2-search-space.wav
-:page-transcript-src: s2-search-space.txt
+// :page-audio-src: s2-search-space.wav
+// :page-transcript-src: s2-search-space.txt
 
 Objective::
 

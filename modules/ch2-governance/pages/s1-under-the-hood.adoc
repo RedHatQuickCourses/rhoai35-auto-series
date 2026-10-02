@@ -1,6 +1,6 @@
 = How AutoML Builds Its Models
-:page-audio-src: s1-under-the-hood.wav
-:page-transcript-src: s1-under-the-hood.txt
+// :page-audio-src: s1-under-the-hood.wav
+// :page-transcript-src: s1-under-the-hood.txt
 
 Objective::
 

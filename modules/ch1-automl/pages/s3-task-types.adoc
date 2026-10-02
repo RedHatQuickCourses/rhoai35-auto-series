@@ -1,6 +1,6 @@
 = The Four Prediction Task Types
-:page-audio-src: s3-task-types.wav
-:page-transcript-src: s3-task-types.txt
+// :page-audio-src: s3-task-types.wav
+// :page-transcript-src: s3-task-types.txt
 
 Objective::
 
