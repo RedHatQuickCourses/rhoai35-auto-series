@@ -1,31 +1,31 @@
 {
-  "totalSeconds": 3961,
+  "totalSeconds": 3994,
   "pageCount": 20,
   "pages": [
     {
       "module": "ROOT",
       "page": "index.adoc",
-      "seconds": 266
+      "seconds": 269
     },
     {
       "module": "ch1-automl",
       "page": "index.adoc",
-      "seconds": 43
+      "seconds": 45
     },
     {
       "module": "ch1-automl",
       "page": "s1-why-automl.adoc",
-      "seconds": 138
+      "seconds": 139
     },
     {
       "module": "ch1-automl",
       "page": "s2-predictive-vs-llms.adoc",
-      "seconds": 150
+      "seconds": 151
     },
     {
       "module": "ch1-automl",
       "page": "s3-task-types.adoc",
-      "seconds": 217
+      "seconds": 227
     },
     {
       "module": "ch2-governance",
@@ -45,17 +45,17 @@
     {
       "module": "ch2-governance",
       "page": "s3-production-handoff.adoc",
-      "seconds": 132
+      "seconds": 133
     },
     {
       "module": "ch3-mlflow",
       "page": "index.adoc",
-      "seconds": 44
+      "seconds": 45
     },
     {
       "module": "ch3-mlflow",
       "page": "s1-playground.adoc",
-      "seconds": 346
+      "seconds": 360
     },
     {
       "module": "ch3-mlflow",
@@ -75,7 +75,7 @@
     {
       "module": "ch4-autorag",
       "page": "s1-inputs.adoc",
-      "seconds": 189
+      "seconds": 191
     },
     {
       "module": "ch4-autorag",
@@ -95,7 +95,7 @@
     {
       "module": "ch5-review",
       "page": "s1-synthesis.adoc",
-      "seconds": 461
+      "seconds": 459
     },
     {
       "module": "ch5-review",

@@ -79,13 +79,14 @@ The remaining tabs move beyond sampling and into what surrounds the model. You w
 * *MCP* (Model Context Protocol) authorizes connected MCP servers and enables specific tools the model can call during a conversation, the bridge from a chatbot to something that can take action.
 * *Guardrails* selects a dedicated safety model and lets you independently toggle *input guardrails* (screening the request before it reaches the model) and *output guardrails* (screening the response before it reaches you), so you can watch for prompt injection and unsafe content.
 
-== Comparing and tracing
+NOTE: The *Guardrails* tab is hidden by default. It appears only when an administrator enables the `guardrails` feature flag in the `OdhDashboardConfig` resource (`spec.dashboardConfig.guardrails: true`), the same resource that gates GenAI Studio above. You do *not* need to deploy a dedicated safety model in advance; once the tab is visible, you select a guardrail model from the models already available in your playground. Because the flag is off by default, you may not see the tab in every cluster or in the recorded walkthrough above.
+
+== Comparing and measuring
 
 The Playground isn't just a single chat box. A few capabilities make it a genuine evaluation tool:
 
 * *A/B comparison* (the *Compare chat* button) splits the chat area into two panes so you can run two different models, side by side and judge outputs directly instead of relying on memory of "what it said last time."
-* *Tracing* records the call tree behind a response. Flip on *Enable tracing* and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.
-* *Inline metrics* appear under each response, including *Time to First Token (TTFT)*, *Total Tokens*, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.
+* *Inline metrics* appear under each response, including *Time to First Token (TTFT)*, *Total Tokens*, and execution latency, with a link to open the full run details in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.
 
 
 == What's next

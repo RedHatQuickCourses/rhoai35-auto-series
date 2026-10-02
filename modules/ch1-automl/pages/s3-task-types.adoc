@@ -47,7 +47,7 @@ The workhorse of enterprise ML. Your target column has exactly *two* values, 0/1
 
 * *Data cue:* two unique values in the target.
 * *You'll see it in:* customer churn prevention, fraud detection, credit-risk approval.
-* *Default metric:* *Accuracy*, but switch to *ROC-AUC* or *F1* when the classes are lopsided. On a dataset that's 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone will lie to you.
+* *Default metric:* *Accuracy*, but switch to *ROC-AUC* or *F1* when the classes are lopsided. *ROC-AUC (Area Under the Receiver Operating Characteristic Curve)* measures how well the model separates the two classes across every decision threshold, on a 0.5-to-1.0 scale where 0.5 is a coin flip and 1.0 is perfect separation. On a dataset that's 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone can be misleading.
 
 == 2. Multiclass classification: "Pick 1 from a menu"
 

@@ -20,21 +20,8 @@ Picture a loan officer reviewing an application. Two very different questions ha
 
 And underneath both, quietly, is *prompt management*. The system instruction that shapes that credit memo ("write in a neutral compliance tone, cite the policy section, never invent a policy number") is a versioned prompt in the registry from chapter 3, backed by MLflow. When audit season comes, you can prove exactly which prompt version wrote which memo.
 
-[source]
-----
-                    ┌─────────────────────┐
-   Applicant  ───►  │  AutoML risk model  │  ───►  risk score (0.87)
-   tabular data     │  (KServe endpoint)  │              │
-                    └─────────────────────┘              │
-                                                         ▼
-   Company policy   ┌─────────────────────┐     ┌─────────────────────┐
-   documents   ───► │  AutoRAG retrieval  │ ──► │  Credit memo draft  │ ──► Loan officer
-                    │  + grounded LLM     │     │  (grounded in policy)│      decides
-                    └─────────────────────┘     └─────────────────────┘
-                              ▲
-                    Prompt Management registry
-                    (versioned system instruction)
-----
+.The end-to-end loan-desk workflow
+image::end-to-end-workflow.png[End-to-end loan-desk workflow showing two converging paths. Applicant tabular data feeds an AutoML risk model on a KServe endpoint, which returns a risk score of 0.87. Company policy documents feed AutoRAG retrieval plus a grounded LLM, which drafts a credit memo grounded in policy. A Prompt Management registry supplies the versioned system instruction to that LLM. The risk score and the credit memo both reach a loan officer, who makes the final decision.]
 
 Notice what the human still does: they *decide*. AutoML gave them a fast, defensible score. AutoRAG gave them a grounded explanation and the relevant policy in plain language. The platform did the tedious parts so the officer could spend their judgment where it matters. That's the whole "Connecting Data to Models" thesis in one picture: predictive AI for the numbers, generative AI for the language, governance holding both accountable.
 

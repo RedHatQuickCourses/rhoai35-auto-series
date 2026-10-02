@@ -1,10 +1,10 @@
-= Prompt Engineering and MLflow Governance
+= Prompt Engineering and Prompt Management
 :page-audio-src: index.wav
 :page-transcript-src: index.txt
 
 Goal::
 
-Transition from predictive data to generative text, leveraging the GenAI Studio Playground and MLflow to version, track, and eliminate "prompt drift".
+Transition from predictive data to generative text, leveraging the GenAI Studio Playground and prompt management (backed by MLflow) to version, track, and eliminate "prompt drift".
 
 ---
 

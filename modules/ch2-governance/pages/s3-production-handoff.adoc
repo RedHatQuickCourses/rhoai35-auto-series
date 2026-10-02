@@ -14,7 +14,7 @@ There are three exits from a completed run, and you'll use them for different re
 
 == Export the notebook (for the tinkerers)
 
-Click *Save notebook* and AutoML generates a Python Jupyter notebook with the code already written to connect to your S3 storage, load the trained predictor, and run batch scoring or your own custom validation.
+Click *Save notebook* and AutoML generates a Python Jupyter notebook with the code already written to connect to your S3-compatible object storage, load the trained predictor, and run batch scoring or your own custom validation.
 
 Reach for this when you want to poke at the model yourself, score a big batch of records offline, or hand a data scientist a running start. It's the "show me the code" door.
 

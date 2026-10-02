@@ -25,7 +25,7 @@ You bring the judgment, the business question, the data, the decision about what
 
 == The "sorting specialist"
 
-If you want a mental picture, think of AutoML as a *Sorting Specialist*. You feed in raw tabular CSV data pulled from S3 storage, the platform reads the patterns hiding in it, and out comes a *ranked leaderboard* of candidate models, sorted best to worst, ready for you to inspect and promote. You're no longer building models one at a time and hoping. You're reviewing a graded shortlist.
+If you want a mental picture, think of AutoML as a *Sorting Specialist*. You feed in raw tabular CSV data pulled from S3-compatible object storage, the platform reads the patterns hiding in it, and out comes a *ranked leaderboard* of candidate models, sorted best to worst, ready for you to inspect and promote. You're no longer building models one at a time and hoping. You're reviewing a graded shortlist.
 
 Interactive experience: click the flashing purple circle to advance the frame.  
 
@@ -60,6 +60,6 @@ Next we'll place predictive AI next to the large language models everyone's talk
 
 ////
 Source: course_design.md LO#1; appendix "Mastering AutoML in RHOAI" sections 1.
-C-Suite ROI: Compressing development from months to hours (70–80% faster time-to-market); 3x workforce multiplier. The "Sorting Hat": Converting raw CSVs from S3 into ranked leaderboards. Eliminating "PoC Death" via standardized deployment artifacts.
+C-Suite ROI: Compressing development from months to hours (70–80% faster time-to-market); 3x workforce multiplier. The "Sorting Hat": Converting raw CSVs from S3-compatible object storage into ranked leaderboards. Eliminating "PoC Death" via standardized deployment artifacts.
 Session type: Presentation: Animated comparison (Manual ML vs. AutoML).
 ////

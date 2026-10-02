@@ -2,7 +2,7 @@ To get the most out of an AutoRAG run, you need to prepare two essential compone
 
 Let’s start with your document corpus. This represents the knowledge base you want the model to be grounded in. Keep a few practical rules in mind regarding your files. First, AutoRAG supports several common formats, including PDF, DOCX, PPTX, Markdown, HTML, and TXT. You can host these in an S3-compatible bucket or upload them directly through the user interface. 
 
-Regarding file size, if you upload through the interface, there is a limit of 32 megabytes per file. If you point AutoRAG to an S3 folder, there is no per-file limit, though keep in mind that a run will automatically sample up to one gigabyte of documents total. 
+Regarding file size, if you upload through the interface, there is a limit of 32 megabytes per file. If you point AutoRAG to a folder in S3-compatible object storage, there is no per-file limit, though keep in mind that a run will automatically sample up to one gigabyte of documents total. 
 
 A helpful tip for your first time: start small and keep your files clean. Using a handful of high-quality, text-based documents will teach you more about how AutoRAG behaves than uploading a giant, messy archive. You can always scale up once you are comfortable with the workflow. 
 

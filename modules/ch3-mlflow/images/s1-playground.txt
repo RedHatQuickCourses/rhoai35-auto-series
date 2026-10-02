@@ -26,11 +26,10 @@ Also, keep an eye on the context window. This represents the total amount of tex
 Beyond basic testing, the Playground includes advanced features for grounding and safety:
 The Knowledge tab is where you manage Retrieval Augmented Generation, or RAG. Here, you can attach documents or vector stores and define how they are chunked and indexed.
 The MCP tab, or Model Context Protocol, allows you to authorize specific tools the model can use to perform external actions.
-The Guardrails tab lets you toggle input and output screening, which helps you monitor for issues like prompt injection or unsafe content.
+The Guardrails tab lets you toggle input and output screening, which helps you monitor for issues like prompt injection or unsafe content. Keep in mind that this tab is hidden by default and only appears when an administrator enables the guardrails feature flag for the cluster. You don't need to deploy a dedicated safety model in advance; once the tab is visible, you simply choose a guardrail model from the ones already running in your playground. Because that flag is off by default, you may not see this tab in every cluster.
 
 Finally, the Playground functions as a professional evaluation environment through several key capabilities:
 A/B comparison allows you to split the screen and run two different models side-by-side, so you can judge quality, tone, and speed head-to-head.
-Tracing records the call tree for every response. By enabling this, you can view OpenTelemetry spans to see exactly what happened during the generation process.
 Inline metrics provide data such as time-to-first-token and total token count. These metrics turn subjective feelings—like "this feels slow"—into objective data that you can measure.
 
 Once the Playground helps you find a prompt that behaves exactly as you intended, the next step is to treat that prompt like any other production asset: as versioned code. We will cover how to do that in the next section.

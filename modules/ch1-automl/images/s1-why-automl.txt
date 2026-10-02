@@ -6,7 +6,7 @@ AutoML automates that grind. Instead of a person manually running each step, the
 
 In this workflow, you bring the judgment, the business question, and the data, while AutoML handles the repetitive technical heavy lifting in the middle.
 
-Think of AutoML as a "Sorting Specialist." You provide your raw tabular data—perhaps a CSV file from S3 storage—and the platform identifies the patterns within it. It then produces a ranked leaderboard of candidate models, sorted from best to worst, ready for you to review and promote. You are no longer building models one at a time and hoping for the best; you are now reviewing a graded, high-quality shortlist.
+Think of AutoML as a "Sorting Specialist." You provide your raw tabular data—perhaps a CSV file from S3-compatible object storage—and the platform identifies the patterns within it. It then produces a ranked leaderboard of candidate models, sorted from best to worst, ready for you to review and promote. You are no longer building models one at a time and hoping for the best; you are now reviewing a graded, high-quality shortlist.
 
 Take a moment to interact with the demo on your screen to see how this process works in practice. Click the flashing purple circle to advance the frame.
 

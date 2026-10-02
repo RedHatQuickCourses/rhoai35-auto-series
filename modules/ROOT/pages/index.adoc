@@ -59,14 +59,12 @@ And here is what you can leave at the door: no cluster administration, no infras
 
 == Classroom environment
 
-This course requires no hands-on user labs. It uses Summit or created Arcade interactive clickthroughs, and video walkthroughs to demonstrate AutoML and AutoRAG capabilities, and it closes with a scenario-based graded knowledge check.
+This course requires no hands-on user labs. It uses Arcade interactive clickthroughs, and video walkthroughs to demonstrate AutoML and AutoRAG capabilities, and it closes with a scenario-based graded knowledge check.
 
-TIP: Each capability is shown through Arcade interactive click-throughs and video walkthroughs, following the same examples the AI Business Unit uses. You watch it work, understand *why* each choice was made, then learn how to read the results yourself.
+TIP: Each capability is shown through Arcade interactive click-throughs and video walkthroughs, following the same examples the AI Business Unit uses. You watch it work, understand *why* each choice was made, then learn how to read the results yourself. See sources below.
 
 
-.New to interactive experiences, click to expand  (arcade quick start quide)
-[%collapsible]
-====
+New to interactive experiences, click through our quick start quide::
 
 ++++
 <iframe 
@@ -82,7 +80,7 @@ TIP: Each capability is shown through Arcade interactive click-throughs and vide
 </iframe>
 ++++
 
-====
+
 
 == Other sources of information about Red Hat OpenShift AI
 
