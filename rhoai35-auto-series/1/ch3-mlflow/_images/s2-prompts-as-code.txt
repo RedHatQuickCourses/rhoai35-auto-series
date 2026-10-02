@@ -1,43 +1,19 @@
-In this module, we will explore the Prompt Management feature within Red Hat OpenShift AI. By the end of this section, you will understand why prompts require version control and how to use the MLflow-powered registry to version, alias, and bind your prompts to specific model configurations.
+In this section, we'll treat prompts as code, using Prompt Management in OpenShift AI. By the end you'll see why prompts need version control, and how to use the MLflow-powered registry to version them, give them aliases, and bind them to specific model configurations.
 
-### Understanding Prompt Management
+Let's start with the mindset. It's an easy mistake to treat a prompt like a throwaway text string, something you copy, paste, and tweak forever. But a prompt is really a parameter: it shapes how your application behaves just as much as your source code does. So when production results start to regress, it's often impossible to work out which version of a prompt caused it.
 
-It is a common mistake to treat a prompt like a temporary text string—something to be copied, pasted, and tweaked indefinitely. However, a prompt is effectively a parameter that influences your application’s behavior just as much as your source code. When production results begin to regress, it is often impossible to track down which version of a prompt caused the issue.
+Prompt Management, in the dashboard under GenAI Studio and then Prompts, fixes that by giving your prompts a central home. It's powered by the MLflow prompt registry, and it lets you create, version, tag, and reuse prompt templates across your organization. Worth knowing: you'll hear "Prompt Management" and "MLflow prompt registry" used interchangeably. They're the same capability.
 
-Prompt Management—found in the dashboard under **GenAI Studio** and then **Prompts**—solves this by providing a central repository for your prompts. Powered by the MLflow prompt registry, it allows you to create, version, tag, and reuse prompt templates across your organization. It is important to note that while you may hear the terms "Prompt Management" and "MLflow prompt registry" used interchangeably, they refer to the same capability.
+Now, versioning, the Git way. The registry works a lot like version control for your instructions. Every time you register a change, it saves a new numbered version, version one, version two, and so on, each with a commit message. Two things make this trustworthy. First, versions are immutable: once saved, a version never changes, so if you need to update a prompt you create a new version, and that's what makes your results reproducible. Second, you can compare versions side by side; the dashboard highlights the differences, so you can see exactly how your wording has evolved.
 
-### Versioning, the Git Way
+Then there are aliases, which keep version numbers out of your application code. An alias is a movable label that points to a specific version. You might have a production alias pointing to version two, and a latest alias that always tracks the newest version. Your application references the prompt by its alias, not its version number. So when you're ready to promote version three to production, you just move the production alias to point at it. No code changes, no redeploys. And if you need to roll back, it's a one-click move of the alias back to a known good version.
 
-The registry functions similarly to a version control system for your instructions. Every time you register a change, the system saves a new numbered version, such as version one or version two, accompanied by a commit message.
+Before you promote an alias, we really recommend the Playground's Compare view. Load two versions side by side, run the same input against both, and check metrics like latency and token usage to make sure the new version is genuinely an improvement.
 
-There are two critical aspects of this system that ensure trustworthiness:
-First, versions are immutable. Once a version is saved, it never changes. If you need to update a prompt, you must create a new version. This guarantee makes your results reproducible.
-Second, you can compare versions side-by-side. The dashboard highlights differences between versions, allowing you to see exactly how your wording has evolved over time.
+A prompt is also more than its text. The registry stores a model configuration right alongside it: the model name, the temperature, the maximum token setting. That keeps the whole recipe, including the specific tuning that prompt needs, together in one place. Prompts can also be bound to specific providers, like Llama, Granite, or Claude, so teams can switch the underlying model without rewriting their prompt code. And if your prompt needs flexibility, use placeholders with double curly braces. You register the reusable shape once; when you load a templated prompt into the Playground, it detects the placeholders and gives you input fields to fill in the runtime values before you run your test.
 
-### Using Aliases for Deployment
+There's one more layer beyond the prompt itself. Complex experiments often pull in extra pieces, like RAG knowledge sources and connected tools. To capture that whole execution recipe, you can save your session as a Playground Agent. When a teammate opens a saved agent, they don't just get the prompt and temperature; they get the exact model runtime, the same vector store, and the same tool definitions you used. That's true, session-level reproducibility. A note for administrators: Playground Agents are currently a Developer Preview feature and are off by default. You enable them by setting the agent config management flag to true in your dashboard config. Once on, the agents are stored as Kubernetes resources in your project namespace, which makes it easy to collaborate across the team.
 
-To prevent version numbers from cluttering your application code, we use aliases. An alias is a movable label that points to a specific version. For example, you might have a "production" alias pointing to version two, while a "latest" alias automatically tracks the most recent version.
+To watch the end-to-end flow, registering a prompt, committing a new version, and using the comparison tools, take a look at the interactive demonstrations in the course interface.
 
-Your application references the prompt by its alias rather than its version number. This means that when you are ready to promote version three to production, you simply update the "production" alias to point to the new version. There is no need for code changes or redeployments. If you ever need to revert to a previous state, you can perform a one-click rollback by simply moving the alias back.
-
-Before promoting an alias, we highly recommend using the Playground’s "Compare" view. This allows you to load two different versions side-by-side, run the same input against both, and evaluate performance metrics like latency and token usage to ensure the new version is indeed an improvement.
-
-### Prompt Settings and Templates
-
-A prompt is more than just text. The registry stores a model configuration alongside each prompt, including the model name, temperature, and maximum token settings. This ensures that the entire "recipe"—including the specific tuning required for that prompt—is preserved. Furthermore, prompts can be bound to specific providers, such as Llama, Granite, or Claude, allowing teams to switch underlying models without rewriting their prompt code.
-
-If your prompt requires flexibility, use placeholders like double-curly-braces. You only need to register the reusable shape of the prompt once. When you load a templated prompt into the Playground, the interface automatically detects these placeholders and provides input fields, allowing you to define the runtime values before you run your test.
-
-### Beyond the Prompt: Playground Agents
-
-While the registry captures the prompt and its settings, complex experiments often involve additional components like RAG knowledge sources and connected tools. To capture this entire execution recipe, you can save your session as a "Playground Agent."
-
-When a teammate opens a saved agent, they don’t just get the prompt and temperature; they receive the exact model runtime, the same vector store, and the same tool definitions you used. This provides true, session-level reproducibility.
-
-*Note for administrators:* Playground Agents are currently a Developer Preview feature and are disabled by default. They can be enabled by setting the `agentConfigManagement` feature flag to `true` within your `OdhDashboardConfig`. Once enabled, these agents are stored as Kubernetes resources within your project namespace, enabling easy collaboration across your team.
-
-### See it in Action
-
-To see the end-to-end process of registering a prompt, committing a new version, and using the comparison tools, please view the interactive demonstrations provided in the course interface.
-
-Now that you know how to version individual prompts, our next step is to examine governance—specifically, how these registries are isolated by project and tied into a complete enterprise-wide audit trail.
+Now that you can version an individual prompt, the next step is governance: how these registries are isolated by project and tied into a complete, enterprise-wide audit trail.

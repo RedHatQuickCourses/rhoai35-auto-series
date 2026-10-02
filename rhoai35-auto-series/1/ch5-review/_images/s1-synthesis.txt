@@ -1,39 +1,31 @@
-Throughout this course, you have gained three powerful capabilities: AutoML for predictive modeling, AutoRAG for grounded generation, and prompt management for governing your models. Individually, these tools solve specific problems. Together, they create a comprehensive business process. To see how they integrate, let’s follow a single decision from raw data all the way to a final human action.
+Across this course, you've picked up three powerful capabilities: Auto M L for predictive modeling, Auto RAG for grounded generation, and prompt management for governing your models. On their own, each solves a specific problem. Together, they add up to a complete business process. To see how they fit, let's follow a single decision from raw data all the way to a human action.
 
-### The End-to-End Workflow: A Loan Desk Scenario
+Picture a loan desk. A loan officer is reviewing an application, and to decide well they need to answer two different questions.
 
-Imagine a loan officer reviewing an application. To make an informed decision, they need to answer two distinct questions.
+First, how risky is this applicant? That's a classic Auto M L use case. You feed your historical loan data into the system, it evaluates models like XGBoost, LightGBM, CatBoost, and neural networks, and it produces a ranked leaderboard. Promote the winning model to a serving runtime on KServe, and you can pull a precise risk score from a REST API in microseconds.
 
-First, they need to know the risk associated with the applicant. This is a classic use case for AutoML. You feed your historical loan data into the system, which evaluates models like XGBoost, LightGBM, CatBoost, and neural networks to produce a ranked leaderboard. Once you promote the winning model to a serving runtime on KServe, you can retrieve a precise risk score from a REST API in microseconds.
+Second, why that score, and what does policy require? A raw number isn't enough for compliance. The officer needs a formal credit memo, something like: this applicant is in the elevated-risk band; per section four of our policy, applications above 250,000 dollars require a secondary review. That's where Auto RAG comes in. It retrieves the relevant policy chunks and drafts a memo grounded in your company's actual documents, rather than whatever the model might have memorized in training.
 
-Second, the officer needs to understand the "why" behind that score and the corresponding policy requirements. A raw number isn’t enough for compliance. They need a formal credit memo—for example, "This applicant is in the elevated-risk band; per section 4 of our policy, applications above $250,000 require a secondary review." This is where AutoRAG comes in. It retrieves the relevant policy chunks and drafts a memo grounded in your company's actual documents, rather than relying on what the model might have memorized during training.
+Underneath both is prompt management. The system instructions that set the tone and the requirements of that credit memo are versioned and stored in a registry backed by MLflow. That gives you a clear audit trail, so you can prove exactly which prompt version generated a given memo when compliance asks.
 
-Supporting both processes is prompt management. The system instructions that dictate the tone and requirements of the credit memo are versioned and stored in a registry backed by MLflow. This provides a clear audit trail, allowing you to prove exactly which prompt version generated a specific memo during compliance reviews.
+The pattern is this: the platform handles the tedious heavy lifting, predictive AI for the numbers and generative AI for the language, so the human officer can spend their expertise where it matters, making the final judgment.
 
-Essentially, the platform handles the tedious heavy lifting—predictive AI for the numbers and generative AI for the language—so the human officer can focus their expertise where it matters most: making the final judgment.
+Building the workflow is one skill; knowing how to troubleshoot it is what separates a user from an operator. When results look off, diagnose each stage on its own.
 
-### Diagnostic Decision Logic
+For your Auto M L model, lean on the report card. Don't trust raw accuracy on imbalanced data; look at the confusion matrix and the ROC and precision-recall curves. And check feature importance, to be sure the model isn't leaning on irrelevant or biased data.
 
-Building this workflow is one skill, but knowing how to troubleshoot it is what separates a user from an operator. When results look off, diagnose each stage separately.
+For Auto RAG, use the metric triad from earlier. Don't read the scores in isolation; look for the pattern between them. High faithfulness with low correctness tells you the model answered honestly from its context, but it was handed the wrong information, so fix your retrieval or chunking, not the model. High correctness with low faithfulness suggests the model got lucky from its own memory rather than your documents, a dangerous trend that won't hold on unseen data.
 
-For your AutoML model, rely on your report card. Never trust raw accuracy on imbalanced data; instead, examine your confusion matrix and ROC-PR curves. Also, check feature importance to ensure the model isn't relying on irrelevant or biased data.
-
-For AutoRAG, use the metric triad we discussed previously. Don't look at scores in isolation; look for patterns. For instance, high faithfulness combined with low correctness tells you the model is answering honestly based on its context, but it was provided the wrong information. In this case, you should fix your retrieval or chunking strategy, not the model itself. Conversely, high correctness paired with low faithfulness suggests the model got lucky by relying on its own memory rather than your documents—a dangerous trend that won't hold up with unseen data.
-
-For prompt management, your diagnostic tool is the audit trail. When an answer is incorrect, check the lineage in the registry to see which version was used, compare it against previous versions, and roll back if necessary.
+For prompt management, your diagnostic tool is the audit trail. When an answer is wrong, check the lineage in the registry to see which version ran, compare it against earlier versions, and roll back if you need to.
 
 Always identify the failing stage before you start changing settings. A low score is just a symptom; the pattern is the diagnosis.
 
-### When "Auto" Is Enough
+It's just as important to know when these automated capabilities are the right tool. Stick with them when your problem involves predictable, structured data; when your GenAI app simply needs access to your specific facts; or when the base model already has the core skill, like summarization, but lacks your internal knowledge.
 
-It is vital to know when these automated capabilities are the right tool for the job. Stick with these automated solutions when your problem involves predictable, structured data; when your GenAI app simply needs access to your specific facts; or when the base model already possesses the core skill—like summarization—but lacks your internal knowledge.
+Think about escalating beyond automation only when you hit a skill gap that better prompting or retrieval can't close. If a model keeps failing to hold a required tone or output format no matter what context you give it, that may be a sign you need to fine-tune a specialized model. Just remember fine-tuning is heavier and more expensive, so reach for it only after you've exhausted the other options.
 
-Consider escalating beyond automation only when you encounter a skill gap that cannot be solved by better prompting or retrieval. For example, if a model consistently fails to maintain a specific, required tone or output format regardless of the context provided, that may be a sign that you need to move toward fine-tuning a specialized model. Keep in mind that fine-tuning is a heavier, more expensive process, and you should only reach for it once you have exhausted all other options.
+To put this to work, I'd encourage you to download the Connecting Data to Models one-page cheat sheet in the course materials. It's a quick reference for matching your data to the right capability and diagnosing symptoms.
 
-### Your Cheat Sheet
+Looking ahead, everything here is part of the foundation for OpenShift AI. In version 3.6, these tools move to General Availability with production-level support, and you'll see features like DSPy-based prompt pre-optimization, where the platform tunes your prompts for you, carrying on the same philosophy of letting the system do the heavy lifting wherever it can.
 
-To help you apply these concepts, I encourage you to download the "Connecting Data to Models" one-page cheat sheet available in the course materials. It provides a quick reference for matching your data to the right capability and diagnosing symptoms.
-
-Looking ahead, everything you’ve learned here is part of the foundation for OpenShift AI. In version 3.6, these tools move to general availability, providing production-level support. You will also see features like DSPy-based prompt pre-optimization, which allows the platform to automatically tune your prompts—continuing the philosophy of letting the system do the heavy lifting whenever possible.
-
-As you finish this lesson, you are ready for the final scenario-based assessment. This will validate your ability to diagnose real-world enterprise scenarios and select the optimal AI patterns for each challenge.
+With that, you're ready for the final scenario-based assessment, where you'll show you can diagnose real-world enterprise scenarios and choose the right AI pattern for each one.
