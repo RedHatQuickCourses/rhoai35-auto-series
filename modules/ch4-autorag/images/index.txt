@@ -1,9 +1,11 @@
-Welcome to this module on Generative Retrieval with AutoRAG. Our primary goal today is to position AutoRAG as an automated optimization engine that benchmarks your chunking, embedding, and vector database configurations for grounded Large Language Model applications.
+Welcome to chapter four, Generative Retrieval with Auto RAG.
 
-You can think of AutoRAG as applying the concept of AutoML specifically to retrieval. Instead of spending time on manual tuning, you simply provide your documents and a set of test questions. AutoRAG automatically searches across various chunking, embedding, and retrieval configurations. It then scores each one against your questions and hands back a ranked leaderboard of production-ready RAG patterns.
+So what is Auto RAG? It's an automated optimization engine. It benchmarks your chunking, embedding, and vector database configurations for grounded large language model applications, and hands you back the combination that works best.
 
-Before we dive in, please note that AutoRAG is currently a technology preview feature in OpenShift AI 3.5.
+The easiest way to picture it: Auto RAG applies the idea of Auto M L specifically to retrieval. Instead of tuning by hand, you provide your documents and a set of test questions. Auto RAG searches across different chunking, embedding, and retrieval configurations, scores each one against your questions, and hands back a ranked leaderboard of production-ready RAG patterns.
 
-We have included a demonstration that walks through this entire process using a scenario from a fictitious bank. I recommend watching this demo once now to get a sense of the overall workflow, as we will unpack each individual stage in the following lessons.
+One thing to know up front: Auto RAG is currently a Technology Preview feature in OpenShift AI 3.5.
 
-We will cover this topic in three main moves. First, we will discuss how to prepare the two essential inputs that AutoRAG requires. Second, we will look at the search space it explores and explain how to interpret the metrics it reports back. And finally, we will explore how to inspect the winning configuration and export it into a real application.
+We've included a demonstration that walks through the whole process using a scenario from a fictitious bank. I'd watch it once now to get a feel for the overall workflow; we'll unpack each stage in the lessons that follow.
+
+We'll cover this in three moves. One, how to prepare the two essential inputs Auto RAG needs. Two, the search space it explores, and how to read the metrics it reports back. And three, how to inspect the winning configuration and export it into a real application.

@@ -1,9 +1,21 @@
-Welcome to the first chapter, Predictive Foundations with Auto M L.
+Our goal in this section is to match any predictive business problem to one of the four Auto M L task types, and to its default optimization metric.
 
-Here's what we're after: by the end, you'll know when to reach for Auto M L to turn raw tabular data or a time series into a production-ready predictive model, whether that's a classification, a regression, or a forecasting problem.
+Here's the good news: no matter how complicated the business problem sounds, every predictive question you'll ever hand to Auto M L comes down to one of just four task types. Learn to spot which one you're looking at and you're most of the way there.
 
-So what does Auto M L actually do? In Red Hat OpenShift AI 3.5 and above, it takes the raw tabular data already sitting in your S3-compatible object storage, say S3 or ODF, and automates the tedious middle: data preparation, feature engineering, algorithm selection, and ensembling. What you get back is a ranked leaderboard of production-ready candidate models, in hours, not months.
+And you won't always decide alone. When you load a CSV into the Red Hat OpenShift AI dashboard, it inspects your columns, infers their types, and recommends a task type and a sensible default metric. Your job is to understand the four well enough to confirm that recommendation rather than take it on faith.
 
-This chapter is about the foundations. We'll look at why this matters to the business, where predictive AI fits alongside the large language models everyone's talking about, and how to tell whether your data is even a good fit.
+Every project starts with a business problem: someone wants to know who's going to leave, how much something will cost, what next quarter's demand looks like. The catch is that the platform can't act on an intention, only on columns. So your first move is to translate that business question into a data question by finding your target, the one column holding the value you want to predict.
 
-We'll also work on matching a business problem to the right kind of prediction. By the end you won't be running models yet, that comes later in the course, but you'll know exactly when Auto M L is the right tool to reach for, and why.
+Two questions get you most of the way. First, what kind of value lives in the target column? A handful of labels, or a number that slides up and down a scale? Second, is time part of the story? Is each row anchored to a date or timestamp that marks a sequence of events? Answer those two and the task type falls out on its own.
+
+Let's take the four in turn, each identified by what's in your target column.
+
+First, binary classification, the "Yes or No?" question. This is the workhorse of enterprise machine learning, and you'll use it when the target has exactly two values: zero or one, True or False, churn or no-churn. Think customer churn prevention, fraud detection, credit-risk approval. The default metric is Accuracy, but watch out when the classes are lopsided. On a dataset that's 99 percent legitimate and 1 percent fraud, a model that always guesses "not fraud" is 99 percent accurate and completely useless, so switch to ROC-AUC or F1. ROC-AUC, the Area Under the Receiver Operating Characteristic Curve, measures how well the model separates the two classes across every threshold, on a scale from 0.5, a coin flip, up to 1.0, perfect separation.
+
+Second, multiclass classification, "pick one from a menu." Same idea as binary, but now there are three or more categories. You'll see it in support-ticket routing, customer segmentation, or classifying which type of equipment failure occurred. The default metric is Accuracy.
+
+Third, regression, the "How much?" question. This is when the answer isn't a category at all but a number on a continuous scale: price estimation, predicting medical charges, estimating how long an operation will take. The default metric is R-squared, the share of variance the model explains, on a zero-to-one scale where closer to one is better.
+
+And finally, time series forecasting, "what's next over time?" Think of it as regression's time-aware cousin: you're predicting a number forward while respecting the order of events. It needs a timestamp column, an ID column to identify each sequence, say each store or product, and a numeric target. You'll use it for retail inventory demand, sales projections, and capacity planning. The default metric is MASE, Mean Absolute Scaled Error, which grades your forecast against a "tomorrow looks like today" baseline so you can tell whether the model is genuinely adding value.
+
+In the next chapter, we'll see how Auto M L actually builds and stacks these models under the covers, and how to read the evaluation report card before you promote a winner into production.
