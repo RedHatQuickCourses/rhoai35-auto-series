@@ -1,9 +1,0 @@
-Welcome to chapter five, your final knowledge review and assessment.
-
-Here's the goal: to check your understanding of the core concepts across Auto M L, prompt management, and Auto RAG, and to confirm you can diagnose enterprise data scenarios and pick the most effective AI pattern for each.
-
-The most compelling work in this field happens when these technologies converge, when a predictive model and a grounded generator work inside the same workflow, passing data back and forth. That's the focus of this final chapter.
-
-We'll do this in two moves. One, we'll walk through a realistic, end-to-end scenario so you can see how all the pieces click together, and along the way I'll give you a one-page decision cheat sheet to help connect the concepts. Two, you'll move on to the graded assessment. That quiz is scenario-based by design: we're not testing trivia, we're putting you in the seat of a practitioner who has to diagnose a real-world data problem, decide which pattern is the right one, and, just as importantly, work out how to verify it's actually working.
-
-Let's start by connecting these components into a single, unified workflow.
