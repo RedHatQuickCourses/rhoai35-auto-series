@@ -95,7 +95,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Prompt Engineering and MLflow Governance</a>
+    <a class="nav-link" href="index.html">Prompt Engineering and Prompt Management</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
@@ -174,7 +174,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">AutoML and AutoRAG on OpenShift AI</a></li>
-    <li><a href="index.html">Prompt Engineering and MLflow Governance</a></li>
+    <li><a href="index.html">Prompt Engineering and Prompt Management</a></li>
     <li><a href="s1-playground.html">Testing Prompts in the GenAI Studio Playground</a></li>
   </ul>
 </nav>
@@ -327,10 +327,22 @@ First time touching these? Change <strong>one</strong> setting at a time. If you
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <strong>Guardrails</strong> tab is hidden by default. It appears only when an administrator enables the <code>guardrails</code> feature flag in the <code>OdhDashboardConfig</code> resource (<code>spec.dashboardConfig.guardrails: true</code>), the same resource that gates GenAI Studio above. You do <strong>not</strong> need to deploy a dedicated safety model in advance; once the tab is visible, you select a guardrail model from the models already available in your playground. Because the flag is off by default, you may not see the tab in every cluster or in the recorded walkthrough above.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_comparing_and_tracing"><a class="anchor" href="#_comparing_and_tracing"></a>Comparing and tracing</h2>
+<h2 id="_comparing_and_measuring"><a class="anchor" href="#_comparing_and_measuring"></a>Comparing and measuring</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Playground isn&#8217;t just a single chat box. A few capabilities make it a genuine evaluation tool:</p>
@@ -341,10 +353,7 @@ First time touching these? Change <strong>one</strong> setting at a time. If you
 <p><strong>A/B comparison</strong> (the <strong>Compare chat</strong> button) splits the chat area into two panes so you can run two different models, side by side and judge outputs directly instead of relying on memory of "what it said last time."</p>
 </li>
 <li>
-<p><strong>Tracing</strong> records the call tree behind a response. Flip on <strong>Enable tracing</strong> and each query collects OpenTelemetry spans, so you can see what actually happened on the way to an answer, which becomes invaluable as prompts feed into larger agentic workflows.</p>
-</li>
-<li>
-<p><strong>Inline metrics</strong> appear under each response, including <strong>Time to First Token (TTFT)</strong>, <strong>Total Tokens</strong>, and execution latency, with a link to open the full call tree in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.</p>
+<p><strong>Inline metrics</strong> appear under each response, including <strong>Time to First Token (TTFT)</strong>, <strong>Total Tokens</strong>, and execution latency, with a link to open the full run details in MLflow. These are the numbers that turn a subjective "that felt slow" into something you can actually compare.</p>
 </li>
 </ul>
 </div>
@@ -359,7 +368,7 @@ First time touching these? Change <strong>one</strong> setting at a time. If you
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Prompt Engineering and MLflow Governance</a></span>
+  <span class="prev"><a href="index.html">Prompt Engineering and Prompt Management</a></span>
   <span class="next"><a href="s2-prompts-as-code.html">Prompts as Code: Prompt Management</a></span>
 </nav>
 </article>

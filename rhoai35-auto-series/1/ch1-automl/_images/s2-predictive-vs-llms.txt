@@ -16,7 +16,7 @@ In short, predictive models are cheap, fast, and deterministic. They can process
 
 Now, you might be wondering: is your data a good candidate for AutoML? While AutoML is powerful, it is not magic. It expects a specific shape of data. Before you start a project, ensure your dataset meets these four criteria:
 
-First, it must be in a tabular structure. This means your data consists of rows as entities and columns as attributes, stored in a CSV format. Use UTF-8 encoding with a header row. You can upload up to 32 megabytes through the dashboard, or ingest up to 100 megabytes directly from Amazon S3.
+First, it must be in a tabular structure. This means your data consists of rows as entities and columns as attributes, stored in a CSV format. Use UTF-8 encoding with a header row. You can upload up to 32 megabytes through the dashboard, or ingest up to 100 megabytes directly from S3-compatible object storage.
 
 Second, ensure you have a clear target label. This is the single column that holds the ground-truth answer you want to predict for new data.
 

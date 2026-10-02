@@ -95,7 +95,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and MLflow Governance</a>
+    <a class="nav-link" href="../ch3-mlflow/index.html">Prompt Engineering and Prompt Management</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../ch3-mlflow/s1-playground.html">Testing Prompts in the GenAI Studio Playground</a>
@@ -267,7 +267,7 @@
 <p><strong>You&#8217;ll see it in:</strong> customer churn prevention, fraud detection, credit-risk approval.</p>
 </li>
 <li>
-<p><strong>Default metric:</strong> <strong>Accuracy</strong>, but switch to <strong>ROC-AUC</strong> or <strong>F1</strong> when the classes are lopsided. On a dataset that&#8217;s 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone will lie to you.</p>
+<p><strong>Default metric:</strong> <strong>Accuracy</strong>, but switch to <strong>ROC-AUC</strong> or <strong>F1</strong> when the classes are lopsided. <strong>ROC-AUC (Area Under the Receiver Operating Characteristic Curve)</strong> measures how well the model separates the two classes across every decision threshold, on a 0.5-to-1.0 scale where 0.5 is a coin flip and 1.0 is perfect separation. On a dataset that&#8217;s 99% legitimate and 1% fraud, a model that guesses "not fraud" every time is 99% accurate and completely useless, so accuracy alone can be misleading.</p>
 </li>
 </ul>
 </div>
