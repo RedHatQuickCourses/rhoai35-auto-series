@@ -64,7 +64,7 @@ This course requires no hands-on user labs. It uses Arcade interactive clickthro
 TIP: Each capability is shown through Arcade interactive click-throughs and video walkthroughs, following the same examples the AI Business Unit uses. You watch it work, understand *why* each choice was made, then learn how to read the results yourself. See sources below.
 
 
-New to interactive experiences, click through our quick start quide::
+New to interactive experiences, click through our quick start guide::
 
 ++++
 <iframe 
