@@ -64,7 +64,7 @@ Start on the *Model* tab. It holds your choice of model plus the two controls wi
 Move to the *Prompt* tab for the biggest lever of all:
 
 * *System instructions* set the model's standing orders: its role, tone, and rules ("You are a concise support agent. Never invent policy numbers."). Small changes here move behavior more than any slider.
-* *Template variables* let you write reusable placeholders with `{{variable_name}}` syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.
+* *Template variables* let you write reusable placeholders with `+{{variable_name}}+` syntax. When a prompt with variables is loaded, the UI renders a text field for each one so you can fill in values before running, handy for testing the same prompt against many inputs.
 * *Versioned prompts* connect this tab to the MLflow prompt registry: use *Load Prompt* to pull a saved system prompt (project-scoped or organization-wide) straight into the Playground, and save your refinements back the same way.
 
 TIP: First time touching these? Change *one* setting at a time. If you drop the temperature and rewrite the system instruction in the same breath, you won't know which change fixed (or broke) the output.
