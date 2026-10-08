@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 4011,
+  "totalSeconds": 3640,
   "pageCount": 20,
   "pages": [
     {
@@ -70,7 +70,7 @@
     {
       "module": "ch4-autorag",
       "page": "index.adoc",
-      "seconds": 416
+      "seconds": 45
     },
     {
       "module": "ch4-autorag",
