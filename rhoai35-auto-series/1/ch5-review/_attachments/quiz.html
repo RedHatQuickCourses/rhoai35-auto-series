@@ -121,15 +121,15 @@ Incorrect: AutoRAG generates code snippets for API integration, but it does not 
 A: To automatically scale GPU infrastructure up and down based on user traffic.
 Incorrect: That is a function of Kubernetes autoscaling and KServe, not AutoRAG. AutoRAG optimizes the retrieval logic, not infrastructure scaling.
 ---
-Q7: Which underlying library used by AutoML is the "category specialist," able to handle categorical text columns natively without requiring manual numerical encoding?
-A: CatBoost
-Correct: CatBoost (Categorical Boosting) is specifically optimized to handle categorical data (like "City" or "Car Brand") natively, without forcing data scientists to manually encode everything into numbers first.
-A: LightGBM
-Incorrect: LightGBM is the "speed demon," known for fast histogram-based splitting on massive datasets, but it requires more categorical preprocessing than CatBoost.
-A: XGBoost
-Incorrect: XGBoost is the meticulous veteran that builds exact depth-wise splits, but categorical data typically must be encoded into numbers before feeding it to XGBoost.
-A: Deep Neural Networks (DNN)
-Incorrect: DNNs excel at complex, unstructured data (images, text) but typically require embedding layers and significant preprocessing for tabular categorical data.
+Q7: Which open-source automated machine learning library is used under the hood by OpenShift AI's AutoML system to train, evaluate, and select candidate models for tabular data and time series forecasting?
+A: TrustyAI
+Incorrect: TrustyAI is OpenShift AI's model explainability, bias, and data drift monitoring framework, rather than an automated training engine.
+A: Ray Train
+Incorrect: Ray Train is used for distributed compute and fine-tuning workloads across cluster nodes, rather than automated tabular model search and ensembling.
+A: MLServer
+Incorrect: MLServer is a model-serving runtime used to deploy individual predictive models (such as Scikit-Learn or XGBoost), not the automated model selection engine behind AutoML.
+A: AutoGluon
+Correct: OpenShift AI's AutoML relies on **AutoGluon** to automatically preprocess data, train candidate models, tune hyperparameters, and assemble top-performing ensembles across classification, regression, and time series forecasting tasks.
 ---
 Q8: After an AutoML run completes, a data scientist wants to audit the Python code, customize feature inputs, and verify outputs programmatically. Which generated artifact allows them to do this?
 A: The dynamically generated Jupyter Notebook accessible from the leaderboard.
