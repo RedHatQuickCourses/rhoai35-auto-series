@@ -43,10 +43,6 @@ These models learn by chaining together lots of yes/no splits, like a flowchart 
 
 * *XGBoost*, the meticulous veteran. Uses exact, depth-wise tree splits. A dependable default for standard spreadsheet and financial data.
 * *LightGBM*, the speed demon. Built by Microsoft, it uses fast histogram-based, leaf-wise splitting to chew through multi-gigabyte datasets with low memory overhead.
-* *CatBoost*, the category specialist. Built by Yandex, it handles categorical text columns natively, so you don't have to manually encode them.
-
-[WARNING]
-**CatBoost** is not included in the AutoGluon AutoML engine provided with OpenShift AI.
 
 
 == "Synthetic brains" (deep neural networks)
